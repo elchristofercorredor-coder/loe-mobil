@@ -497,20 +497,83 @@ main{
   padding:18px;
 }
 
-.detail-image{
+/* GALERÍA */
+
+.gallery-wrap{
+  min-width:0;
+}
+
+.gallery{
+  display:flex;
+  overflow-x:auto;
+  scroll-snap-type:x mandatory;
+  scroll-behavior:smooth;
+  scrollbar-width:none;
+  border-radius:12px;
+  background:white;
+  -webkit-overflow-scrolling:touch;
+}
+
+.gallery::-webkit-scrollbar{
+  display:none;
+}
+
+.gallery-slide{
+  flex:0 0 100%;
+  width:100%;
   min-height:360px;
   display:flex;
   align-items:center;
   justify-content:center;
-  overflow:hidden;
-  border-radius:12px;
+  scroll-snap-align:start;
   background:white;
 }
 
-.detail-image img{
+.gallery-slide img{
   width:100%;
   max-height:520px;
   object-fit:contain;
+}
+
+.gallery-thumbs{
+  display:flex;
+  gap:7px;
+  margin-top:9px;
+  overflow-x:auto;
+  scrollbar-width:none;
+}
+
+.gallery-thumbs::-webkit-scrollbar{
+  display:none;
+}
+
+.gallery-thumb{
+  flex:0 0 58px;
+  width:58px;
+  height:58px;
+  padding:2px;
+  overflow:hidden;
+  border:2px solid transparent;
+  border-radius:8px;
+  background:white;
+  cursor:pointer;
+}
+
+.gallery-thumb.active{
+  border-color:var(--blue);
+}
+
+.gallery-thumb img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+}
+
+.gallery-counter{
+  margin-top:7px;
+  color:#9eabb2;
+  text-align:center;
+  font-size:11px;
 }
 
 .detail-brand{
@@ -673,7 +736,7 @@ main{
     padding:13px;
   }
 
-  .detail-image{
+  .gallery-slide{
     min-height:285px;
   }
 
@@ -919,6 +982,29 @@ function safe(v){
   .replaceAll("'","&#039;");
 }
 
+function getProductImages(p){
+
+  let images = [];
+
+  if(
+    Array.isArray(p.images) &&
+    p.images.length
+  ){
+    images = p.images.filter(Boolean);
+  }
+
+  if(
+    !images.length &&
+    p.image_url
+  ){
+    images = [p.image_url];
+  }
+
+  return [
+    ...new Set(images)
+  ];
+}
+
 async function load(){
 
   try{
@@ -1104,11 +1190,17 @@ function render(list){
     card.className =
     "card";
 
+    const images =
+    getProductImages(p);
+
+    const portada =
+    images[0] || "";
+
     const image =
-    p.image_url
+    portada
 
     ? `<img
-         src="${safe(p.image_url)}"
+         src="${safe(portada)}"
          alt="${safe(p.name || "Producto")}"
          loading="lazy"
        >`
@@ -1200,17 +1292,90 @@ function openProduct(id){
     return;
   }
 
-  const image =
-  p.image_url
+  const images =
+  getProductImages(p);
 
-  ? `<img
-       src="${safe(p.image_url)}"
-       alt="${safe(p.name)}"
-     >`
+  let galleryHtml = "";
 
-  : `<div class="no-image">
-       Sin imagen
-     </div>`;
+  if(images.length){
+
+    const slides =
+    images.map(
+      (url,index) => `
+        <div class="gallery-slide">
+          <img
+            src="${safe(url)}"
+            alt="${safe(p.name)} ${index+1}"
+          >
+        </div>
+      `
+    ).join("");
+
+    const thumbs =
+    images.map(
+      (url,index) => `
+        <button
+          class="gallery-thumb ${index===0 ? "active" : ""}"
+          onclick="goToGalleryImage(${index})"
+          type="button"
+        >
+          <img
+            src="${safe(url)}"
+            alt=""
+          >
+        </button>
+      `
+    ).join("");
+
+    galleryHtml = `
+      <div class="gallery-wrap">
+
+        <div
+          id="productGallery"
+          class="gallery"
+        >
+          ${slides}
+        </div>
+
+        ${
+          images.length > 1
+
+          ? `
+            <div
+              id="galleryThumbs"
+              class="gallery-thumbs"
+            >
+              ${thumbs}
+            </div>
+
+            <div
+              id="galleryCounter"
+              class="gallery-counter"
+            >
+              1 de ${images.length}
+            </div>
+          `
+
+          : ""
+        }
+
+      </div>
+    `;
+
+  }else{
+
+    galleryHtml = `
+      <div class="gallery-wrap">
+        <div class="gallery">
+          <div class="gallery-slide">
+            <div class="no-image">
+              Sin imagen
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+  }
 
   const specs = [];
 
@@ -1248,9 +1413,7 @@ function openProduct(id){
   .getElementById("detailBody")
   .innerHTML = `
 
-    <div class="detail-image">
-      ${image}
-    </div>
+    ${galleryHtml}
 
     <div>
 
@@ -1296,6 +1459,112 @@ function openProduct(id){
   document
   .getElementById("productModal")
   .classList.add("show");
+
+  setTimeout(
+    setupGallery,
+    0
+  );
+}
+
+function setupGallery(){
+
+  const gallery =
+  document.getElementById("productGallery");
+
+  if(!gallery){
+    return;
+  }
+
+  const slides =
+  gallery.querySelectorAll(".gallery-slide");
+
+  if(slides.length <= 1){
+    return;
+  }
+
+  gallery.addEventListener(
+    "scroll",
+    () => {
+
+      const width =
+      gallery.clientWidth;
+
+      if(!width){
+        return;
+      }
+
+      const index =
+      Math.round(
+        gallery.scrollLeft / width
+      );
+
+      updateGalleryUI(index);
+
+    },
+    {
+      passive:true
+    }
+  );
+}
+
+function goToGalleryImage(index){
+
+  const gallery =
+  document.getElementById("productGallery");
+
+  if(!gallery){
+    return;
+  }
+
+  gallery.scrollTo({
+    left:
+      gallery.clientWidth *
+      index,
+
+    behavior:"smooth"
+  });
+
+  updateGalleryUI(index);
+}
+
+function updateGalleryUI(index){
+
+  document
+  .querySelectorAll(".gallery-thumb")
+  .forEach(
+    (thumb,i) => {
+
+      thumb.classList.toggle(
+        "active",
+        i===index
+      );
+    }
+  );
+
+  const counter =
+  document.getElementById("galleryCounter");
+
+  const thumbs =
+  document
+  .querySelectorAll(".gallery-thumb");
+
+  if(counter){
+
+    counter.textContent =
+    `${index+1} de ${thumbs.length}`;
+  }
+
+  const active =
+  thumbs[index];
+
+  if(active){
+
+    active.scrollIntoView({
+      behavior:"smooth",
+      block:"nearest",
+      inline:"center"
+    });
+  }
 }
 
 function closeProduct(){
@@ -1341,11 +1610,17 @@ function addToCart(p){
 
   }else{
 
+    const images =
+    getProductImages(p);
+
     cart.push({
       id:p.id,
       name:p.name,
       price:Number(p.price || 0),
-      image_url:p.image_url || "",
+      image_url:
+        images[0] ||
+        p.image_url ||
+        "",
       qty:1
     });
   }
