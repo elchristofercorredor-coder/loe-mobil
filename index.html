@@ -80,8 +80,6 @@ button{
   color:#bcc8cf;
 }
 
-/* CUENTA */
-
 .account-btn{
   margin-left:auto;
   min-height:44px;
@@ -327,6 +325,39 @@ main{
   margin-top:3px;
   color:#707980;
   font-size:11px;
+}
+
+/* CALIFICACIÓN DE PRODUCTO */
+
+.card-rating{
+  min-height:18px;
+  margin-top:4px;
+  display:flex;
+  align-items:center;
+  gap:4px;
+  white-space:nowrap;
+}
+
+.card-stars{
+  color:#f5a623;
+  font-size:13px;
+  letter-spacing:-1px;
+}
+
+.card-rating-number{
+  color:#555;
+  font-size:11px;
+  font-weight:850;
+}
+
+.card-rating-count{
+  color:#777;
+  font-size:10px;
+}
+
+.card-no-reviews{
+  color:#8a8a8a;
+  font-size:10.5px;
 }
 
 .card-price{
@@ -1125,6 +1156,26 @@ main{
     font-size:9.5px;
   }
 
+  .card-rating{
+    gap:3px;
+  }
+
+  .card-stars{
+    font-size:11px;
+  }
+
+  .card-rating-number{
+    font-size:9.5px;
+  }
+
+  .card-rating-count{
+    font-size:9px;
+  }
+
+  .card-no-reviews{
+    font-size:9px;
+  }
+
   .card-price{
     font-size:16px;
   }
@@ -1586,11 +1637,14 @@ const SUPABASE_KEY =
 "sb_publishable_eWJkT8ZBPv0ZcCSLo01P7g_0AAEbN6S";
 
 const headers = {
-  apikey: SUPABASE_KEY
+  apikey:SUPABASE_KEY
 };
 
 let products = [];
 let categories = [];
+let approvedReviews = [];
+let productRatings = {};
+
 let currentCategory = "";
 let currentSearch = "";
 let currentGalleryIndex = 0;
@@ -1598,6 +1652,7 @@ let currentProductId = null;
 let selectedRating = 0;
 
 let currentUser = null;
+
 let accessToken =
 localStorage.getItem("loeAccessToken") || "";
 
@@ -1672,6 +1727,94 @@ function authHeaders(){
     Authorization:`Bearer ${accessToken}`,
     "Content-Type":"application/json"
   };
+}
+
+/* CALIFICACIONES */
+
+function buildProductRatings(){
+
+  productRatings = {};
+
+  approvedReviews.forEach(review => {
+
+    const productId =
+    String(review.product_id);
+
+    if(!productRatings[productId]){
+
+      productRatings[productId] = {
+        count:0,
+        sum:0,
+        average:0
+      };
+    }
+
+    const rating =
+    Number(review.rating || 0);
+
+    productRatings[productId].count += 1;
+    productRatings[productId].sum += rating;
+  });
+
+  Object.keys(productRatings)
+  .forEach(productId => {
+
+    const data =
+    productRatings[productId];
+
+    data.average =
+    data.count
+    ? data.sum / data.count
+    : 0;
+  });
+}
+
+function productRatingHtml(productId){
+
+  const data =
+  productRatings[String(productId)];
+
+  if(!data || !data.count){
+
+    return `
+      <div class="card-rating">
+        <span class="card-no-reviews">
+          Sin opiniones
+        </span>
+      </div>
+    `;
+  }
+
+  const rounded =
+  Math.max(
+    0,
+    Math.min(
+      5,
+      Math.round(data.average)
+    )
+  );
+
+  const stars =
+  "★".repeat(rounded) +
+  "☆".repeat(5-rounded);
+
+  return `
+    <div class="card-rating">
+
+      <span class="card-stars">
+        ${stars}
+      </span>
+
+      <span class="card-rating-number">
+        ${data.average.toFixed(1)}
+      </span>
+
+      <span class="card-rating-count">
+        (${data.count})
+      </span>
+
+    </div>
+  `;
 }
 
 /* CUENTAS */
@@ -2218,7 +2361,7 @@ async function load(){
 
   try{
 
-    const [cr,pr] =
+    const [cr,pr,rr] =
     await Promise.all([
 
       fetch(
@@ -2229,16 +2372,33 @@ async function load(){
       fetch(
         `${SUPABASE_URL}/rest/v1/products?select=*&order=id.desc`,
         {headers}
+      ),
+
+      fetch(
+        `${SUPABASE_URL}/rest/v1/reviews?select=product_id,rating&approved=eq.true`,
+        {headers}
       )
 
     ]);
 
-    if(!cr.ok || !pr.ok){
+    if(
+      !cr.ok ||
+      !pr.ok ||
+      !rr.ok
+    ){
       throw new Error();
     }
 
-    categories = await cr.json();
-    products = await pr.json();
+    categories =
+    await cr.json();
+
+    products =
+    await pr.json();
+
+    approvedReviews =
+    await rr.json();
+
+    buildProductRatings();
 
     renderCategories();
     applyFilters();
@@ -2459,6 +2619,8 @@ function render(list){
           <div class="card-meta">
             ${safe(meta)}
           </div>
+
+          ${productRatingHtml(p.id)}
 
           <div class="card-price">
             ${money(p.price)}
@@ -3213,11 +3375,6 @@ async function submitReview(productId){
     "reviewComment"
   );
 
-  const notice =
-  document.getElementById(
-    "reviewNotice"
-  );
-
   const btn =
   document.getElementById(
     "reviewSubmit"
@@ -3379,7 +3536,9 @@ function starsText(rating){
     0,
     Math.min(
       5,
-      Number(rating || 0)
+      Math.round(
+        Number(rating || 0)
+      )
     )
   );
 
