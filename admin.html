@@ -244,24 +244,6 @@ textarea{
   padding:20px;
 }
 
-.image-preview{
-  display:none;
-  margin-top:12px;
-  width:150px;
-  height:150px;
-  border-radius:12px;
-  overflow:hidden;
-  border:1px solid var(--border);
-  background:#10232f;
-}
-
-.image-preview img{
-  width:100%;
-  height:100%;
-  object-fit:contain;
-  background:white;
-}
-
 .upload-note{
   margin-top:7px;
   color:var(--muted);
@@ -275,11 +257,62 @@ textarea{
   font-weight:800;
 }
 
+.image-previews{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:9px;
+  margin-top:12px;
+}
+
+.preview-card{
+  position:relative;
+  aspect-ratio:1/1;
+  overflow:hidden;
+  border:1px solid var(--border);
+  border-radius:10px;
+  background:#10232f;
+}
+
+.preview-card img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  background:white;
+}
+
+.preview-remove{
+  position:absolute;
+  top:5px;
+  right:5px;
+  width:27px;
+  height:27px;
+  padding:0;
+  border:0;
+  border-radius:50%;
+  background:#a32929;
+  color:white;
+  font-weight:950;
+  cursor:pointer;
+}
+
+.preview-main{
+  position:absolute;
+  left:5px;
+  bottom:5px;
+  padding:3px 6px;
+  border-radius:5px;
+  background:#07131d;
+  color:white;
+  font-size:9px;
+  font-weight:900;
+}
+
 @media(max-width:650px){
   .grid{grid-template-columns:1fr}
   .product{align-items:flex-start}
   .mini-actions{flex-direction:column}
   .topline{align-items:flex-start}
+  .image-previews{grid-template-columns:repeat(3,1fr)}
 }
 </style>
 </head>
@@ -358,15 +391,8 @@ textarea{
   Agregar producto
 </h2>
 
-<input
-  id="productId"
-  type="hidden"
->
-
-<input
-  id="image_url"
-  type="hidden"
->
+<input id="productId" type="hidden">
+<input id="image_url" type="hidden">
 
 <div class="grid">
 
@@ -423,23 +449,14 @@ textarea{
   <label>Condición</label>
 
   <select id="condition">
-    <option value="">
-      No aplica
-    </option>
-
-    <option value="Nuevo">
-      Nuevo
-    </option>
-
-    <option value="Usado">
-      Usado
-    </option>
+    <option value="">No aplica</option>
+    <option value="Nuevo">Nuevo</option>
+    <option value="Usado">Usado</option>
   </select>
 </div>
 
 <div>
   <label>Almacenamiento</label>
-
   <input
     id="storage"
     placeholder="128GB"
@@ -448,7 +465,6 @@ textarea{
 
 <div>
   <label>Color</label>
-
   <input
     id="color"
     placeholder="Negro"
@@ -459,46 +475,37 @@ textarea{
   <label>Disponible</label>
 
   <select id="available">
-    <option value="true">
-      Sí
-    </option>
-
-    <option value="false">
-      No
-    </option>
+    <option value="true">Sí</option>
+    <option value="false">No</option>
   </select>
 </div>
 
 </div>
 
-<label>📸 Foto del producto</label>
+<label>📸 Fotos del producto</label>
 
 <input
   id="imageFile"
   type="file"
   accept="image/*"
+  multiple
 >
 
 <div class="upload-note">
-  Toca aquí para elegir una foto desde tu iPhone.
+  Puedes seleccionar hasta 6 fotos. La primera será la portada.
 </div>
 
 <div
   id="uploading"
   class="uploading"
 >
-  Subiendo imagen…
+  Subiendo imágenes…
 </div>
 
 <div
-  id="imagePreview"
-  class="image-preview"
->
-  <img
-    id="previewImg"
-    alt="Vista previa"
-  >
-</div>
+  id="imagePreviews"
+  class="image-previews"
+></div>
 
 <label>Descripción</label>
 
@@ -557,11 +564,16 @@ const SUPABASE_KEY=
 const IMAGE_BUCKET=
 "product-images";
 
+const MAX_IMAGES=6;
+
 let token=
 sessionStorage.getItem("loeAdminToken")||"";
 
 let products=[];
 let categories=[];
+
+let currentImages=[];
+let selectedFiles=[];
 
 function apiHeaders(extra={}){
   return {
@@ -654,8 +666,7 @@ async function login(){
       );
     }
 
-    token=
-    data.access_token;
+    token=data.access_token;
 
     const allowed=
     await checkAdmin();
@@ -800,11 +811,19 @@ async function loadProducts(){
 
     row.className="product";
 
+    const portada=
+    (
+      Array.isArray(p.images) &&
+      p.images.length
+    )
+    ? p.images[0]
+    : p.image_url;
+
     const img=
-    p.image_url
+    portada
 
     ? `<img
-         src="${safe(p.image_url)}"
+         src="${safe(portada)}"
          alt=""
        >`
 
@@ -887,58 +906,149 @@ async function uploadImage(file){
     return null;
   }
 
-  const uploading=
-  document.getElementById("uploading");
+  const fileName=
+  makeFileName(file);
 
-  uploading.style.display="block";
+  const uploadUrl=
+  `${SUPABASE_URL}/storage/v1/object/${IMAGE_BUCKET}/${encodeURIComponent(fileName)}`;
 
-  try{
+  const r=await fetch(
+    uploadUrl,
+    {
+      method:"POST",
 
-    const fileName=
-    makeFileName(file);
+      headers:{
+        "apikey":SUPABASE_KEY,
+        "Authorization":"Bearer "+token,
+        "Content-Type":
+          file.type||
+          "application/octet-stream"
+      },
 
-    const uploadUrl=
-    `${SUPABASE_URL}/storage/v1/object/${IMAGE_BUCKET}/${encodeURIComponent(fileName)}`;
-
-    const r=await fetch(
-      uploadUrl,
-      {
-        method:"POST",
-
-        headers:{
-          "apikey":SUPABASE_KEY,
-          "Authorization":"Bearer "+token,
-          "Content-Type":
-            file.type||
-            "application/octet-stream"
-        },
-
-        body:file
-      }
-    );
-
-    if(!r.ok){
-
-      const text=
-      await r.text();
-
-      throw new Error(
-        "No se pudo subir la imagen. "+
-        text
-      );
+      body:file
     }
+  );
 
-    return (
-      `${SUPABASE_URL}`+
-      `/storage/v1/object/public/`+
-      `${IMAGE_BUCKET}/`+
-      `${encodeURIComponent(fileName)}`
+  if(!r.ok){
+
+    const text=
+    await r.text();
+
+    throw new Error(
+      "No se pudo subir una de las imágenes. "+
+      text
     );
-
-  }finally{
-
-    uploading.style.display="none";
   }
+
+  return (
+    `${SUPABASE_URL}`+
+    `/storage/v1/object/public/`+
+    `${IMAGE_BUCKET}/`+
+    `${encodeURIComponent(fileName)}`
+  );
+}
+
+function renderImagePreviews(){
+
+  const box=
+  document.getElementById("imagePreviews");
+
+  box.innerHTML="";
+
+  const allCount=
+  currentImages.length+
+  selectedFiles.length;
+
+  currentImages.forEach((url,index)=>{
+
+    const card=
+    document.createElement("div");
+
+    card.className="preview-card";
+
+    card.innerHTML=`
+      <img src="${safe(url)}" alt="">
+
+      ${
+        index===0
+        ? '<div class="preview-main">PORTADA</div>'
+        : ''
+      }
+
+      <button
+        type="button"
+        class="preview-remove"
+        onclick="removeCurrentImage(${index})"
+      >
+        ×
+      </button>
+    `;
+
+    box.appendChild(card);
+  });
+
+  selectedFiles.forEach((file,index)=>{
+
+    const objectUrl=
+    URL.createObjectURL(file);
+
+    const globalIndex=
+    currentImages.length+
+    index;
+
+    const card=
+    document.createElement("div");
+
+    card.className="preview-card";
+
+    card.innerHTML=`
+      <img src="${objectUrl}" alt="">
+
+      ${
+        globalIndex===0
+        ? '<div class="preview-main">PORTADA</div>'
+        : ''
+      }
+
+      <button
+        type="button"
+        class="preview-remove"
+        onclick="removeSelectedFile(${index})"
+      >
+        ×
+      </button>
+    `;
+
+    box.appendChild(card);
+  });
+
+  if(!allCount){
+    box.innerHTML="";
+  }
+}
+
+function removeCurrentImage(index){
+
+  currentImages.splice(
+    index,
+    1
+  );
+
+  renderImagePreviews();
+}
+
+function removeSelectedFile(index){
+
+  selectedFiles.splice(
+    index,
+    1
+  );
+
+  document
+  .getElementById("imageFile")
+  .value="";
+
+  renderImagePreviews();
 }
 
 async function saveProduct(){
@@ -979,132 +1089,151 @@ async function saveProduct(){
     return;
   }
 
-  let image_url=
-  document
-  .getElementById("image_url")
-  .value
-  .trim();
+  const uploading=
+  document.getElementById("uploading");
 
-  const file=
-  document
-  .getElementById("imageFile")
-  .files[0];
+  uploading.style.display="block";
 
   try{
 
-    if(file){
+    const uploadedImages=[];
 
-      const uploadedUrl=
+    for(const file of selectedFiles){
+
+      const url=
       await uploadImage(file);
 
-      if(uploadedUrl){
-        image_url=uploadedUrl;
+      if(url){
+        uploadedImages.push(url);
       }
     }
+
+    let images=[
+      ...currentImages,
+      ...uploadedImages
+    ];
+
+    images=[
+      ...new Set(
+        images.filter(Boolean)
+      )
+    ];
+
+    images=
+    images.slice(
+      0,
+      MAX_IMAGES
+    );
+
+    const image_url=
+    images.length
+    ? images[0]
+    : null;
+
+    const payload={
+
+      name,
+
+      category_id,
+
+      price,
+
+      brand:
+        emptyToNull("brand"),
+
+      model:
+        emptyToNull("model"),
+
+      condition:
+        emptyToNull("condition"),
+
+      storage:
+        emptyToNull("storage"),
+
+      color:
+        emptyToNull("color"),
+
+      image_url,
+
+      images,
+
+      description:
+        emptyToNull("description"),
+
+      available:
+        document
+        .getElementById("available")
+        .value==="true",
+
+      stock:
+        Number(
+          document
+          .getElementById("stock")
+          .value||0
+        )
+    };
+
+    const editing=
+    Boolean(id);
+
+    const url=
+    editing
+
+    ? `${SUPABASE_URL}/rest/v1/products?id=eq.${encodeURIComponent(id)}`
+
+    : `${SUPABASE_URL}/rest/v1/products`;
+
+    const r=await fetch(
+      url,
+      {
+        method:
+          editing
+          ? "PATCH"
+          : "POST",
+
+        headers:
+          apiHeaders({
+            "Content-Type":
+              "application/json",
+
+            "Prefer":
+              "return=representation"
+          }),
+
+        body:
+          JSON.stringify(payload)
+      }
+    );
+
+    if(!r.ok){
+
+      const text=
+      await r.text();
+
+      throw new Error(
+        "No se pudo guardar el producto.\n"+
+        text
+      );
+    }
+
+    showSuccess(
+      editing
+      ? "Producto actualizado."
+      : "Producto agregado."
+    );
+
+    resetForm();
+
+    await loadProducts();
 
   }catch(err){
 
     alert(err.message);
 
-    return;
+  }finally{
+
+    uploading.style.display="none";
   }
-
-  const payload={
-
-    name,
-
-    category_id,
-
-    price,
-
-    brand:
-      emptyToNull("brand"),
-
-    model:
-      emptyToNull("model"),
-
-    condition:
-      emptyToNull("condition"),
-
-    storage:
-      emptyToNull("storage"),
-
-    color:
-      emptyToNull("color"),
-
-    image_url:
-      image_url||null,
-
-    description:
-      emptyToNull("description"),
-
-    available:
-      document
-      .getElementById("available")
-      .value==="true",
-
-    stock:
-      Number(
-        document
-        .getElementById("stock")
-        .value||0
-      )
-  };
-
-  const editing=
-  Boolean(id);
-
-  const url=
-  editing
-
-  ? `${SUPABASE_URL}/rest/v1/products?id=eq.${encodeURIComponent(id)}`
-
-  : `${SUPABASE_URL}/rest/v1/products`;
-
-  const r=await fetch(
-    url,
-    {
-      method:
-        editing
-        ? "PATCH"
-        : "POST",
-
-      headers:
-        apiHeaders({
-          "Content-Type":
-            "application/json",
-
-          "Prefer":
-            "return=representation"
-        }),
-
-      body:
-        JSON.stringify(payload)
-    }
-  );
-
-  if(!r.ok){
-
-    const text=
-    await r.text();
-
-    alert(
-      "No se pudo guardar el producto.\n"+
-      text
-    );
-
-    return;
-  }
-
-  showSuccess(
-    editing
-    ? "Producto actualizado."
-    : "Producto agregado."
-  );
-
-  resetForm();
-
-  await loadProducts();
 }
 
 function editProduct(id){
@@ -1168,10 +1297,6 @@ function editProduct(id){
     : "true";
 
   document
-  .getElementById("image_url")
-  .value=p.image_url||"";
-
-  document
   .getElementById("description")
   .value=p.description||"";
 
@@ -1179,22 +1304,34 @@ function editProduct(id){
   .getElementById("imageFile")
   .value="";
 
-  if(p.image_url){
+  selectedFiles=[];
 
-    document
-    .getElementById("previewImg")
-    .src=p.image_url;
+  if(
+    Array.isArray(p.images) &&
+    p.images.length
+  ){
 
-    document
-    .getElementById("imagePreview")
-    .style.display="block";
+    currentImages=[
+      ...p.images
+    ];
+
+  }else if(p.image_url){
+
+    currentImages=[
+      p.image_url
+    ];
 
   }else{
 
-    document
-    .getElementById("imagePreview")
-    .style.display="none";
+    currentImages=[];
   }
+
+  document
+  .getElementById("image_url")
+  .value=
+    currentImages[0]||"";
+
+  renderImagePreviews();
 
   document
   .getElementById("formTitle")
@@ -1295,13 +1432,10 @@ function resetForm(){
   .getElementById("imageFile")
   .value="";
 
-  document
-  .getElementById("imagePreview")
-  .style.display="none";
+  currentImages=[];
+  selectedFiles=[];
 
-  document
-  .getElementById("previewImg")
-  .src="";
+  renderImagePreviews();
 
   document
   .getElementById("formTitle")
@@ -1355,23 +1489,35 @@ document
   "change",
   e=>{
 
-    const file=
-    e.target.files[0];
+    const incoming=
+    Array.from(
+      e.target.files||[]
+    );
 
-    if(!file){
-      return;
+    const availableSlots=
+    MAX_IMAGES-
+    currentImages.length;
+
+    if(
+      incoming.length >
+      availableSlots
+    ){
+
+      alert(
+        `Puedes tener máximo ${MAX_IMAGES} fotos por producto.`
+      );
     }
 
-    const url=
-    URL.createObjectURL(file);
+    selectedFiles=
+    incoming.slice(
+      0,
+      Math.max(
+        0,
+        availableSlots
+      )
+    );
 
-    document
-    .getElementById("previewImg")
-    .src=url;
-
-    document
-    .getElementById("imagePreview")
-    .style.display="block";
+    renderImagePreviews();
   }
 );
 
