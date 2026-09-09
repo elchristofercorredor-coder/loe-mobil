@@ -1,0 +1,697 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#02070b">
+<title>LOE MOBIL | Admin</title>
+
+<style>
+*{box-sizing:border-box}
+:root{
+  --bg:#03080d;
+  --panel:#07131d;
+  --panel2:#0c1b27;
+  --blue:#00bfff;
+  --blue2:#008fe8;
+  --border:#12425a;
+  --text:#fff;
+  --muted:#91a1ad;
+  --danger:#ff5b5b;
+  --green:#16c96b;
+}
+
+body{
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  background:
+    radial-gradient(circle at 90% 0%,rgba(0,191,255,.12),transparent 30%),
+    var(--bg);
+  color:var(--text);
+}
+
+button,input,select,textarea{font:inherit}
+
+header{
+  padding:18px;
+  border-bottom:1px solid var(--border);
+  background:#02070b;
+}
+
+.logo{
+  font-size:25px;
+  font-weight:950;
+}
+
+.logo span{color:var(--blue)}
+
+.sub{
+  margin-top:5px;
+  letter-spacing:4px;
+  font-size:9px;
+  color:#aab9c1;
+}
+
+.wrap{
+  width:min(1100px,100%);
+  margin:auto;
+  padding:20px 14px 60px;
+}
+
+.panel{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:15px;
+  padding:20px;
+  margin-bottom:18px;
+}
+
+h1,h2{margin-top:0}
+
+label{
+  display:block;
+  margin:13px 0 6px;
+  color:#cbd7dd;
+  font-size:13px;
+  font-weight:700;
+}
+
+input,select,textarea{
+  width:100%;
+  border:1px solid #25485b;
+  border-radius:9px;
+  background:#081720;
+  color:white;
+  padding:12px;
+  outline:none;
+}
+
+input:focus,select:focus,textarea:focus{
+  border-color:var(--blue);
+}
+
+textarea{
+  min-height:100px;
+  resize:vertical;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+}
+
+.btn{
+  border:0;
+  border-radius:9px;
+  padding:12px 17px;
+  font-weight:900;
+  cursor:pointer;
+}
+
+.primary{
+  color:#00121b;
+  background:linear-gradient(135deg,var(--blue),var(--blue2));
+}
+
+.secondary{
+  color:white;
+  background:#122633;
+  border:1px solid var(--border);
+}
+
+.danger{
+  color:white;
+  background:#8c2828;
+}
+
+.actions{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:16px;
+}
+
+#loginBox{
+  max-width:470px;
+  margin:60px auto;
+}
+
+#error{
+  display:none;
+  padding:11px;
+  border:1px solid #733;
+  border-radius:8px;
+  color:#ff9696;
+  background:#271010;
+  margin-bottom:12px;
+}
+
+#success{
+  display:none;
+  padding:11px;
+  border:1px solid #176a42;
+  border-radius:8px;
+  color:#78e6aa;
+  background:#092317;
+  margin-bottom:12px;
+}
+
+#dashboard{display:none}
+
+.topline{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  margin-bottom:18px;
+}
+
+.products{
+  display:grid;
+  gap:10px;
+}
+
+.product{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:12px;
+  background:#081720;
+  border:1px solid #15394c;
+  border-radius:11px;
+}
+
+.product img{
+  width:70px;
+  height:70px;
+  object-fit:contain;
+  background:white;
+  border-radius:7px;
+}
+
+.placeholder{
+  width:70px;
+  height:70px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#10232f;
+  color:#78909c;
+  border-radius:7px;
+  font-size:11px;
+}
+
+.pinfo{flex:1}
+
+.pname{
+  font-weight:900;
+  margin-bottom:5px;
+}
+
+.pmeta{
+  color:var(--muted);
+  font-size:12px;
+}
+
+.pprice{
+  color:var(--blue);
+  font-weight:900;
+  margin-top:5px;
+}
+
+.mini-actions{
+  display:flex;
+  gap:6px;
+  flex-wrap:wrap;
+}
+
+.mini-actions button{
+  border:0;
+  border-radius:7px;
+  padding:8px 10px;
+  font-weight:800;
+}
+
+.status{
+  text-align:center;
+  color:var(--muted);
+  padding:20px;
+}
+
+@media(max-width:650px){
+  .grid{grid-template-columns:1fr}
+  .product{align-items:flex-start}
+  .mini-actions{flex-direction:column}
+  .topline{align-items:flex-start}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">LOE <span>MOBIL</span></div>
+  <div class="sub">ADMIN · FIX & GEAR</div>
+</header>
+
+<div class="wrap">
+
+  <section id="loginBox" class="panel">
+    <h1>Panel de administración</h1>
+    <p style="color:#91a1ad">Acceso exclusivo LOE MOBIL.</p>
+
+    <div id="error"></div>
+
+    <label>Correo</label>
+    <input id="email" type="email" autocomplete="username">
+
+    <label>Contraseña</label>
+    <input id="password" type="password" autocomplete="current-password">
+
+    <button class="btn primary" style="width:100%;margin-top:17px" onclick="login()">
+      Entrar
+    </button>
+  </section>
+
+  <section id="dashboard">
+
+    <div class="topline">
+      <div>
+        <h1 style="margin:0">Administrar tienda</h1>
+        <div style="color:#91a1ad">Productos de LOE MOBIL</div>
+      </div>
+
+      <button class="btn secondary" onclick="logout()">Cerrar sesión</button>
+    </div>
+
+    <div id="success"></div>
+    <div id="dashError"></div>
+
+    <section class="panel">
+      <h2 id="formTitle">Agregar producto</h2>
+
+      <input id="productId" type="hidden">
+
+      <div class="grid">
+        <div>
+          <label>Nombre *</label>
+          <input id="name" placeholder="Ej: Pantalla iPhone 11">
+        </div>
+
+        <div>
+          <label>Categoría *</label>
+          <select id="category"></select>
+        </div>
+
+        <div>
+          <label>Marca</label>
+          <input id="brand" placeholder="Apple">
+        </div>
+
+        <div>
+          <label>Modelo</label>
+          <input id="model" placeholder="iPhone 11">
+        </div>
+
+        <div>
+          <label>Precio RD$ *</label>
+          <input id="price" type="number" step="0.01" placeholder="1500">
+        </div>
+
+        <div>
+          <label>Stock</label>
+          <input id="stock" type="number" min="0" placeholder="1">
+        </div>
+
+        <div>
+          <label>Condición</label>
+          <select id="condition">
+            <option value="">No aplica</option>
+            <option value="Nuevo">Nuevo</option>
+            <option value="Usado">Usado</option>
+          </select>
+        </div>
+
+        <div>
+          <label>Almacenamiento</label>
+          <input id="storage" placeholder="128GB">
+        </div>
+
+        <div>
+          <label>Color</label>
+          <input id="color" placeholder="Negro">
+        </div>
+
+        <div>
+          <label>Disponible</label>
+          <select id="available">
+            <option value="true">Sí</option>
+            <option value="false">No</option>
+          </select>
+        </div>
+      </div>
+
+      <label>URL de imagen</label>
+      <input id="image_url" placeholder="https://...">
+
+      <label>Descripción</label>
+      <textarea id="description" placeholder="Descripción breve del producto"></textarea>
+
+      <div class="actions">
+        <button class="btn primary" onclick="saveProduct()">Guardar producto</button>
+        <button class="btn secondary" onclick="resetForm()">Limpiar</button>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Productos actuales</h2>
+      <div id="products" class="products">
+        <div class="status">Cargando productos…</div>
+      </div>
+    </section>
+
+  </section>
+
+</div>
+
+<script>
+const SUPABASE_URL="https://zndjyragtbobzuwxaaoe.supabase.co";
+const SUPABASE_KEY="sb_publishable_eWJkT8ZBPv0ZcCSLo01P7g_0AAEbN6S";
+
+let token=sessionStorage.getItem("loeAdminToken")||"";
+let products=[];
+let categories=[];
+
+function apiHeaders(extra={}){
+  return {
+    "apikey":SUPABASE_KEY,
+    ...(token ? {"Authorization":"Bearer "+token} : {}),
+    ...extra
+  };
+}
+
+function showLoginError(msg){
+  const e=document.getElementById("error");
+  e.textContent=msg;
+  e.style.display="block";
+}
+
+function showSuccess(msg){
+  const e=document.getElementById("success");
+  e.textContent=msg;
+  e.style.display="block";
+  setTimeout(()=>e.style.display="none",3000);
+}
+
+async function login(){
+  document.getElementById("error").style.display="none";
+
+  const email=document.getElementById("email").value.trim();
+  const password=document.getElementById("password").value;
+
+  if(!email||!password){
+    showLoginError("Escribe tu correo y contraseña.");
+    return;
+  }
+
+  try{
+    const r=await fetch(
+      `${SUPABASE_URL}/auth/v1/token?grant_type=password`,
+      {
+        method:"POST",
+        headers:{
+          "apikey":SUPABASE_KEY,
+          "Content-Type":"application/json"
+        },
+        body:JSON.stringify({email,password})
+      }
+    );
+
+    const data=await r.json();
+
+    if(!r.ok||!data.access_token){
+      throw new Error("Correo o contraseña incorrectos.");
+    }
+
+    token=data.access_token;
+
+    const allowed=await checkAdmin();
+
+    if(!allowed){
+      token="";
+      throw new Error("Esta cuenta no tiene permisos de administrador.");
+    }
+
+    sessionStorage.setItem("loeAdminToken",token);
+    openDashboard();
+
+  }catch(err){
+    showLoginError(err.message);
+  }
+}
+
+async function checkAdmin(){
+  const r=await fetch(
+    `${SUPABASE_URL}/rest/v1/profiles?select=role`,
+    {headers:apiHeaders()}
+  );
+
+  if(!r.ok) return false;
+
+  const rows=await r.json();
+
+  return rows.length===1 && rows[0].role==="admin";
+}
+
+async function openDashboard(){
+  document.getElementById("loginBox").style.display="none";
+  document.getElementById("dashboard").style.display="block";
+
+  await loadCategories();
+  await loadProducts();
+}
+
+function logout(){
+  sessionStorage.removeItem("loeAdminToken");
+  token="";
+  location.reload();
+}
+
+async function loadCategories(){
+  const r=await fetch(
+    `${SUPABASE_URL}/rest/v1/categories?select=*&order=id`,
+    {headers:apiHeaders()}
+  );
+
+  categories=await r.json();
+
+  const select=document.getElementById("category");
+  select.innerHTML="";
+
+  categories.forEach(c=>{
+    const o=document.createElement("option");
+    o.value=c.id;
+    o.textContent=c.name;
+    select.appendChild(o);
+  });
+}
+
+async function loadProducts(){
+  const box=document.getElementById("products");
+
+  const r=await fetch(
+    `${SUPABASE_URL}/rest/v1/products?select=*&order=id.desc`,
+    {headers:apiHeaders()}
+  );
+
+  if(!r.ok){
+    box.innerHTML='<div class="status">No se pudieron cargar los productos.</div>';
+    return;
+  }
+
+  products=await r.json();
+
+  if(!products.length){
+    box.innerHTML='<div class="status">Todavía no hay productos.</div>';
+    return;
+  }
+
+  box.innerHTML="";
+
+  products.forEach(p=>{
+    const row=document.createElement("div");
+    row.className="product";
+
+    const img=p.image_url
+      ? `<img src="${safe(p.image_url)}" alt="">`
+      : `<div class="placeholder">Sin imagen</div>`;
+
+    row.innerHTML=`
+      ${img}
+
+      <div class="pinfo">
+        <div class="pname">${safe(p.name||"Producto")}</div>
+        <div class="pmeta">${safe([p.brand,p.model].filter(Boolean).join(" · "))}</div>
+        <div class="pprice">${money(p.price)}</div>
+      </div>
+
+      <div class="mini-actions">
+        <button onclick='editProduct(${JSON.stringify(String(p.id))})'>Editar</button>
+        <button class="danger" onclick='deleteProduct(${JSON.stringify(String(p.id))})'>Eliminar</button>
+      </div>
+    `;
+
+    box.appendChild(row);
+  });
+}
+
+async function saveProduct(){
+  const id=document.getElementById("productId").value;
+
+  const name=document.getElementById("name").value.trim();
+  const category_id=document.getElementById("category").value;
+  const price=Number(document.getElementById("price").value);
+
+  if(!name||!category_id||!Number.isFinite(price)){
+    alert("Completa nombre, categoría y precio.");
+    return;
+  }
+
+  const payload={
+    name,
+    category_id,
+    price,
+    brand:emptyToNull("brand"),
+    model:emptyToNull("model"),
+    condition:emptyToNull("condition"),
+    storage:emptyToNull("storage"),
+    color:emptyToNull("color"),
+    image_url:emptyToNull("image_url"),
+    description:emptyToNull("description"),
+    available:document.getElementById("available").value==="true",
+    stock:Number(document.getElementById("stock").value||0)
+  };
+
+  const editing=Boolean(id);
+
+  const url=editing
+    ? `${SUPABASE_URL}/rest/v1/products?id=eq.${encodeURIComponent(id)}`
+    : `${SUPABASE_URL}/rest/v1/products`;
+
+  const r=await fetch(url,{
+    method:editing ? "PATCH" : "POST",
+    headers:apiHeaders({
+      "Content-Type":"application/json",
+      "Prefer":"return=representation"
+    }),
+    body:JSON.stringify(payload)
+  });
+
+  if(!r.ok){
+    const text=await r.text();
+    alert("No se pudo guardar el producto.\n"+text);
+    return;
+  }
+
+  showSuccess(editing ? "Producto actualizado." : "Producto agregado.");
+  resetForm();
+  await loadProducts();
+}
+
+function editProduct(id){
+  const p=products.find(x=>String(x.id)===String(id));
+  if(!p) return;
+
+  document.getElementById("productId").value=p.id;
+  document.getElementById("name").value=p.name||"";
+  document.getElementById("category").value=p.category_id||"";
+  document.getElementById("brand").value=p.brand||"";
+  document.getElementById("model").value=p.model||"";
+  document.getElementById("price").value=p.price||"";
+  document.getElementById("stock").value=p.stock??0;
+  document.getElementById("condition").value=p.condition||"";
+  document.getElementById("storage").value=p.storage||"";
+  document.getElementById("color").value=p.color||"";
+  document.getElementById("available").value=p.available===false ? "false" : "true";
+  document.getElementById("image_url").value=p.image_url||"";
+  document.getElementById("description").value=p.description||"";
+
+  document.getElementById("formTitle").textContent="Editar producto";
+
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+async function deleteProduct(id){
+  if(!confirm("¿Seguro que quieres eliminar este producto?")) return;
+
+  const r=await fetch(
+    `${SUPABASE_URL}/rest/v1/products?id=eq.${encodeURIComponent(id)}`,
+    {
+      method:"DELETE",
+      headers:apiHeaders()
+    }
+  );
+
+  if(!r.ok){
+    alert("No se pudo eliminar el producto.");
+    return;
+  }
+
+  showSuccess("Producto eliminado.");
+  await loadProducts();
+}
+
+function resetForm(){
+  document.getElementById("productId").value="";
+  document.getElementById("name").value="";
+  document.getElementById("brand").value="";
+  document.getElementById("model").value="";
+  document.getElementById("price").value="";
+  document.getElementById("stock").value="";
+  document.getElementById("condition").value="";
+  document.getElementById("storage").value="";
+  document.getElementById("color").value="";
+  document.getElementById("available").value="true";
+  document.getElementById("image_url").value="";
+  document.getElementById("description").value="";
+  document.getElementById("formTitle").textContent="Agregar producto";
+}
+
+function emptyToNull(id){
+  const v=document.getElementById(id).value.trim();
+  return v==="" ? null : v;
+}
+
+function money(n){
+  return "RD$"+Number(n||0).toLocaleString("es-DO",{
+    minimumFractionDigits:2,
+    maximumFractionDigits:2
+  });
+}
+
+function safe(v){
+  return String(v??"")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+}
+
+(async()=>{
+  if(!token) return;
+
+  const allowed=await checkAdmin();
+
+  if(allowed){
+    openDashboard();
+  }else{
+    sessionStorage.removeItem("loeAdminToken");
+    token="";
+  }
+})();
+</script>
+
+</body>
+</html>
