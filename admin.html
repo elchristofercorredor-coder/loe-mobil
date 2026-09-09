@@ -12,7 +12,6 @@
 :root{
   --bg:#03080d;
   --panel:#07131d;
-  --panel2:#0c1b27;
   --blue:#00bfff;
   --blue2:#008fe8;
   --border:#12425a;
@@ -88,12 +87,10 @@ input,select,textarea{
   outline:none;
 }
 
-input:focus,select:focus,textarea:focus{
+input:focus,
+select:focus,
+textarea:focus{
   border-color:var(--blue);
-}
-
-input[type="file"]{
-  padding:10px;
 }
 
 textarea{
@@ -148,24 +145,24 @@ textarea{
   margin:60px auto;
 }
 
-#error{
-  display:none;
-  padding:11px;
-  border:1px solid #733;
-  border-radius:8px;
-  color:#ff9696;
-  background:#271010;
-  margin-bottom:12px;
-}
-
+#error,
 #success{
   display:none;
   padding:11px;
-  border:1px solid #176a42;
   border-radius:8px;
+  margin-bottom:12px;
+}
+
+#error{
+  border:1px solid #733;
+  color:#ff9696;
+  background:#271010;
+}
+
+#success{
+  border:1px solid #176a42;
   color:#78e6aa;
   background:#092317;
-  margin-bottom:12px;
 }
 
 #dashboard{display:none}
@@ -178,7 +175,8 @@ textarea{
   margin-bottom:18px;
 }
 
-.products{
+.products,
+.reviews{
   display:grid;
   gap:10px;
 }
@@ -229,6 +227,32 @@ textarea{
   color:var(--blue);
   font-weight:900;
   margin-top:5px;
+}
+
+.old-price{
+  text-decoration:line-through;
+  color:#7f8d95;
+  font-size:11px;
+  margin-left:5px;
+}
+
+.tag{
+  display:inline-block;
+  margin:5px 5px 0 0;
+  padding:3px 6px;
+  border-radius:999px;
+  font-size:9px;
+  font-weight:900;
+}
+
+.tag.featured{
+  background:#123243;
+  color:#7edfff;
+}
+
+.tag.sale{
+  background:#422d0b;
+  color:#ffd45a;
 }
 
 .mini-actions{
@@ -298,7 +322,6 @@ textarea{
   background:#a32929;
   color:white;
   font-weight:950;
-  cursor:pointer;
 }
 
 .preview-main{
@@ -313,7 +336,17 @@ textarea{
   font-weight:900;
 }
 
-/* RESEÑAS */
+.switchrow{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  padding-top:7px;
+}
+
+.switchrow input{
+  width:auto;
+  transform:scale(1.2);
+}
 
 .review-topbar{
   display:flex;
@@ -333,11 +366,6 @@ textarea{
   font-weight:900;
 }
 
-.reviews{
-  display:grid;
-  gap:12px;
-}
-
 .review-card{
   background:#081720;
   border:1px solid #15394c;
@@ -347,13 +375,6 @@ textarea{
 
 .review-card.pending{
   border-color:#735d13;
-  background:
-    linear-gradient(
-      135deg,
-      rgba(255,201,40,.05),
-      transparent 50%
-    ),
-    #081720;
 }
 
 .review-card.approved{
@@ -432,7 +453,6 @@ textarea{
   border-radius:8px;
   padding:10px;
   font-weight:900;
-  cursor:pointer;
 }
 
 .refresh-btn{
@@ -442,26 +462,29 @@ textarea{
   border-radius:8px;
   padding:8px 11px;
   font-weight:900;
-  cursor:pointer;
 }
 
 @media(max-width:650px){
-  .grid{grid-template-columns:1fr}
-  .product{align-items:flex-start}
-  .mini-actions{flex-direction:column}
-  .topline{align-items:flex-start}
-  .image-previews{grid-template-columns:repeat(3,1fr)}
 
-  .review-head{
+  .grid{
+    grid-template-columns:1fr;
+  }
+
+  .product{
     align-items:flex-start;
   }
 
+  .mini-actions,
   .review-actions{
     flex-direction:column;
   }
 
-  .review-actions button{
-    width:100%;
+  .topline{
+    align-items:flex-start;
+  }
+
+  .image-previews{
+    grid-template-columns:repeat(3,1fr);
   }
 }
 </style>
@@ -470,8 +493,13 @@ textarea{
 <body>
 
 <header>
-  <div class="logo">LOE <span>MOBIL</span></div>
-  <div class="sub">ADMIN · FIX & GEAR</div>
+  <div class="logo">
+    LOE <span>MOBIL</span>
+  </div>
+
+  <div class="sub">
+    ADMIN · FIX & GEAR
+  </div>
 </header>
 
 <div class="wrap">
@@ -520,7 +548,7 @@ textarea{
     </h1>
 
     <div style="color:#91a1ad">
-      Productos de LOE MOBIL
+      Productos, ofertas y reseñas
     </div>
   </div>
 
@@ -576,12 +604,24 @@ textarea{
 </div>
 
 <div>
-  <label>Precio RD$ *</label>
+  <label>Precio actual RD$ *</label>
   <input
     id="price"
     type="number"
     step="0.01"
+    min="0"
     placeholder="39000"
+  >
+</div>
+
+<div>
+  <label>Precio anterior RD$</label>
+  <input
+    id="old_price"
+    type="number"
+    step="0.01"
+    min="0"
+    placeholder="45000"
   >
 </div>
 
@@ -628,6 +668,25 @@ textarea{
     <option value="true">Sí</option>
     <option value="false">No</option>
   </select>
+</div>
+
+<div>
+
+  <label>Destacado</label>
+
+  <div class="switchrow">
+
+    <input
+      id="featured"
+      type="checkbox"
+    >
+
+    <span>
+      Mostrar como producto destacado
+    </span>
+
+  </div>
+
 </div>
 
 </div>
@@ -699,13 +758,12 @@ textarea{
 
 </section>
 
-<!-- RESEÑAS -->
-
 <section class="panel">
 
 <div class="review-topbar">
 
   <div>
+
     <h2 style="margin:0">
       ⭐ Opiniones de clientes
     </h2>
@@ -719,6 +777,7 @@ textarea{
     >
       Aprueba o elimina las reseñas recibidas.
     </div>
+
   </div>
 
   <button
@@ -733,10 +792,7 @@ textarea{
 <div
   id="reviewCount"
   class="review-count"
-  style="
-    display:inline-block;
-    margin-bottom:14px
-  "
+  style="display:inline-block;margin-bottom:14px"
 >
   Cargando…
 </div>
@@ -753,88 +809,134 @@ textarea{
 </section>
 
 </section>
-
 </div>
 
 <script>
 
-const SUPABASE_URL=
+const SUPABASE_URL =
 "https://zndjyragtbobzuwxaaoe.supabase.co";
 
-const SUPABASE_KEY=
+const SUPABASE_KEY =
 "sb_publishable_eWJkT8ZBPv0ZcCSLo01P7g_0AAEbN6S";
 
-const IMAGE_BUCKET=
+const IMAGE_BUCKET =
 "product-images";
 
-const MAX_IMAGES=6;
+const MAX_IMAGES = 6;
 
-let token=
-sessionStorage.getItem("loeAdminToken")||"";
+let token =
+sessionStorage.getItem("loeAdminToken") || "";
 
-let products=[];
-let categories=[];
-let reviews=[];
+let products = [];
+let categories = [];
+let reviews = [];
 
-let currentImages=[];
-let selectedFiles=[];
+let currentImages = [];
+let selectedFiles = [];
 
 function apiHeaders(extra={}){
+
   return {
-    "apikey":SUPABASE_KEY,
+    apikey:SUPABASE_KEY,
+
     ...(token
-      ? {"Authorization":"Bearer "+token}
+      ? {
+          Authorization:
+          "Bearer " + token
+        }
       : {}
     ),
+
     ...extra
   };
 }
 
+function safe(v){
+
+  return String(v ?? "")
+  .replaceAll("&","&amp;")
+  .replaceAll("<","&lt;")
+  .replaceAll(">","&gt;")
+  .replaceAll('"',"&quot;")
+  .replaceAll("'","&#039;");
+}
+
+function money(n){
+
+  return (
+    "RD$" +
+    Number(n || 0)
+    .toLocaleString(
+      "es-DO",
+      {
+        minimumFractionDigits:2,
+        maximumFractionDigits:2
+      }
+    )
+  );
+}
+
+function emptyToNull(id){
+
+  const v =
+  document
+  .getElementById(id)
+  .value
+  .trim();
+
+  return v === ""
+  ? null
+  : v;
+}
+
 function showLoginError(msg){
 
-  const e=
+  const e =
   document.getElementById("error");
 
-  e.textContent=msg;
-  e.style.display="block";
+  e.textContent = msg;
+  e.style.display = "block";
 }
 
 function showSuccess(msg){
 
-  const e=
+  const e =
   document.getElementById("success");
 
-  e.textContent=msg;
-  e.style.display="block";
+  e.textContent = msg;
+  e.style.display = "block";
 
   window.scrollTo({
     top:0,
     behavior:"smooth"
   });
 
-  setTimeout(()=>{
-    e.style.display="none";
-  },3000);
+  setTimeout(
+    () => {
+      e.style.display = "none";
+    },
+    3000
+  );
 }
 
 async function login(){
 
   document
   .getElementById("error")
-  .style.display="none";
+  .style.display = "none";
 
-  const email=
+  const email =
   document
   .getElementById("email")
   .value
   .trim();
 
-  const password=
+  const password =
   document
   .getElementById("password")
   .value;
 
-  if(!email||!password){
+  if(!email || !password){
 
     showLoginError(
       "Escribe tu correo y contraseña."
@@ -845,13 +947,14 @@ async function login(){
 
   try{
 
-    const r=await fetch(
+    const r =
+    await fetch(
       `${SUPABASE_URL}/auth/v1/token?grant_type=password`,
       {
         method:"POST",
 
         headers:{
-          "apikey":SUPABASE_KEY,
+          apikey:SUPABASE_KEY,
           "Content-Type":"application/json"
         },
 
@@ -862,11 +965,11 @@ async function login(){
       }
     );
 
-    const data=
+    const data =
     await r.json();
 
     if(
-      !r.ok||
+      !r.ok ||
       !data.access_token
     ){
 
@@ -875,14 +978,15 @@ async function login(){
       );
     }
 
-    token=data.access_token;
+    token =
+    data.access_token;
 
-    const allowed=
+    const allowed =
     await checkAdmin();
 
     if(!allowed){
 
-      token="";
+      token = "";
 
       throw new Error(
         "Esta cuenta no tiene permisos de administrador."
@@ -906,7 +1010,8 @@ async function login(){
 
 async function checkAdmin(){
 
-  const r=await fetch(
+  const r =
+  await fetch(
     `${SUPABASE_URL}/rest/v1/profiles?select=role`,
     {
       headers:apiHeaders()
@@ -917,12 +1022,12 @@ async function checkAdmin(){
     return false;
   }
 
-  const rows=
+  const rows =
   await r.json();
 
   return (
-    rows.length===1 &&
-    rows[0].role==="admin"
+    rows.length === 1 &&
+    rows[0].role === "admin"
   );
 }
 
@@ -930,11 +1035,11 @@ async function openDashboard(){
 
   document
   .getElementById("loginBox")
-  .style.display="none";
+  .style.display = "none";
 
   document
   .getElementById("dashboard")
-  .style.display="block";
+  .style.display = "block";
 
   await loadCategories();
   await loadProducts();
@@ -947,35 +1052,36 @@ function logout(){
     "loeAdminToken"
   );
 
-  token="";
+  token = "";
 
   location.reload();
 }
 
 async function loadCategories(){
 
-  const r=await fetch(
+  const r =
+  await fetch(
     `${SUPABASE_URL}/rest/v1/categories?select=*&order=id`,
     {
       headers:apiHeaders()
     }
   );
 
-  categories=
+  categories =
   await r.json();
 
-  const select=
+  const select =
   document.getElementById("category");
 
-  select.innerHTML="";
+  select.innerHTML = "";
 
-  categories.forEach(c=>{
+  categories.forEach(c => {
 
-    const o=
+    const o =
     document.createElement("option");
 
-    o.value=c.id;
-    o.textContent=c.name;
+    o.value = c.id;
+    o.textContent = c.name;
 
     select.appendChild(o);
   });
@@ -983,10 +1089,11 @@ async function loadCategories(){
 
 async function loadProducts(){
 
-  const box=
+  const box =
   document.getElementById("products");
 
-  const r=await fetch(
+  const r =
+  await fetch(
     `${SUPABASE_URL}/rest/v1/products?select=*&order=id.desc`,
     {
       headers:apiHeaders()
@@ -995,66 +1102,74 @@ async function loadProducts(){
 
   if(!r.ok){
 
-    box.innerHTML=
+    box.innerHTML =
     '<div class="status">No se pudieron cargar los productos.</div>';
 
     return;
   }
 
-  products=
+  products =
   await r.json();
 
   if(!products.length){
 
-    box.innerHTML=
+    box.innerHTML =
     '<div class="status">Todavía no hay productos.</div>';
 
     return;
   }
 
-  box.innerHTML="";
+  box.innerHTML = "";
 
-  products.forEach(p=>{
+  products.forEach(p => {
 
-    const row=
+    const row =
     document.createElement("div");
 
-    row.className="product";
+    row.className =
+    "product";
 
-    const portada=
-    (
-      Array.isArray(p.images) &&
-      p.images.length
-    )
+    const portada =
+    Array.isArray(p.images) &&
+    p.images.length
     ? p.images[0]
     : p.image_url;
 
-    const img=
+    const imageHtml =
     portada
+    ? `
+      <img
+        src="${safe(portada)}"
+        alt=""
+      >
+    `
+    : `
+      <div class="placeholder">
+        Sin imagen
+      </div>
+    `;
 
-    ? `<img
-         src="${safe(portada)}"
-         alt=""
-       >`
+    const hasOffer =
+    p.old_price &&
+    Number(p.old_price) >
+    Number(p.price);
 
-    : `<div class="placeholder">
-         Sin imagen
-       </div>`;
+    row.innerHTML = `
 
-    row.innerHTML=`
-      ${img}
+      ${imageHtml}
 
       <div class="pinfo">
 
         <div class="pname">
-          ${safe(p.name||"Producto")}
+          ${safe(p.name || "Producto")}
         </div>
 
         <div class="pmeta">
           ${safe(
             [
               p.brand,
-              p.model
+              p.model,
+              p.storage
             ]
             .filter(Boolean)
             .join(" · ")
@@ -1062,8 +1177,40 @@ async function loadProducts(){
         </div>
 
         <div class="pprice">
+
           ${money(p.price)}
+
+          ${
+            hasOffer
+            ? `
+              <span class="old-price">
+                ${money(p.old_price)}
+              </span>
+            `
+            : ""
+          }
+
         </div>
+
+        ${
+          p.featured
+          ? `
+            <span class="tag featured">
+              🔥 DESTACADO
+            </span>
+          `
+          : ""
+        }
+
+        ${
+          hasOffer
+          ? `
+            <span class="tag sale">
+              OFERTA
+            </span>
+          `
+          : ""
+        }
 
       </div>
 
@@ -1089,27 +1236,28 @@ async function loadProducts(){
   });
 }
 
-/* =========================
+/* =====================
    RESEÑAS
-========================= */
+===================== */
 
 async function loadReviews(){
 
-  const box=
+  const box =
   document.getElementById("reviews");
 
-  const counter=
+  const counter =
   document.getElementById("reviewCount");
 
-  box.innerHTML=
+  box.innerHTML =
   '<div class="status">Cargando opiniones…</div>';
 
-  counter.textContent=
+  counter.textContent =
   "Cargando…";
 
   try{
 
-    const r=await fetch(
+    const r =
+    await fetch(
       `${SUPABASE_URL}/rest/v1/reviews?select=*&order=created_at.desc`,
       {
         headers:apiHeaders()
@@ -1118,27 +1266,24 @@ async function loadReviews(){
 
     if(!r.ok){
 
-      const text=
-      await r.text();
-
-      throw new Error(text);
+      throw new Error(
+        await r.text()
+      );
     }
 
-    reviews=
+    reviews =
     await r.json();
 
-    reviews.sort((a,b)=>{
+    reviews.sort((a,b) => {
 
       if(
-        a.approved===
+        a.approved ===
         b.approved
       ){
 
-        return new Date(
-          b.created_at||0
-        )-
-        new Date(
-          a.created_at||0
+        return (
+          new Date(b.created_at || 0) -
+          new Date(a.created_at || 0)
         );
       }
 
@@ -1147,68 +1292,65 @@ async function loadReviews(){
       : -1;
     });
 
-    const pending=
+    const pending =
     reviews.filter(
-      r=>!r.approved
+      r => !r.approved
     ).length;
 
-    counter.textContent=
-    pending===1
+    counter.textContent =
+    pending === 1
     ? "1 pendiente"
     : `${pending} pendientes`;
 
     if(!reviews.length){
 
-      box.innerHTML=`
-        <div class="status">
-          Todavía no hay opiniones.
-        </div>
-      `;
+      box.innerHTML =
+      '<div class="status">Todavía no hay opiniones.</div>';
 
       return;
     }
 
-    box.innerHTML="";
+    box.innerHTML = "";
 
-    reviews.forEach(review=>{
+    reviews.forEach(review => {
 
-      const product=
+      const product =
       products.find(
-        p=>
-        String(p.id)===
+        p =>
+        String(p.id) ===
         String(review.product_id)
       );
 
-      const productName=
+      const productName =
       product
       ? product.name
       : `Producto #${review.product_id}`;
 
-      const rating=
+      const rating =
       Math.max(
         1,
         Math.min(
           5,
-          Number(review.rating)||1
+          Number(review.rating) || 1
         )
       );
 
-      const stars=
-      "★".repeat(rating)+
+      const stars =
+      "★".repeat(rating) +
       "☆".repeat(5-rating);
 
-      const card=
+      const card =
       document.createElement("div");
 
-      card.className=
-      "review-card "+
+      card.className =
+      "review-card " +
       (
         review.approved
         ? "approved"
         : "pending"
       );
 
-      card.innerHTML=`
+      card.innerHTML = `
 
         <div class="review-head">
 
@@ -1219,7 +1361,7 @@ async function loadReviews(){
             </div>
 
             <div class="review-name">
-              ${safe(review.name||"Cliente")}
+              ${safe(review.name || "Cliente")}
             </div>
 
             <div class="review-stars">
@@ -1245,7 +1387,7 @@ async function loadReviews(){
         </div>
 
         <div class="review-comment">
-          ${safe(review.comment||"")}
+          ${safe(review.comment || "")}
         </div>
 
         <div class="review-date">
@@ -1275,7 +1417,6 @@ async function loadReviews(){
           </button>
 
         </div>
-
       `;
 
       box.appendChild(card);
@@ -1283,19 +1424,13 @@ async function loadReviews(){
 
   }catch(err){
 
-    console.error(
-      "Error cargando reseñas:",
-      err
-    );
+    console.error(err);
 
-    counter.textContent=
+    counter.textContent =
     "Error";
 
-    box.innerHTML=`
-      <div class="status">
-        No se pudieron cargar las opiniones.
-      </div>
-    `;
+    box.innerHTML =
+    '<div class="status">No se pudieron cargar las opiniones.</div>';
   }
 }
 
@@ -1311,33 +1446,27 @@ async function approveReview(id){
 
   try{
 
-    const r=await fetch(
+    const r =
+    await fetch(
       `${SUPABASE_URL}/rest/v1/reviews?id=eq.${encodeURIComponent(id)}`,
       {
         method:"PATCH",
 
         headers:
-          apiHeaders({
-            "Content-Type":
-              "application/json",
-
-            "Prefer":
-              "return=representation"
-          }),
+        apiHeaders({
+          "Content-Type":"application/json",
+          Prefer:"return=representation"
+        }),
 
         body:
-          JSON.stringify({
-            approved:true
-          })
+        JSON.stringify({
+          approved:true
+        })
       }
     );
 
     if(!r.ok){
-
-      const text=
-      await r.text();
-
-      throw new Error(text);
+      throw new Error();
     }
 
     showSuccess(
@@ -1346,9 +1475,7 @@ async function approveReview(id){
 
     await loadReviews();
 
-  }catch(err){
-
-    console.error(err);
+  }catch{
 
     alert(
       "No se pudo aprobar la opinión."
@@ -1360,7 +1487,7 @@ async function deleteReview(id){
 
   if(
     !confirm(
-      "¿Seguro que quieres eliminar esta opinión? Esta acción no se puede deshacer."
+      "¿Seguro que quieres eliminar esta opinión?"
     )
   ){
     return;
@@ -1368,7 +1495,8 @@ async function deleteReview(id){
 
   try{
 
-    const r=await fetch(
+    const r =
+    await fetch(
       `${SUPABASE_URL}/rest/v1/reviews?id=eq.${encodeURIComponent(id)}`,
       {
         method:"DELETE",
@@ -1377,11 +1505,7 @@ async function deleteReview(id){
     );
 
     if(!r.ok){
-
-      const text=
-      await r.text();
-
-      throw new Error(text);
+      throw new Error();
     }
 
     showSuccess(
@@ -1390,9 +1514,7 @@ async function deleteReview(id){
 
     await loadReviews();
 
-  }catch(err){
-
-    console.error(err);
+  }catch{
 
     alert(
       "No se pudo eliminar la opinión."
@@ -1400,17 +1522,16 @@ async function deleteReview(id){
   }
 }
 
-function formatDate(value){
+function formatDate(v){
 
-  if(!value){
+  if(!v){
     return "";
   }
 
   try{
 
-    return new Date(
-      value
-    ).toLocaleString(
+    return new Date(v)
+    .toLocaleString(
       "es-DO",
       {
         day:"2-digit",
@@ -1427,54 +1548,55 @@ function formatDate(value){
   }
 }
 
-/* =========================
-   IMÁGENES Y PRODUCTOS
-========================= */
+/* =====================
+   IMÁGENES
+===================== */
 
 function makeFileName(file){
 
-  const extension=
-  (file.name.split(".").pop()||"jpg")
+  const ext =
+  (
+    file.name
+    .split(".")
+    .pop() ||
+    "jpg"
+  )
   .toLowerCase()
-  .replace(/[^a-z0-9]/g,"");
-
-  const random=
-  Math.random()
-  .toString(36)
-  .slice(2,10);
+  .replace(
+    /[^a-z0-9]/g,
+    ""
+  );
 
   return (
-    Date.now()+
-    "-"+
-    random+
-    "."+
-    extension
+    Date.now() +
+    "-" +
+    Math.random()
+    .toString(36)
+    .slice(2,10) +
+    "." +
+    ext
   );
 }
 
 async function uploadImage(file){
 
-  if(!file){
-    return null;
-  }
-
-  const fileName=
+  const fileName =
   makeFileName(file);
 
-  const uploadUrl=
-  `${SUPABASE_URL}/storage/v1/object/${IMAGE_BUCKET}/${encodeURIComponent(fileName)}`;
-
-  const r=await fetch(
-    uploadUrl,
+  const r =
+  await fetch(
+    `${SUPABASE_URL}/storage/v1/object/${IMAGE_BUCKET}/${encodeURIComponent(fileName)}`,
     {
       method:"POST",
 
       headers:{
-        "apikey":SUPABASE_KEY,
-        "Authorization":"Bearer "+token,
+        apikey:SUPABASE_KEY,
+        Authorization:
+        "Bearer " + token,
+
         "Content-Type":
-          file.type||
-          "application/octet-stream"
+        file.type ||
+        "application/octet-stream"
       },
 
       body:file
@@ -1483,100 +1605,112 @@ async function uploadImage(file){
 
   if(!r.ok){
 
-    const text=
-    await r.text();
-
     throw new Error(
-      "No se pudo subir una de las imágenes. "+
-      text
+      "No se pudo subir una imagen. " +
+      await r.text()
     );
   }
 
   return (
-    `${SUPABASE_URL}`+
-    `/storage/v1/object/public/`+
-    `${IMAGE_BUCKET}/`+
-    `${encodeURIComponent(fileName)}`
+    `${SUPABASE_URL}/storage/v1/object/public/` +
+    `${IMAGE_BUCKET}/` +
+    encodeURIComponent(fileName)
   );
 }
 
 function renderImagePreviews(){
 
-  const box=
-  document.getElementById("imagePreviews");
+  const box =
+  document.getElementById(
+    "imagePreviews"
+  );
 
-  box.innerHTML="";
+  box.innerHTML = "";
 
-  const allCount=
-  currentImages.length+
-  selectedFiles.length;
+  currentImages.forEach(
+    (url,index) => {
 
-  currentImages.forEach((url,index)=>{
+      const card =
+      document.createElement("div");
 
-    const card=
-    document.createElement("div");
+      card.className =
+      "preview-card";
 
-    card.className="preview-card";
+      card.innerHTML = `
 
-    card.innerHTML=`
-      <img src="${safe(url)}" alt="">
+        <img
+          src="${safe(url)}"
+          alt=""
+        >
 
-      ${
-        index===0
-        ? '<div class="preview-main">PORTADA</div>'
-        : ''
-      }
+        ${
+          index === 0
+          ? `
+            <div class="preview-main">
+              PORTADA
+            </div>
+          `
+          : ""
+        }
 
-      <button
-        type="button"
-        class="preview-remove"
-        onclick="removeCurrentImage(${index})"
-      >
-        ×
-      </button>
-    `;
+        <button
+          type="button"
+          class="preview-remove"
+          onclick="removeCurrentImage(${index})"
+        >
+          ×
+        </button>
+      `;
 
-    box.appendChild(card);
-  });
+      box.appendChild(card);
+    }
+  );
 
-  selectedFiles.forEach((file,index)=>{
+  selectedFiles.forEach(
+    (file,index) => {
 
-    const objectUrl=
-    URL.createObjectURL(file);
+      const objectUrl =
+      URL.createObjectURL(file);
 
-    const globalIndex=
-    currentImages.length+
-    index;
+      const globalIndex =
+      currentImages.length +
+      index;
 
-    const card=
-    document.createElement("div");
+      const card =
+      document.createElement("div");
 
-    card.className="preview-card";
+      card.className =
+      "preview-card";
 
-    card.innerHTML=`
-      <img src="${objectUrl}" alt="">
+      card.innerHTML = `
 
-      ${
-        globalIndex===0
-        ? '<div class="preview-main">PORTADA</div>'
-        : ''
-      }
+        <img
+          src="${objectUrl}"
+          alt=""
+        >
 
-      <button
-        type="button"
-        class="preview-remove"
-        onclick="removeSelectedFile(${index})"
-      >
-        ×
-      </button>
-    `;
+        ${
+          globalIndex === 0
+          ? `
+            <div class="preview-main">
+              PORTADA
+            </div>
+          `
+          : ""
+        }
 
-    box.appendChild(card);
-  });
+        <button
+          type="button"
+          class="preview-remove"
+          onclick="removeSelectedFile(${index})"
+        >
+          ×
+        </button>
+      `;
 
-  if(!allCount){
-    box.innerHTML="";
-  }
+      box.appendChild(card);
+    }
+  );
 }
 
 function removeCurrentImage(index){
@@ -1598,30 +1732,34 @@ function removeSelectedFile(index){
 
   document
   .getElementById("imageFile")
-  .value="";
+  .value = "";
 
   renderImagePreviews();
 }
 
+/* =====================
+   GUARDAR PRODUCTO
+===================== */
+
 async function saveProduct(){
 
-  const id=
+  const id =
   document
   .getElementById("productId")
   .value;
 
-  const name=
+  const name =
   document
   .getElementById("name")
   .value
   .trim();
 
-  const category_id=
+  const category_id =
   document
   .getElementById("category")
   .value;
 
-  const price=
+  const price =
   Number(
     document
     .getElementById("price")
@@ -1629,8 +1767,8 @@ async function saveProduct(){
   );
 
   if(
-    !name||
-    !category_id||
+    !name ||
+    !category_id ||
     !Number.isFinite(price)
   ){
 
@@ -1641,130 +1779,141 @@ async function saveProduct(){
     return;
   }
 
-  const uploading=
-  document.getElementById("uploading");
+  const uploading =
+  document.getElementById(
+    "uploading"
+  );
 
-  uploading.style.display="block";
+  uploading.style.display =
+  "block";
 
   try{
 
-    const uploadedImages=[];
+    const uploaded = [];
 
-    for(const file of selectedFiles){
+    for(
+      const file of selectedFiles
+    ){
 
-      const url=
+      const url =
       await uploadImage(file);
 
       if(url){
-        uploadedImages.push(url);
+        uploaded.push(url);
       }
     }
 
-    let images=[
+    let images = [
       ...currentImages,
-      ...uploadedImages
+      ...uploaded
     ];
 
-    images=[
+    images = [
       ...new Set(
         images.filter(Boolean)
       )
-    ];
-
-    images=
-    images.slice(
+    ]
+    .slice(
       0,
       MAX_IMAGES
     );
 
-    const image_url=
-    images.length
-    ? images[0]
-    : null;
+    const image_url =
+    images[0] || null;
 
-    const payload={
+    const oldRaw =
+    document
+    .getElementById("old_price")
+    .value
+    .trim();
+
+    const old_price =
+    oldRaw === ""
+    ? null
+    : Number(oldRaw);
+
+    const payload = {
 
       name,
-
       category_id,
-
       price,
+      old_price,
+
+      featured:
+      document
+      .getElementById("featured")
+      .checked,
 
       brand:
-        emptyToNull("brand"),
+      emptyToNull("brand"),
 
       model:
-        emptyToNull("model"),
+      emptyToNull("model"),
 
       condition:
-        emptyToNull("condition"),
+      emptyToNull("condition"),
 
       storage:
-        emptyToNull("storage"),
+      emptyToNull("storage"),
 
       color:
-        emptyToNull("color"),
+      emptyToNull("color"),
 
       image_url,
-
       images,
 
       description:
-        emptyToNull("description"),
+      emptyToNull("description"),
 
       available:
-        document
-        .getElementById("available")
-        .value==="true",
+      document
+      .getElementById("available")
+      .value === "true",
 
       stock:
-        Number(
-          document
-          .getElementById("stock")
-          .value||0
-        )
+      Number(
+        document
+        .getElementById("stock")
+        .value || 0
+      )
     };
 
-    const editing=
+    const editing =
     Boolean(id);
 
-    const url=
+    const url =
     editing
-
     ? `${SUPABASE_URL}/rest/v1/products?id=eq.${encodeURIComponent(id)}`
-
     : `${SUPABASE_URL}/rest/v1/products`;
 
-    const r=await fetch(
+    const r =
+    await fetch(
       url,
       {
         method:
-          editing
-          ? "PATCH"
-          : "POST",
+        editing
+        ? "PATCH"
+        : "POST",
 
         headers:
-          apiHeaders({
-            "Content-Type":
-              "application/json",
+        apiHeaders({
+          "Content-Type":
+          "application/json",
 
-            "Prefer":
-              "return=representation"
-          }),
+          Prefer:
+          "return=representation"
+        }),
 
         body:
-          JSON.stringify(payload)
+        JSON.stringify(payload)
       }
     );
 
     if(!r.ok){
 
-      const text=
-      await r.text();
-
       throw new Error(
-        "No se pudo guardar el producto.\n"+
-        text
+        "No se pudo guardar el producto.\n" +
+        await r.text()
       );
     }
 
@@ -1780,20 +1929,23 @@ async function saveProduct(){
 
   }catch(err){
 
-    alert(err.message);
+    alert(
+      err.message
+    );
 
   }finally{
 
-    uploading.style.display="none";
+    uploading.style.display =
+    "none";
   }
 }
 
 function editProduct(id){
 
-  const p=
+  const p =
   products.find(
-    x=>
-    String(x.id)===
+    x =>
+    String(x.id) ===
     String(id)
   );
 
@@ -1803,92 +1955,101 @@ function editProduct(id){
 
   document
   .getElementById("productId")
-  .value=p.id;
+  .value = p.id;
 
   document
   .getElementById("name")
-  .value=p.name||"";
+  .value = p.name || "";
 
   document
   .getElementById("category")
-  .value=p.category_id||"";
+  .value = p.category_id || "";
 
   document
   .getElementById("brand")
-  .value=p.brand||"";
+  .value = p.brand || "";
 
   document
   .getElementById("model")
-  .value=p.model||"";
+  .value = p.model || "";
 
   document
   .getElementById("price")
-  .value=p.price||"";
+  .value = p.price || "";
+
+  document
+  .getElementById("old_price")
+  .value = p.old_price || "";
 
   document
   .getElementById("stock")
-  .value=p.stock??0;
+  .value = p.stock ?? 0;
 
   document
   .getElementById("condition")
-  .value=p.condition||"";
+  .value = p.condition || "";
 
   document
   .getElementById("storage")
-  .value=p.storage||"";
+  .value = p.storage || "";
 
   document
   .getElementById("color")
-  .value=p.color||"";
+  .value = p.color || "";
 
   document
   .getElementById("available")
-  .value=
-    p.available===false
-    ? "false"
-    : "true";
+  .value =
+  p.available === false
+  ? "false"
+  : "true";
 
   document
   .getElementById("description")
-  .value=p.description||"";
+  .value = p.description || "";
+
+  document
+  .getElementById("featured")
+  .checked =
+  Boolean(p.featured);
 
   document
   .getElementById("imageFile")
-  .value="";
+  .value = "";
 
-  selectedFiles=[];
+  selectedFiles = [];
 
   if(
     Array.isArray(p.images) &&
     p.images.length
   ){
 
-    currentImages=[
+    currentImages = [
       ...p.images
     ];
 
   }else if(p.image_url){
 
-    currentImages=[
+    currentImages = [
       p.image_url
     ];
 
   }else{
 
-    currentImages=[];
+    currentImages = [];
   }
 
   document
   .getElementById("image_url")
-  .value=
-    currentImages[0]||"";
+  .value =
+  currentImages[0] || "";
 
   renderImagePreviews();
 
   document
   .getElementById("formTitle")
-  .textContent=
-    "Editar producto";
+  .textContent =
+  "Editar producto";
 
   window.scrollTo({
     top:0,
@@ -1906,7 +2067,8 @@ async function deleteProduct(id){
     return;
   }
 
-  const r=await fetch(
+  const r =
+  await fetch(
     `${SUPABASE_URL}/rest/v1/products?id=eq.${encodeURIComponent(id)}`,
     {
       method:"DELETE",
@@ -1932,127 +2094,71 @@ async function deleteProduct(id){
 
 function resetForm(){
 
-  document
-  .getElementById("productId")
-  .value="";
+  [
+    "productId",
+    "name",
+    "brand",
+    "model",
+    "price",
+    "old_price",
+    "stock",
+    "storage",
+    "color",
+    "description",
+    "image_url"
+  ]
+  .forEach(id => {
 
-  document
-  .getElementById("name")
-  .value="";
-
-  document
-  .getElementById("brand")
-  .value="";
-
-  document
-  .getElementById("model")
-  .value="";
-
-  document
-  .getElementById("price")
-  .value="";
-
-  document
-  .getElementById("stock")
-  .value="";
+    document
+    .getElementById(id)
+    .value = "";
+  });
 
   document
   .getElementById("condition")
-  .value="";
-
-  document
-  .getElementById("storage")
-  .value="";
-
-  document
-  .getElementById("color")
-  .value="";
+  .value = "";
 
   document
   .getElementById("available")
-  .value="true";
+  .value = "true";
 
   document
-  .getElementById("description")
-  .value="";
-
-  document
-  .getElementById("image_url")
-  .value="";
+  .getElementById("featured")
+  .checked = false;
 
   document
   .getElementById("imageFile")
-  .value="";
+  .value = "";
 
-  currentImages=[];
-  selectedFiles=[];
+  currentImages = [];
+  selectedFiles = [];
 
   renderImagePreviews();
 
   document
   .getElementById("formTitle")
-  .textContent=
-    "Agregar producto";
-}
-
-function emptyToNull(id){
-
-  const v=
-  document
-  .getElementById(id)
-  .value
-  .trim();
-
-  return (
-    v===""
-    ? null
-    : v
-  );
-}
-
-function money(n){
-
-  return (
-    "RD$"+
-    Number(n||0)
-    .toLocaleString(
-      "es-DO",
-      {
-        minimumFractionDigits:2,
-        maximumFractionDigits:2
-      }
-    )
-  );
-}
-
-function safe(v){
-
-  return String(v??"")
-  .replaceAll("&","&amp;")
-  .replaceAll("<","&lt;")
-  .replaceAll(">","&gt;")
-  .replaceAll('"',"&quot;")
-  .replaceAll("'","&#039;");
+  .textContent =
+  "Agregar producto";
 }
 
 document
 .getElementById("imageFile")
 .addEventListener(
   "change",
-  e=>{
+  e => {
 
-    const incoming=
+    const incoming =
     Array.from(
-      e.target.files||[]
+      e.target.files || []
     );
 
-    const availableSlots=
-    MAX_IMAGES-
+    const slots =
+    MAX_IMAGES -
     currentImages.length;
 
     if(
       incoming.length >
-      availableSlots
+      slots
     ){
 
       alert(
@@ -2060,12 +2166,12 @@ document
       );
     }
 
-    selectedFiles=
+    selectedFiles =
     incoming.slice(
       0,
       Math.max(
         0,
-        availableSlots
+        slots
       )
     );
 
@@ -2079,7 +2185,7 @@ document
     return;
   }
 
-  const allowed=
+  const allowed =
   await checkAdmin();
 
   if(allowed){
@@ -2092,7 +2198,7 @@ document
       "loeAdminToken"
     );
 
-    token="";
+    token = "";
   }
 })();
 
