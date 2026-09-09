@@ -21,6 +21,7 @@
   --muted:#95a4ad;
   --green:#19c86c;
   --yellow:#ffbf00;
+  --red:#ff4f69;
 }
 
 html{scroll-behavior:smooth}
@@ -32,7 +33,7 @@ body{
   color:var(--text);
 }
 
-button,input,textarea{
+button,input,textarea,select{
   font:inherit;
 }
 
@@ -80,6 +81,8 @@ button{
   color:#bcc8cf;
 }
 
+/* CUENTA */
+
 .account-btn{
   margin-left:auto;
   min-height:44px;
@@ -98,6 +101,39 @@ button{
 
 .account-btn.logged{
   border-color:#168f5a;
+}
+
+/* FAVORITOS */
+
+.favorites-btn{
+  position:relative;
+  min-width:46px;
+  min-height:44px;
+  padding:0 10px;
+  border:1px solid #146084;
+  border-radius:10px;
+  background:#07141d;
+  color:white;
+  font-size:20px;
+  font-weight:900;
+}
+
+.favorite-count{
+  position:absolute;
+  right:-5px;
+  top:-7px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-width:20px;
+  height:20px;
+  padding:0 5px;
+  border:2px solid #02070b;
+  border-radius:999px;
+  background:var(--red);
+  color:white;
+  font-size:10px;
+  font-weight:950;
 }
 
 .cart-btn{
@@ -224,6 +260,231 @@ button{
   font-weight:750;
 }
 
+/* DESTACADOS */
+
+.featured-section{
+  display:none;
+  max-width:1400px;
+  margin:20px auto 0;
+  padding:0 10px;
+}
+
+.featured-section.show{
+  display:block;
+}
+
+.market-title{
+  display:flex;
+  align-items:end;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:10px;
+}
+
+.market-title h2{
+  margin:0;
+  font-size:21px;
+}
+
+.market-title span{
+  color:#92a3ac;
+  font-size:12px;
+}
+
+.featured-rail{
+  display:flex;
+  gap:10px;
+  overflow-x:auto;
+  padding-bottom:7px;
+  scrollbar-width:none;
+}
+
+.featured-rail::-webkit-scrollbar{
+  display:none;
+}
+
+.featured-card{
+  flex:0 0 185px;
+  overflow:hidden;
+  border:1px solid #175a78;
+  border-radius:12px;
+  background:white;
+  color:#111;
+  cursor:pointer;
+}
+
+.featured-photo{
+  position:relative;
+  height:175px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:white;
+}
+
+.featured-photo img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  padding:7px;
+}
+
+.featured-info{
+  padding:9px;
+}
+
+.featured-name{
+  min-height:34px;
+  font-size:13px;
+  line-height:1.3;
+  font-weight:900;
+}
+
+.featured-price{
+  margin-top:6px;
+  font-size:16px;
+  font-weight:950;
+}
+
+.featured-old{
+  margin-left:4px;
+  color:#888;
+  text-decoration:line-through;
+  font-size:10px;
+}
+
+.featured-discount{
+  position:absolute;
+  top:7px;
+  left:7px;
+  padding:4px 7px;
+  border-radius:5px;
+  background:var(--yellow);
+  color:#221800;
+  font-size:9px;
+  font-weight:950;
+}
+
+.featured-fire{
+  position:absolute;
+  top:7px;
+  right:7px;
+  padding:4px 7px;
+  border-radius:5px;
+  background:#07131d;
+  color:white;
+  font-size:9px;
+  font-weight:950;
+}
+
+/* FILTROS MARKETPLACE */
+
+.market-controls{
+  max-width:1400px;
+  margin:18px auto 0;
+  padding:0 10px;
+}
+
+.filters-panel{
+  border:1px solid var(--border);
+  border-radius:12px;
+  background:#07131d;
+  overflow:hidden;
+}
+
+.filters-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  padding:12px 13px;
+}
+
+.filters-head strong{
+  font-size:14px;
+}
+
+.filters-toggle{
+  padding:8px 11px;
+  border:1px solid #1d5770;
+  border-radius:8px;
+  background:#0b202b;
+  color:white;
+  font-size:12px;
+  font-weight:850;
+}
+
+.filters-body{
+  display:none;
+  padding:0 12px 12px;
+}
+
+.filters-body.show{
+  display:block;
+}
+
+.filters-grid{
+  display:grid;
+  grid-template-columns:repeat(6,minmax(0,1fr));
+  gap:8px;
+}
+
+.filter-field label{
+  display:block;
+  margin-bottom:5px;
+  color:#a9b7be;
+  font-size:10px;
+  font-weight:800;
+}
+
+.filter-field select,
+.filter-field input{
+  width:100%;
+  min-height:40px;
+  border:1px solid #285063;
+  border-radius:8px;
+  outline:0;
+  padding:0 9px;
+  background:#0a1922;
+  color:white;
+  font-size:12px;
+}
+
+.filter-field select:focus,
+.filter-field input:focus{
+  border-color:var(--blue);
+}
+
+.filters-actions{
+  display:flex;
+  gap:8px;
+  margin-top:9px;
+}
+
+.filter-action{
+  flex:1;
+  min-height:40px;
+  border-radius:8px;
+  font-weight:900;
+}
+
+.clear-filter{
+  border:1px solid #315465;
+  background:#10232e;
+  color:white;
+}
+
+.favorite-filter{
+  border:1px solid #a42d45;
+  background:#35121b;
+  color:#ffb3c1;
+}
+
+.favorite-filter.active{
+  background:var(--red);
+  color:white;
+}
+
 main{
   max-width:1400px;
   margin:auto;
@@ -264,6 +525,7 @@ main{
 }
 
 .card{
+  position:relative;
   overflow:hidden;
   border-radius:11px;
   background:white;
@@ -297,16 +559,59 @@ main{
   font-size:12px;
 }
 
-.badge{
+/* BADGES MARKETPLACE */
+
+.badges-left{
   position:absolute;
   top:7px;
   left:7px;
+  z-index:5;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  gap:4px;
+}
+
+.badge{
+  position:static;
   padding:4px 7px;
   border-radius:5px;
   background:#07131d;
   color:white;
   font-size:9px;
   font-weight:900;
+}
+
+.badge-featured{
+  background:#00aee9;
+  color:white;
+}
+
+.badge-sale{
+  background:#ffc928;
+  color:#211800;
+}
+
+.card-favorite{
+  position:absolute;
+  top:7px;
+  right:7px;
+  z-index:7;
+  width:35px;
+  height:35px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border:1px solid #ddd;
+  border-radius:50%;
+  background:rgba(255,255,255,.95);
+  color:#4e5960;
+  font-size:21px;
+  box-shadow:0 2px 9px rgba(0,0,0,.15);
+}
+
+.card-favorite.active{
+  color:var(--red);
 }
 
 .card-info{
@@ -327,43 +632,57 @@ main{
   font-size:11px;
 }
 
-/* CALIFICACIÓN DE PRODUCTO */
+/* CALIFICACIÓN EN TARJETAS */
 
 .card-rating{
-  min-height:18px;
-  margin-top:4px;
+  min-height:19px;
+  margin-top:5px;
   display:flex;
   align-items:center;
-  gap:4px;
-  white-space:nowrap;
-}
-
-.card-stars{
-  color:#f5a623;
-  font-size:13px;
-  letter-spacing:-1px;
-}
-
-.card-rating-number{
-  color:#555;
+  gap:5px;
   font-size:11px;
+}
+
+.card-rating-stars{
+  color:#f5a623;
+  letter-spacing:-1px;
+  font-size:13px;
+  font-weight:900;
+}
+
+.card-rating-score{
+  color:#555;
   font-weight:850;
 }
 
 .card-rating-count{
   color:#777;
-  font-size:10px;
 }
 
-.card-no-reviews{
+.card-no-rating{
   color:#8a8a8a;
   font-size:10.5px;
+  font-weight:650;
+}
+
+.card-price-wrap{
+  display:flex;
+  align-items:baseline;
+  gap:5px;
+  flex-wrap:wrap;
+  margin-top:7px;
 }
 
 .card-price{
-  margin-top:7px;
+  margin-top:0;
   font-size:19px;
   font-weight:950;
+}
+
+.card-old-price{
+  color:#888;
+  text-decoration:line-through;
+  font-size:10.5px;
 }
 
 .card-stock{
@@ -371,6 +690,10 @@ main{
   color:#079c4e;
   font-size:11px;
   font-weight:800;
+}
+
+.card-stock.out{
+  color:#e24a4a;
 }
 
 .card-actions{
@@ -680,6 +1003,13 @@ main{
   font-size:13px;
 }
 
+.account-favorites{
+  margin-top:12px;
+  color:#ff8ba0;
+  font-size:13px;
+  font-weight:850;
+}
+
 .logout-btn{
   width:100%;
   margin-top:18px;
@@ -848,16 +1178,44 @@ main{
   font-size:30px;
 }
 
-.detail-price{
+.detail-price-row{
+  display:flex;
+  align-items:baseline;
+  flex-wrap:wrap;
+  gap:7px;
   margin:10px 0;
+}
+
+.detail-price{
+  margin:0;
   color:var(--blue);
   font-size:30px;
+  font-weight:950;
+}
+
+.detail-old-price{
+  color:#788a93;
+  text-decoration:line-through;
+  font-size:14px;
+  font-weight:800;
+}
+
+.detail-discount{
+  padding:5px 7px;
+  border-radius:6px;
+  background:var(--yellow);
+  color:#241a00;
+  font-size:11px;
   font-weight:950;
 }
 
 .detail-stock{
   color:#37d47d;
   font-weight:850;
+}
+
+.detail-stock.out{
+  color:#ff7777;
 }
 
 .detail-specs{
@@ -879,15 +1237,36 @@ main{
   line-height:1.5;
 }
 
+.detail-actions{
+  display:grid;
+  grid-template-columns:1fr 52px;
+  gap:8px;
+  margin-top:16px;
+}
+
 .detail-add{
   width:100%;
-  margin-top:16px;
+  margin-top:0;
   padding:13px;
   border:0;
   border-radius:9px;
   background:linear-gradient(135deg,var(--blue),var(--blue2));
   color:white;
   font-weight:950;
+}
+
+.detail-favorite{
+  width:52px;
+  border:1px solid #31566b;
+  border-radius:9px;
+  background:#0c1d28;
+  color:white;
+  font-size:24px;
+}
+
+.detail-favorite.active{
+  border-color:#c53b56;
+  color:#ff4f69;
 }
 
 /* RESEÑAS */
@@ -1069,12 +1448,18 @@ main{
 }
 
 @media(max-width:1100px){
+
   .products{
     grid-template-columns:repeat(4,minmax(0,1fr));
+  }
+
+  .filters-grid{
+    grid-template-columns:repeat(3,minmax(0,1fr));
   }
 }
 
 @media(max-width:820px){
+
   .products{
     grid-template-columns:repeat(3,minmax(0,1fr));
   }
@@ -1096,16 +1481,23 @@ main{
   }
 
   .account-btn{
-    max-width:86px;
+    max-width:83px;
     min-height:41px;
-    padding:0 8px;
-    font-size:11px;
+    padding:0 7px;
+    font-size:10px;
+  }
+
+  .favorites-btn{
+    min-width:40px;
+    width:40px;
+    min-height:41px;
+    padding:0;
   }
 
   .cart-btn{
     min-height:41px;
-    padding:0 8px;
-    font-size:12px;
+    padding:0 7px;
+    font-size:11px;
   }
 
   .search-row{
@@ -1120,6 +1512,26 @@ main{
 
   .quick{
     padding:0 8px;
+  }
+
+  .featured-section{
+    padding:0 7px;
+  }
+
+  .market-controls{
+    padding:0 7px;
+  }
+
+  .featured-card{
+    flex-basis:155px;
+  }
+
+  .featured-photo{
+    height:145px;
+  }
+
+  .filters-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr));
   }
 
   main{
@@ -1158,26 +1570,24 @@ main{
 
   .card-rating{
     gap:3px;
+    font-size:9px;
+    min-height:17px;
   }
 
-  .card-stars{
+  .card-rating-stars{
     font-size:11px;
   }
 
-  .card-rating-number{
-    font-size:9.5px;
-  }
-
-  .card-rating-count{
-    font-size:9px;
-  }
-
-  .card-no-reviews{
+  .card-no-rating{
     font-size:9px;
   }
 
   .card-price{
     font-size:16px;
+  }
+
+  .card-old-price{
+    font-size:9px;
   }
 
   .card-stock{
@@ -1191,6 +1601,12 @@ main{
   .add{
     padding:8px 4px;
     font-size:11px;
+  }
+
+  .card-favorite{
+    width:31px;
+    height:31px;
+    font-size:18px;
   }
 
   .product-modal{
@@ -1230,7 +1646,6 @@ main{
 
   .detail-price{
     font-size:26px;
-    margin:8px 0;
   }
 
   .detail-specs{
@@ -1251,8 +1666,13 @@ main{
 }
 
 @media(max-width:390px){
+
   .gallery-slide{
     height:350px;
+  }
+
+  .filters-grid{
+    grid-template-columns:1fr 1fr;
   }
 }
 </style>
@@ -1268,6 +1688,7 @@ main{
       <div class="brand-main">
         LOE <span>MOBIL</span>
       </div>
+
       <div class="brand-sub">
         FIX & GEAR
       </div>
@@ -1282,6 +1703,20 @@ main{
     </button>
 
     <button
+      class="favorites-btn"
+      onclick="showFavorites()"
+      aria-label="Favoritos"
+    >
+      ♥
+      <span
+        id="favoriteCount"
+        class="favorite-count"
+      >
+        0
+      </span>
+    </button>
+
+    <button
       class="cart-btn"
       onclick="openCart()"
     >
@@ -1289,12 +1724,15 @@ main{
       <span
         class="cart-count"
         id="cartCount"
-      >0</span>
+      >
+        0
+      </span>
     </button>
 
   </div>
 
   <div class="search-row">
+
     <div class="search">
 
       <input
@@ -1308,37 +1746,266 @@ main{
       </button>
 
     </div>
+
   </div>
 
   <div class="categories-wrap">
+
     <div
       id="cats"
       class="categories"
     >
+
       <button
         class="active"
         data-id=""
       >
         Todos
       </button>
+
     </div>
+
   </div>
 
 </header>
 
 <section class="quick">
+
   <div class="quick-box">
-    <div class="quick-item">📱 Teléfonos</div>
-    <div class="quick-item">🧩 Repuestos</div>
-    <div class="quick-item">🔌 Accesorios</div>
-    <div class="quick-item">🚚 Delivery</div>
-    <div class="quick-item">🛠 Servicio técnico</div>
+
+    <div class="quick-item">
+      📱 Teléfonos
+    </div>
+
+    <div class="quick-item">
+      🧩 Repuestos
+    </div>
+
+    <div class="quick-item">
+      🔌 Accesorios
+    </div>
+
+    <div class="quick-item">
+      🚚 Delivery
+    </div>
+
+    <div class="quick-item">
+      🛠 Servicio técnico
+    </div>
+
   </div>
+
+</section>
+
+<!-- DESTACADOS Y OFERTAS -->
+
+<section
+  id="featuredSection"
+  class="featured-section"
+>
+
+  <div class="market-title">
+
+    <h2>
+      🔥 Destacados y ofertas
+    </h2>
+
+    <span>
+      Selección LOE MOBIL
+    </span>
+
+  </div>
+
+  <div
+    id="featuredRail"
+    class="featured-rail"
+  ></div>
+
+</section>
+
+<!-- FILTROS -->
+
+<section class="market-controls">
+
+  <div class="filters-panel">
+
+    <div class="filters-head">
+
+      <strong>
+        ⚙️ Filtrar y ordenar
+      </strong>
+
+      <button
+        class="filters-toggle"
+        onclick="toggleFiltersPanel()"
+      >
+        Mostrar filtros
+      </button>
+
+    </div>
+
+    <div
+      id="filtersBody"
+      class="filters-body"
+    >
+
+      <div class="filters-grid">
+
+        <div class="filter-field">
+
+          <label>
+            Marca
+          </label>
+
+          <select
+            id="brandFilter"
+            onchange="applyFilters()"
+          >
+
+            <option value="">
+              Todas
+            </option>
+
+          </select>
+
+        </div>
+
+        <div class="filter-field">
+
+          <label>
+            Condición
+          </label>
+
+          <select
+            id="conditionFilter"
+            onchange="applyFilters()"
+          >
+
+            <option value="">
+              Todas
+            </option>
+
+          </select>
+
+        </div>
+
+        <div class="filter-field">
+
+          <label>
+            Almacenamiento
+          </label>
+
+          <select
+            id="storageFilter"
+            onchange="applyFilters()"
+          >
+
+            <option value="">
+              Todos
+            </option>
+
+          </select>
+
+        </div>
+
+        <div class="filter-field">
+
+          <label>
+            Precio mínimo
+          </label>
+
+          <input
+            id="minPriceFilter"
+            type="number"
+            min="0"
+            placeholder="RD$"
+            oninput="applyFilters()"
+          >
+
+        </div>
+
+        <div class="filter-field">
+
+          <label>
+            Precio máximo
+          </label>
+
+          <input
+            id="maxPriceFilter"
+            type="number"
+            min="0"
+            placeholder="RD$"
+            oninput="applyFilters()"
+          >
+
+        </div>
+
+        <div class="filter-field">
+
+          <label>
+            Ordenar
+          </label>
+
+          <select
+            id="sortFilter"
+            onchange="applyFilters()"
+          >
+
+            <option value="recent">
+              Más recientes
+            </option>
+
+            <option value="priceLow">
+              Precio: menor a mayor
+            </option>
+
+            <option value="priceHigh">
+              Precio: mayor a menor
+            </option>
+
+            <option value="rating">
+              Mejor valorados
+            </option>
+
+            <option value="discount">
+              Mayor descuento
+            </option>
+
+          </select>
+
+        </div>
+
+      </div>
+
+      <div class="filters-actions">
+
+        <button
+          class="filter-action clear-filter"
+          onclick="clearMarketplaceFilters()"
+        >
+          Limpiar filtros
+        </button>
+
+        <button
+          id="favoriteFilterBtn"
+          class="filter-action favorite-filter"
+          onclick="toggleFavoritesOnly()"
+        >
+          ♡ Solo favoritos
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
 </section>
 
 <main>
 
   <div class="section-head">
+
     <h1 id="sectionTitle">
       Todos los productos
     </h1>
@@ -1347,6 +2014,7 @@ main{
       id="resultCount"
       class="result-count"
     ></div>
+
   </div>
 
   <div
@@ -1383,7 +2051,10 @@ main{
   <div class="drawer">
 
     <div class="drawer-head">
-      <h2>Tu carrito</h2>
+
+      <h2>
+        Tu carrito
+      </h2>
 
       <button
         class="close"
@@ -1391,6 +2062,7 @@ main{
       >
         ×
       </button>
+
     </div>
 
     <div id="cartItems"></div>
@@ -1398,10 +2070,13 @@ main{
     <div class="cart-footer">
 
       <div class="cart-total">
+
         Total:
+
         <span id="cartTotal">
           RD$0.00
         </span>
+
       </div>
 
       <button
@@ -1414,6 +2089,7 @@ main{
     </div>
 
   </div>
+
 </div>
 
 <!-- CUENTA -->
@@ -1473,7 +2149,11 @@ main{
       >
 
         <div class="auth-field">
-          <label>Correo electrónico</label>
+
+          <label>
+            Correo electrónico
+          </label>
+
           <input
             id="loginEmail"
             type="email"
@@ -1481,10 +2161,15 @@ main{
             required
             placeholder="correo@ejemplo.com"
           >
+
         </div>
 
         <div class="auth-field">
-          <label>Contraseña</label>
+
+          <label>
+            Contraseña
+          </label>
+
           <input
             id="loginPassword"
             type="password"
@@ -1492,6 +2177,7 @@ main{
             required
             placeholder="Tu contraseña"
           >
+
         </div>
 
         <button
@@ -1511,7 +2197,11 @@ main{
       >
 
         <div class="auth-field">
-          <label>Nombre</label>
+
+          <label>
+            Nombre
+          </label>
+
           <input
             id="registerName"
             type="text"
@@ -1519,10 +2209,15 @@ main{
             required
             placeholder="Tu nombre"
           >
+
         </div>
 
         <div class="auth-field">
-          <label>Correo electrónico</label>
+
+          <label>
+            Correo electrónico
+          </label>
+
           <input
             id="registerEmail"
             type="email"
@@ -1530,10 +2225,15 @@ main{
             required
             placeholder="correo@ejemplo.com"
           >
+
         </div>
 
         <div class="auth-field">
-          <label>Contraseña</label>
+
+          <label>
+            Contraseña
+          </label>
+
           <input
             id="registerPassword"
             type="password"
@@ -1542,6 +2242,7 @@ main{
             required
             placeholder="Mínimo 6 caracteres"
           >
+
         </div>
 
         <button
@@ -1585,6 +2286,13 @@ main{
           class="account-email"
         ></div>
 
+        <div
+          id="accountFavorites"
+          class="account-favorites"
+        >
+          ♥ 0 favoritos
+        </div>
+
         <button
           class="logout-btn"
           onclick="logoutUser()"
@@ -1597,6 +2305,7 @@ main{
     </div>
 
   </div>
+
 </div>
 
 <!-- PRODUCTO -->
@@ -1626,6 +2335,7 @@ main{
     ></div>
 
   </div>
+
 </div>
 
 <script>
@@ -1654,14 +2364,28 @@ let selectedRating = 0;
 let currentUser = null;
 
 let accessToken =
-localStorage.getItem("loeAccessToken") || "";
+localStorage.getItem(
+  "loeAccessToken"
+) || "";
 
 let cart =
 JSON.parse(
-  localStorage.getItem("loeCart") || "[]"
+  localStorage.getItem(
+    "loeCart"
+  ) || "[]"
 );
 
-/* UTILIDADES */
+/* MARKETPLACE */
+
+let favorites =
+new Set();
+
+let favoritesOnly =
+false;
+
+/* ===========================
+   UTILIDADES
+=========================== */
 
 function money(n){
 
@@ -1694,17 +2418,24 @@ function getProductImages(p){
     Array.isArray(p.images) &&
     p.images.length
   ){
-    images = p.images.filter(Boolean);
+
+    images =
+    p.images.filter(Boolean);
   }
 
   if(
     !images.length &&
     p.image_url
   ){
-    images = [p.image_url];
+
+    images = [
+      p.image_url
+    ];
   }
 
-  return [...new Set(images)];
+  return [
+    ...new Set(images)
+  ];
 }
 
 function userName(){
@@ -1714,8 +2445,14 @@ function userName(){
   }
 
   return (
-    currentUser.user_metadata?.full_name ||
-    currentUser.email?.split("@")[0] ||
+    currentUser
+    .user_metadata
+    ?.full_name ||
+
+    currentUser
+    .email
+    ?.split("@")[0] ||
+
     "Cliente"
   );
 }
@@ -1724,63 +2461,126 @@ function authHeaders(){
 
   return {
     apikey:SUPABASE_KEY,
-    Authorization:`Bearer ${accessToken}`,
-    "Content-Type":"application/json"
+    Authorization:
+    `Bearer ${accessToken}`,
+    "Content-Type":
+    "application/json"
   };
 }
 
-/* CALIFICACIONES */
+function hasOffer(p){
+
+  return (
+    Number(p.old_price || 0) >
+    Number(p.price || 0)
+  );
+}
+
+function discountPercent(p){
+
+  const old =
+  Number(p.old_price || 0);
+
+  const current =
+  Number(p.price || 0);
+
+  if(
+    old <= 0 ||
+    current <= 0 ||
+    old <= current
+  ){
+
+    return 0;
+  }
+
+  return Math.round(
+    (
+      (old-current) /
+      old
+    ) * 100
+  );
+}
+
+function productAvailable(p){
+
+  return (
+    p.available !== false
+  );
+}
+
+/* ===========================
+   CALIFICACIONES
+=========================== */
 
 function buildProductRatings(){
 
   productRatings = {};
 
-  approvedReviews.forEach(review => {
+  approvedReviews
+  .forEach(review => {
 
-    const productId =
-    String(review.product_id);
+    const id =
+    String(
+      review.product_id
+    );
 
-    if(!productRatings[productId]){
+    if(
+      !productRatings[id]
+    ){
 
-      productRatings[productId] = {
-        count:0,
+      productRatings[id] = {
+        total:0,
         sum:0,
         average:0
       };
     }
 
     const rating =
-    Number(review.rating || 0);
+    Number(
+      review.rating || 0
+    );
 
-    productRatings[productId].count += 1;
-    productRatings[productId].sum += rating;
+    productRatings[id].total++;
+
+    productRatings[id].sum +=
+    rating;
   });
 
-  Object.keys(productRatings)
-  .forEach(productId => {
+  Object
+  .keys(productRatings)
+  .forEach(id => {
 
-    const data =
-    productRatings[productId];
+    const item =
+    productRatings[id];
 
-    data.average =
-    data.count
-    ? data.sum / data.count
+    item.average =
+    item.total
+    ? item.sum / item.total
     : 0;
   });
 }
 
-function productRatingHtml(productId){
+function ratingCardHtml(
+  productId
+){
 
   const data =
-  productRatings[String(productId)];
+  productRatings[
+    String(productId)
+  ];
 
-  if(!data || !data.count){
+  if(
+    !data ||
+    !data.total
+  ){
 
     return `
       <div class="card-rating">
-        <span class="card-no-reviews">
+
+        <span class="card-no-rating">
           Sin opiniones
         </span>
+
       </div>
     `;
   }
@@ -1790,40 +2590,50 @@ function productRatingHtml(productId){
     0,
     Math.min(
       5,
-      Math.round(data.average)
+      Math.round(
+        data.average
+      )
     )
   );
 
   const stars =
   "★".repeat(rounded) +
-  "☆".repeat(5-rounded);
+  "☆".repeat(
+    5-rounded
+  );
 
   return `
     <div class="card-rating">
 
-      <span class="card-stars">
+      <span class="card-rating-stars">
         ${stars}
       </span>
 
-      <span class="card-rating-number">
+      <span class="card-rating-score">
         ${data.average.toFixed(1)}
       </span>
 
       <span class="card-rating-count">
-        (${data.count})
+        (${data.total})
       </span>
 
     </div>
   `;
 }
 
-/* CUENTAS */
+/* ===========================
+   CUENTAS
+=========================== */
 
 function openAccount(){
 
   document
-  .getElementById("authModal")
-  .classList.add("show");
+  .getElementById(
+    "authModal"
+  )
+  .classList.add(
+    "show"
+  );
 
   renderAccountState();
 }
@@ -1831,13 +2641,21 @@ function openAccount(){
 function closeAccount(){
 
   document
-  .getElementById("authModal")
-  .classList.remove("show");
+  .getElementById(
+    "authModal"
+  )
+  .classList.remove(
+    "show"
+  );
 }
 
 function authOverlayClose(e){
 
-  if(e.target.id === "authModal"){
+  if(
+    e.target.id ===
+    "authModal"
+  ){
+
     closeAccount();
   }
 }
@@ -1848,30 +2666,56 @@ function showAuthTab(tab){
   tab === "login";
 
   document
-  .getElementById("loginTab")
-  .classList.toggle("active",login);
+  .getElementById(
+    "loginTab"
+  )
+  .classList.toggle(
+    "active",
+    login
+  );
 
   document
-  .getElementById("registerTab")
-  .classList.toggle("active",!login);
+  .getElementById(
+    "registerTab"
+  )
+  .classList.toggle(
+    "active",
+    !login
+  );
 
   document
-  .getElementById("loginForm")
-  .classList.toggle("active",login);
+  .getElementById(
+    "loginForm"
+  )
+  .classList.toggle(
+    "active",
+    login
+  );
 
   document
-  .getElementById("registerForm")
-  .classList.toggle("active",!login);
+  .getElementById(
+    "registerForm"
+  )
+  .classList.toggle(
+    "active",
+    !login
+  );
 
   clearAuthMessage();
 }
 
-function showAuthMessage(text,type){
+function showAuthMessage(
+  text,
+  type
+){
 
   const box =
-  document.getElementById("authMessage");
+  document.getElementById(
+    "authMessage"
+  );
 
-  box.textContent = text;
+  box.textContent =
+  text;
 
   box.className =
   `auth-message show ${type}`;
@@ -1880,10 +2724,15 @@ function showAuthMessage(text,type){
 function clearAuthMessage(){
 
   const box =
-  document.getElementById("authMessage");
+  document.getElementById(
+    "authMessage"
+  );
 
-  box.textContent = "";
-  box.className = "auth-message";
+  box.textContent =
+  "";
+
+  box.className =
+  "auth-message";
 }
 
 async function registerUser(e){
@@ -1894,20 +2743,30 @@ async function registerUser(e){
 
   const name =
   document
-  .getElementById("registerName")
-  .value.trim();
+  .getElementById(
+    "registerName"
+  )
+  .value
+  .trim();
 
   const email =
   document
-  .getElementById("registerEmail")
-  .value.trim();
+  .getElementById(
+    "registerEmail"
+  )
+  .value
+  .trim();
 
   const password =
   document
-  .getElementById("registerPassword")
+  .getElementById(
+    "registerPassword"
+  )
   .value;
 
-  if(name.length < 2){
+  if(
+    name.length < 2
+  ){
 
     showAuthMessage(
       "Escribe un nombre válido.",
@@ -1917,7 +2776,9 @@ async function registerUser(e){
     return;
   }
 
-  if(password.length < 6){
+  if(
+    password.length < 6
+  ){
 
     showAuthMessage(
       "La contraseña debe tener al menos 6 caracteres.",
@@ -1928,10 +2789,15 @@ async function registerUser(e){
   }
 
   const btn =
-  document.getElementById("registerSubmit");
+  document.getElementById(
+    "registerSubmit"
+  );
 
-  btn.disabled = true;
-  btn.textContent = "Creando cuenta…";
+  btn.disabled =
+  true;
+
+  btn.textContent =
+  "Creando cuenta…";
 
   try{
 
@@ -1940,13 +2806,20 @@ async function registerUser(e){
       `${SUPABASE_URL}/auth/v1/signup`,
       {
         method:"POST",
+
         headers:{
-          apikey:SUPABASE_KEY,
-          "Content-Type":"application/json"
+          apikey:
+          SUPABASE_KEY,
+
+          "Content-Type":
+          "application/json"
         },
-        body:JSON.stringify({
+
+        body:
+        JSON.stringify({
           email,
           password,
+
           data:{
             full_name:name
           }
@@ -1968,7 +2841,9 @@ async function registerUser(e){
     }
 
     document
-    .getElementById("registerForm")
+    .getElementById(
+      "registerForm"
+    )
     .reset();
 
     if(
@@ -1982,6 +2857,8 @@ async function registerUser(e){
         data.user
       );
 
+      await loadFavorites();
+
       renderAccountState();
 
       showAuthMessage(
@@ -1991,7 +2868,9 @@ async function registerUser(e){
 
     }else{
 
-      showAuthTab("login");
+      showAuthTab(
+        "login"
+      );
 
       showAuthMessage(
         "Cuenta creada. Revisa tu correo para confirmar la cuenta y luego inicia sesión.",
@@ -2002,14 +2881,19 @@ async function registerUser(e){
   }catch(err){
 
     showAuthMessage(
-      translateAuthError(err.message),
+      translateAuthError(
+        err.message
+      ),
       "error"
     );
 
   }finally{
 
-    btn.disabled = false;
-    btn.textContent = "Crear mi cuenta";
+    btn.disabled =
+    false;
+
+    btn.textContent =
+    "Crear mi cuenta";
   }
 }
 
@@ -2021,19 +2905,29 @@ async function loginUser(e){
 
   const email =
   document
-  .getElementById("loginEmail")
-  .value.trim();
+  .getElementById(
+    "loginEmail"
+  )
+  .value
+  .trim();
 
   const password =
   document
-  .getElementById("loginPassword")
+  .getElementById(
+    "loginPassword"
+  )
   .value;
 
   const btn =
-  document.getElementById("loginSubmit");
+  document.getElementById(
+    "loginSubmit"
+  );
 
-  btn.disabled = true;
-  btn.textContent = "Entrando…";
+  btn.disabled =
+  true;
+
+  btn.textContent =
+  "Entrando…";
 
   try{
 
@@ -2042,11 +2936,17 @@ async function loginUser(e){
       `${SUPABASE_URL}/auth/v1/token?grant_type=password`,
       {
         method:"POST",
+
         headers:{
-          apikey:SUPABASE_KEY,
-          "Content-Type":"application/json"
+          apikey:
+          SUPABASE_KEY,
+
+          "Content-Type":
+          "application/json"
         },
-        body:JSON.stringify({
+
+        body:
+        JSON.stringify({
           email,
           password
         })
@@ -2072,53 +2972,79 @@ async function loginUser(e){
       data.user
     );
 
+    await loadFavorites();
+
     document
-    .getElementById("loginForm")
+    .getElementById(
+      "loginForm"
+    )
     .reset();
 
     renderAccountState();
+
+    applyFilters();
 
     setTimeout(
       closeAccount,
       500
     );
 
-    if(currentProductId){
-      loadReviews(currentProductId);
+    if(
+      currentProductId
+    ){
+
+      loadReviews(
+        currentProductId
+      );
     }
 
   }catch(err){
 
     showAuthMessage(
-      translateAuthError(err.message),
+      translateAuthError(
+        err.message
+      ),
       "error"
     );
 
   }finally{
 
-    btn.disabled = false;
-    btn.textContent = "Iniciar sesión";
+    btn.disabled =
+    false;
+
+    btn.textContent =
+    "Iniciar sesión";
   }
 }
 
-function saveSession(token,refresh,user){
+function saveSession(
+  token,
+  refresh,
+  user
+){
 
-  accessToken = token;
-  currentUser = user;
+  accessToken =
+  token;
 
-  localStorage.setItem(
+  currentUser =
+  user;
+
+  localStorage
+  .setItem(
     "loeAccessToken",
     token || ""
   );
 
-  localStorage.setItem(
+  localStorage
+  .setItem(
     "loeRefreshToken",
     refresh || ""
   );
 
   if(user){
 
-    localStorage.setItem(
+    localStorage
+    .setItem(
       "loeUser",
       JSON.stringify(user)
     );
@@ -2127,20 +3053,34 @@ function saveSession(token,refresh,user){
 
 function clearSession(){
 
-  accessToken = "";
-  currentUser = null;
+  accessToken =
+  "";
 
-  localStorage.removeItem(
+  currentUser =
+  null;
+
+  favorites =
+  new Set();
+
+  favoritesOnly =
+  false;
+
+  localStorage
+  .removeItem(
     "loeAccessToken"
   );
 
-  localStorage.removeItem(
+  localStorage
+  .removeItem(
     "loeRefreshToken"
   );
 
-  localStorage.removeItem(
+  localStorage
+  .removeItem(
     "loeUser"
   );
+
+  updateFavoriteUI();
 }
 
 async function restoreSession(){
@@ -2148,6 +3088,8 @@ async function restoreSession(){
   if(!accessToken){
 
     renderAccountState();
+
+    updateFavoriteUI();
 
     return;
   }
@@ -2159,13 +3101,17 @@ async function restoreSession(){
       `${SUPABASE_URL}/auth/v1/user`,
       {
         headers:{
-          apikey:SUPABASE_KEY,
-          Authorization:`Bearer ${accessToken}`
+          apikey:
+          SUPABASE_KEY,
+
+          Authorization:
+          `Bearer ${accessToken}`
         }
       }
     );
 
     if(!r.ok){
+
       throw new Error();
     }
 
@@ -2178,8 +3124,14 @@ async function restoreSession(){
     await refreshSession();
 
     if(!refreshed){
+
       clearSession();
     }
+  }
+
+  if(currentUser){
+
+    await loadFavorites();
   }
 
   renderAccountState();
@@ -2188,11 +3140,13 @@ async function restoreSession(){
 async function refreshSession(){
 
   const refreshToken =
-  localStorage.getItem(
+  localStorage
+  .getItem(
     "loeRefreshToken"
   );
 
   if(!refreshToken){
+
     return false;
   }
 
@@ -2203,17 +3157,25 @@ async function refreshSession(){
       `${SUPABASE_URL}/auth/v1/token?grant_type=refresh_token`,
       {
         method:"POST",
+
         headers:{
-          apikey:SUPABASE_KEY,
-          "Content-Type":"application/json"
+          apikey:
+          SUPABASE_KEY,
+
+          "Content-Type":
+          "application/json"
         },
-        body:JSON.stringify({
-          refresh_token:refreshToken
+
+        body:
+        JSON.stringify({
+          refresh_token:
+          refreshToken
         })
       }
     );
 
     if(!r.ok){
+
       return false;
     }
 
@@ -2222,7 +3184,8 @@ async function refreshSession(){
 
     saveSession(
       data.access_token,
-      data.refresh_token || refreshToken,
+      data.refresh_token ||
+      refreshToken,
       data.user
     );
 
@@ -2244,9 +3207,13 @@ async function logoutUser(){
         `${SUPABASE_URL}/auth/v1/logout`,
         {
           method:"POST",
+
           headers:{
-            apikey:SUPABASE_KEY,
-            Authorization:`Bearer ${accessToken}`
+            apikey:
+            SUPABASE_KEY,
+
+            Authorization:
+            `Bearer ${accessToken}`
           }
         }
       );
@@ -2255,24 +3222,37 @@ async function logoutUser(){
   }catch(err){}
 
   clearSession();
+
   renderAccountState();
+
+  applyFilters();
+
   closeAccount();
 
   if(currentProductId){
-    loadReviews(currentProductId);
+
+    loadReviews(
+      currentProductId
+    );
   }
 }
 
 function renderAccountState(){
 
   const btn =
-  document.getElementById("accountBtn");
+  document.getElementById(
+    "accountBtn"
+  );
 
   const guest =
-  document.getElementById("authGuest");
+  document.getElementById(
+    "authGuest"
+  );
 
   const user =
-  document.getElementById("authUser");
+  document.getElementById(
+    "authUser"
+  );
 
   if(currentUser){
 
@@ -2282,7 +3262,9 @@ function renderAccountState(){
     btn.textContent =
     `👤 ${name}`;
 
-    btn.classList.add("logged");
+    btn.classList.add(
+      "logged"
+    );
 
     guest.style.display =
     "none";
@@ -2291,21 +3273,34 @@ function renderAccountState(){
     "block";
 
     document
-    .getElementById("accountName")
+    .getElementById(
+      "accountName"
+    )
     .textContent =
     name;
 
     document
-    .getElementById("accountEmail")
+    .getElementById(
+      "accountEmail"
+    )
     .textContent =
     currentUser.email || "";
+
+    document
+    .getElementById(
+      "accountFavorites"
+    )
+    .textContent =
+    `♥ ${favorites.size} favorito${favorites.size===1 ? "" : "s"}`;
 
   }else{
 
     btn.textContent =
     "👤 Ingresar";
 
-    btn.classList.remove("logged");
+    btn.classList.remove(
+      "logged"
+    );
 
     guest.style.display =
     "block";
@@ -2318,74 +3313,473 @@ function renderAccountState(){
 function translateAuthError(msg){
 
   const text =
-  String(msg || "").toLowerCase();
+  String(
+    msg || ""
+  )
+  .toLowerCase();
 
   if(
-    text.includes("invalid login") ||
-    text.includes("invalid credentials")
+    text.includes(
+      "invalid login"
+    ) ||
+    text.includes(
+      "invalid credentials"
+    )
   ){
+
     return "Correo o contraseña incorrectos.";
   }
 
   if(
-    text.includes("email not confirmed")
+    text.includes(
+      "email not confirmed"
+    )
   ){
+
     return "Primero debes confirmar tu correo electrónico.";
   }
 
   if(
-    text.includes("already registered") ||
-    text.includes("already been registered")
+    text.includes(
+      "already registered"
+    ) ||
+    text.includes(
+      "already been registered"
+    )
   ){
+
     return "Ese correo ya tiene una cuenta.";
   }
 
   if(
-    text.includes("password")
+    text.includes(
+      "password"
+    )
   ){
+
     return "Revisa la contraseña. Debe tener al menos 6 caracteres.";
   }
 
   if(
-    text.includes("rate limit")
+    text.includes(
+      "rate limit"
+    )
   ){
+
     return "Demasiados intentos. Espera un momento y vuelve a intentar.";
   }
 
-  return msg || "Ocurrió un error.";
+  return (
+    msg ||
+    "Ocurrió un error."
+  );
 }
 
-/* PRODUCTOS */
+/* ===========================
+   FAVORITOS
+=========================== */
+
+async function loadFavorites(){
+
+  favorites =
+  new Set();
+
+  if(
+    !currentUser ||
+    !accessToken
+  ){
+
+    updateFavoriteUI();
+
+    return;
+  }
+
+  try{
+
+    let r =
+    await fetch(
+      `${SUPABASE_URL}/rest/v1/favorites?select=product_id&user_id=eq.${encodeURIComponent(currentUser.id)}`,
+      {
+        headers:{
+          apikey:
+          SUPABASE_KEY,
+
+          Authorization:
+          `Bearer ${accessToken}`
+        }
+      }
+    );
+
+    if(
+      r.status === 401 ||
+      r.status === 403
+    ){
+
+      const refreshed =
+      await refreshSession();
+
+      if(refreshed){
+
+        r =
+        await fetch(
+          `${SUPABASE_URL}/rest/v1/favorites?select=product_id&user_id=eq.${encodeURIComponent(currentUser.id)}`,
+          {
+            headers:{
+              apikey:
+              SUPABASE_KEY,
+
+              Authorization:
+              `Bearer ${accessToken}`
+            }
+          }
+        );
+      }
+    }
+
+    if(!r.ok){
+
+      throw new Error();
+    }
+
+    const rows =
+    await r.json();
+
+    rows.forEach(row => {
+
+      favorites.add(
+        String(
+          row.product_id
+        )
+      );
+    });
+
+  }catch(err){
+
+    console.error(
+      "No se pudieron cargar favoritos",
+      err
+    );
+  }
+
+  updateFavoriteUI();
+}
+
+async function toggleFavorite(id){
+
+  if(
+    !currentUser ||
+    !accessToken
+  ){
+
+    openAccount();
+
+    showAuthTab(
+      "login"
+    );
+
+    showAuthMessage(
+      "Inicia sesión para guardar productos en favoritos.",
+      "error"
+    );
+
+    return;
+  }
+
+  const productId =
+  String(id);
+
+  const exists =
+  favorites.has(
+    productId
+  );
+
+  try{
+
+    let r;
+
+    if(exists){
+
+      r =
+      await fetch(
+        `${SUPABASE_URL}/rest/v1/favorites?user_id=eq.${encodeURIComponent(currentUser.id)}&product_id=eq.${encodeURIComponent(productId)}`,
+        {
+          method:"DELETE",
+
+          headers:{
+            apikey:
+            SUPABASE_KEY,
+
+            Authorization:
+            `Bearer ${accessToken}`
+          }
+        }
+      );
+
+    }else{
+
+      r =
+      await fetch(
+        `${SUPABASE_URL}/rest/v1/favorites`,
+        {
+          method:"POST",
+
+          headers:{
+            ...authHeaders(),
+            Prefer:
+            "return=minimal"
+          },
+
+          body:
+          JSON.stringify({
+            user_id:
+            currentUser.id,
+
+            product_id:
+            Number(productId)
+          })
+        }
+      );
+    }
+
+    if(
+      r.status === 401 ||
+      r.status === 403
+    ){
+
+      const refreshed =
+      await refreshSession();
+
+      if(!refreshed){
+
+        throw new Error(
+          "Tu sesión expiró."
+        );
+      }
+
+      return toggleFavorite(
+        productId
+      );
+    }
+
+    if(!r.ok){
+
+      throw new Error(
+        "No se pudo actualizar favoritos."
+      );
+    }
+
+    if(exists){
+
+      favorites.delete(
+        productId
+      );
+
+    }else{
+
+      favorites.add(
+        productId
+      );
+    }
+
+    updateFavoriteUI();
+
+    applyFilters();
+
+    if(
+      currentProductId ===
+      productId
+    ){
+
+      updateDetailFavoriteButton(
+        productId
+      );
+    }
+
+  }catch(err){
+
+    alert(
+      err.message ||
+      "No se pudo actualizar favoritos."
+    );
+  }
+}
+
+function updateFavoriteUI(){
+
+  const count =
+  document.getElementById(
+    "favoriteCount"
+  );
+
+  if(count){
+
+    count.textContent =
+    favorites.size;
+  }
+
+  const accountFavorites =
+  document.getElementById(
+    "accountFavorites"
+  );
+
+  if(accountFavorites){
+
+    accountFavorites.textContent =
+    `♥ ${favorites.size} favorito${favorites.size===1 ? "" : "s"}`;
+  }
+
+  const filterBtn =
+  document.getElementById(
+    "favoriteFilterBtn"
+  );
+
+  if(filterBtn){
+
+    filterBtn.classList.toggle(
+      "active",
+      favoritesOnly
+    );
+
+    filterBtn.textContent =
+    favoritesOnly
+    ? "♥ Mostrando favoritos"
+    : "♡ Solo favoritos";
+  }
+}
+
+function showFavorites(){
+
+  if(!currentUser){
+
+    openAccount();
+
+    showAuthTab(
+      "login"
+    );
+
+    showAuthMessage(
+      "Inicia sesión para ver tus productos favoritos.",
+      "error"
+    );
+
+    return;
+  }
+
+  favoritesOnly =
+  true;
+
+  document
+  .getElementById(
+    "filtersBody"
+  )
+  .classList.add(
+    "show"
+  );
+
+  updateFavoriteUI();
+
+  applyFilters();
+
+  document
+  .getElementById(
+    "products"
+  )
+  .scrollIntoView({
+    behavior:"smooth",
+    block:"start"
+  });
+}
+
+function toggleFavoritesOnly(){
+
+  if(!currentUser){
+
+    openAccount();
+
+    showAuthTab(
+      "login"
+    );
+
+    showAuthMessage(
+      "Inicia sesión para utilizar tus favoritos.",
+      "error"
+    );
+
+    return;
+  }
+
+  favoritesOnly =
+  !favoritesOnly;
+
+  updateFavoriteUI();
+
+  applyFilters();
+}
+
+function updateDetailFavoriteButton(
+  id
+){
+
+  const button =
+  document.getElementById(
+    "detailFavoriteBtn"
+  );
+
+  if(!button){
+    return;
+  }
+
+  const active =
+  favorites.has(
+    String(id)
+  );
+
+  button.classList.toggle(
+    "active",
+    active
+  );
+
+  button.textContent =
+  active
+  ? "♥"
+  : "♡";
+}
+
+/* ===========================
+   PRODUCTOS
+=========================== */
 
 async function load(){
 
   try{
 
-    const [cr,pr,rr] =
+    const [
+      cr,
+      pr
+    ] =
     await Promise.all([
 
       fetch(
         `${SUPABASE_URL}/rest/v1/categories?select=*&order=id`,
-        {headers}
+        {
+          headers
+        }
       ),
 
       fetch(
         `${SUPABASE_URL}/rest/v1/products?select=*&order=id.desc`,
-        {headers}
-      ),
-
-      fetch(
-        `${SUPABASE_URL}/rest/v1/reviews?select=product_id,rating&approved=eq.true`,
-        {headers}
+        {
+          headers
+        }
       )
 
     ]);
 
     if(
       !cr.ok ||
-      !pr.ok ||
-      !rr.ok
+      !pr.ok
     ){
+
       throw new Error();
     }
 
@@ -2395,19 +3789,52 @@ async function load(){
     products =
     await pr.json();
 
+    /* LAS RESEÑAS YA NO ROMPEN
+       LA TIENDA SI FALLAN */
+
     approvedReviews =
-    await rr.json();
+    [];
+
+    try{
+
+      const rr =
+      await fetch(
+        `${SUPABASE_URL}/rest/v1/reviews?select=product_id,rating&approved=eq.true`,
+        {
+          headers
+        }
+      );
+
+      if(rr.ok){
+
+        approvedReviews =
+        await rr.json();
+      }
+
+    }catch(err){
+
+      approvedReviews =
+      [];
+    }
 
     buildProductRatings();
 
     renderCategories();
+
+    buildMarketplaceFilters();
+
+    renderFeatured();
+
     applyFilters();
+
     updateCart();
 
   }catch(err){
 
     document
-    .getElementById("status")
+    .getElementById(
+      "status"
+    )
     .textContent =
     "No se pudieron cargar los productos.";
   }
@@ -2416,12 +3843,27 @@ async function load(){
 function renderCategories(){
 
   const box =
-  document.getElementById("cats");
+  document.getElementById(
+    "cats"
+  );
 
-  categories.forEach(cat => {
+  box.innerHTML = `
+
+    <button
+      class="active"
+      data-id=""
+    >
+      Todos
+    </button>
+  `;
+
+  categories
+  .forEach(cat => {
 
     const button =
-    document.createElement("button");
+    document.createElement(
+      "button"
+    );
 
     button.textContent =
     cat.name;
@@ -2429,49 +3871,78 @@ function renderCategories(){
     button.dataset.id =
     cat.id;
 
-    button.onclick = () => {
+    button.onclick =
+    () => {
 
       document
-      .querySelectorAll("#cats button")
+      .querySelectorAll(
+        "#cats button"
+      )
       .forEach(x =>
-        x.classList.remove("active")
+
+        x.classList.remove(
+          "active"
+        )
       );
 
       button
-      .classList.add("active");
+      .classList.add(
+        "active"
+      );
 
       currentCategory =
-      String(cat.id);
+      String(
+        cat.id
+      );
 
       document
-      .getElementById("sectionTitle")
+      .getElementById(
+        "sectionTitle"
+      )
       .textContent =
       cat.name;
 
       applyFilters();
     };
 
-    box.appendChild(button);
+    box.appendChild(
+      button
+    );
   });
 
   box
-  .querySelector('[data-id=""]')
-  .onclick = () => {
+  .querySelector(
+    '[data-id=""]'
+  )
+  .onclick =
+  () => {
 
     document
-    .querySelectorAll("#cats button")
+    .querySelectorAll(
+      "#cats button"
+    )
     .forEach(x =>
-      x.classList.remove("active")
+
+      x.classList.remove(
+        "active"
+      )
     );
 
     box
-    .querySelector('[data-id=""]')
-    .classList.add("active");
+    .querySelector(
+      '[data-id=""]'
+    )
+    .classList.add(
+      "active"
+    );
 
-    currentCategory = "";
+    currentCategory =
+    "";
 
     document
-    .getElementById("sectionTitle")
+    .getElementById(
+      "sectionTitle"
+    )
     .textContent =
     "Todos los productos";
 
@@ -2479,24 +3950,193 @@ function renderCategories(){
   };
 }
 
+/* ===========================
+   FILTROS MARKETPLACE
+=========================== */
+
+function toggleFiltersPanel(){
+
+  const body =
+  document.getElementById(
+    "filtersBody"
+  );
+
+  body
+  .classList
+  .toggle(
+    "show"
+  );
+}
+
+function uniqueProductValues(
+  field
+){
+
+  return [
+    ...new Set(
+
+      products
+      .map(
+        p =>
+        String(
+          p[field] || ""
+        )
+        .trim()
+      )
+      .filter(Boolean)
+    )
+  ]
+  .sort(
+    (a,b) =>
+    a.localeCompare(
+      b,
+      "es"
+    )
+  );
+}
+
+function populateFilter(
+  id,
+  values,
+  firstText
+){
+
+  const select =
+  document.getElementById(
+    id
+  );
+
+  select.innerHTML =
+  `<option value="">
+    ${safe(firstText)}
+  </option>`;
+
+  values.forEach(value => {
+
+    const option =
+    document.createElement(
+      "option"
+    );
+
+    option.value =
+    value;
+
+    option.textContent =
+    value;
+
+    select.appendChild(
+      option
+    );
+  });
+}
+
+function buildMarketplaceFilters(){
+
+  populateFilter(
+    "brandFilter",
+    uniqueProductValues(
+      "brand"
+    ),
+    "Todas"
+  );
+
+  populateFilter(
+    "conditionFilter",
+    uniqueProductValues(
+      "condition"
+    ),
+    "Todas"
+  );
+
+  populateFilter(
+    "storageFilter",
+    uniqueProductValues(
+      "storage"
+    ),
+    "Todos"
+  );
+}
+
+function clearMarketplaceFilters(){
+
+  document
+  .getElementById(
+    "brandFilter"
+  )
+  .value = "";
+
+  document
+  .getElementById(
+    "conditionFilter"
+  )
+  .value = "";
+
+  document
+  .getElementById(
+    "storageFilter"
+  )
+  .value = "";
+
+  document
+  .getElementById(
+    "minPriceFilter"
+  )
+  .value = "";
+
+  document
+  .getElementById(
+    "maxPriceFilter"
+  )
+  .value = "";
+
+  document
+  .getElementById(
+    "sortFilter"
+  )
+  .value =
+  "recent";
+
+  favoritesOnly =
+  false;
+
+  updateFavoriteUI();
+
+  applyFilters();
+}
+
 function applyFilters(){
 
-  let list = [...products];
+  let list =
+  [...products];
+
+  /* DISPONIBLES */
+
+  list =
+  list.filter(
+    productAvailable
+  );
+
+  /* CATEGORÍA */
 
   if(currentCategory){
 
     list =
     list.filter(
       p =>
-      String(p.category_id) ===
+      String(
+        p.category_id
+      ) ===
       currentCategory
     );
   }
 
+  /* BUSCADOR */
+
   if(currentSearch){
 
     const q =
-    currentSearch.toLowerCase();
+    currentSearch
+    .toLowerCase();
 
     list =
     list.filter(p =>
@@ -2512,38 +4152,436 @@ function applyFilters(){
       ]
 
       .filter(Boolean)
+
       .join(" ")
+
       .toLowerCase()
+
       .includes(q)
     );
   }
 
-  render(list);
+  /* MARCA */
+
+  const brand =
+  document
+  .getElementById(
+    "brandFilter"
+  )
+  ?.value || "";
+
+  if(brand){
+
+    list =
+    list.filter(
+      p =>
+      String(
+        p.brand || ""
+      ) === brand
+    );
+  }
+
+  /* CONDICIÓN */
+
+  const condition =
+  document
+  .getElementById(
+    "conditionFilter"
+  )
+  ?.value || "";
+
+  if(condition){
+
+    list =
+    list.filter(
+      p =>
+      String(
+        p.condition || ""
+      ) === condition
+    );
+  }
+
+  /* ALMACENAMIENTO */
+
+  const storage =
+  document
+  .getElementById(
+    "storageFilter"
+  )
+  ?.value || "";
+
+  if(storage){
+
+    list =
+    list.filter(
+      p =>
+      String(
+        p.storage || ""
+      ) === storage
+    );
+  }
+
+  /* PRECIO MÍNIMO */
+
+  const minRaw =
+  document
+  .getElementById(
+    "minPriceFilter"
+  )
+  ?.value || "";
+
+  if(
+    minRaw !== ""
+  ){
+
+    const min =
+    Number(
+      minRaw
+    );
+
+    list =
+    list.filter(
+      p =>
+      Number(
+        p.price || 0
+      ) >= min
+    );
+  }
+
+  /* PRECIO MÁXIMO */
+
+  const maxRaw =
+  document
+  .getElementById(
+    "maxPriceFilter"
+  )
+  ?.value || "";
+
+  if(
+    maxRaw !== ""
+  ){
+
+    const max =
+    Number(
+      maxRaw
+    );
+
+    list =
+    list.filter(
+      p =>
+      Number(
+        p.price || 0
+      ) <= max
+    );
+  }
+
+  /* FAVORITOS */
+
+  if(favoritesOnly){
+
+    list =
+    list.filter(
+      p =>
+      favorites.has(
+        String(
+          p.id
+        )
+      )
+    );
+  }
+
+  /* ORDEN */
+
+  const sort =
+  document
+  .getElementById(
+    "sortFilter"
+  )
+  ?.value ||
+  "recent";
+
+  if(
+    sort ===
+    "priceLow"
+  ){
+
+    list.sort(
+      (a,b) =>
+      Number(
+        a.price || 0
+      ) -
+      Number(
+        b.price || 0
+      )
+    );
+
+  }else if(
+    sort ===
+    "priceHigh"
+  ){
+
+    list.sort(
+      (a,b) =>
+      Number(
+        b.price || 0
+      ) -
+      Number(
+        a.price || 0
+      )
+    );
+
+  }else if(
+    sort ===
+    "rating"
+  ){
+
+    list.sort(
+      (a,b) => {
+
+        const ratingA =
+        productRatings[
+          String(
+            a.id
+          )
+        ]?.average || 0;
+
+        const ratingB =
+        productRatings[
+          String(
+            b.id
+          )
+        ]?.average || 0;
+
+        return (
+          ratingB -
+          ratingA
+        );
+      }
+    );
+
+  }else if(
+    sort ===
+    "discount"
+  ){
+
+    list.sort(
+      (a,b) =>
+      discountPercent(b) -
+      discountPercent(a)
+    );
+
+  }else{
+
+    list.sort(
+      (a,b) =>
+      Number(
+        b.id || 0
+      ) -
+      Number(
+        a.id || 0
+      )
+    );
+  }
+
+  render(
+    list
+  );
 }
+
+/* ===========================
+   DESTACADOS Y OFERTAS
+=========================== */
+
+function renderFeatured(){
+
+  const section =
+  document.getElementById(
+    "featuredSection"
+  );
+
+  const rail =
+  document.getElementById(
+    "featuredRail"
+  );
+
+  const list =
+  products.filter(
+    p =>
+    productAvailable(p) &&
+    (
+      p.featured === true ||
+      hasOffer(p)
+    )
+  );
+
+  if(
+    !list.length
+  ){
+
+    section
+    .classList
+    .remove(
+      "show"
+    );
+
+    rail.innerHTML =
+    "";
+
+    return;
+  }
+
+  section
+  .classList
+  .add(
+    "show"
+  );
+
+  rail.innerHTML =
+  "";
+
+  list.forEach(p => {
+
+    const images =
+    getProductImages(p);
+
+    const portada =
+    images[0] || "";
+
+    const discount =
+    discountPercent(p);
+
+    const card =
+    document.createElement(
+      "article"
+    );
+
+    card.className =
+    "featured-card";
+
+    card.onclick =
+    () =>
+    openProduct(
+      String(p.id)
+    );
+
+    card.innerHTML = `
+
+      <div class="featured-photo">
+
+        ${
+          portada
+          ? `
+            <img
+              src="${safe(portada)}"
+              alt="${safe(p.name)}"
+              loading="lazy"
+            >
+          `
+          : `
+            <span class="no-image">
+              Sin imagen
+            </span>
+          `
+        }
+
+        ${
+          discount
+          ? `
+            <span class="featured-discount">
+              -${discount}%
+            </span>
+          `
+          : ""
+        }
+
+        ${
+          p.featured
+          ? `
+            <span class="featured-fire">
+              🔥
+            </span>
+          `
+          : ""
+        }
+
+      </div>
+
+      <div class="featured-info">
+
+        <div class="featured-name">
+          ${safe(
+            p.name ||
+            "Producto"
+          )}
+        </div>
+
+        <div class="featured-price">
+
+          ${money(
+            p.price
+          )}
+
+          ${
+            hasOffer(p)
+            ? `
+              <span class="featured-old">
+                ${money(
+                  p.old_price
+                )}
+              </span>
+            `
+            : ""
+          }
+
+        </div>
+
+      </div>
+    `;
+
+    rail.appendChild(
+      card
+    );
+  });
+}
+
+/* ===========================
+   RENDER PRODUCTOS
+=========================== */
 
 function render(list){
 
   const status =
-  document.getElementById("status");
+  document.getElementById(
+    "status"
+  );
 
   const grid =
-  document.getElementById("products");
+  document.getElementById(
+    "products"
+  );
 
   const count =
-  document.getElementById("resultCount");
+  document.getElementById(
+    "resultCount"
+  );
 
-  grid.innerHTML = "";
+  grid.innerHTML =
+  "";
 
   count.textContent =
   `${list.length} producto${list.length === 1 ? "" : "s"}`;
 
-  if(!list.length){
+  if(
+    !list.length
+  ){
 
     status.style.display =
     "block";
 
     status.textContent =
-    "No encontramos productos.";
+    favoritesOnly
+    ? "No tienes productos guardados en favoritos."
+    : "No encontramos productos.";
 
     return;
   }
@@ -2554,7 +4592,9 @@ function render(list){
   list.forEach(p => {
 
     const card =
-    document.createElement("article");
+    document.createElement(
+      "article"
+    );
 
     card.className =
     "card";
@@ -2568,15 +4608,22 @@ function render(list){
     const image =
     portada
 
-    ? `<img
-         src="${safe(portada)}"
-         alt="${safe(p.name || "Producto")}"
-         loading="lazy"
-       >`
+    ? `
+      <img
+        src="${safe(portada)}"
+        alt="${safe(
+          p.name ||
+          "Producto"
+        )}"
+        loading="lazy"
+      >
+    `
 
-    : `<span class="no-image">
-         Sin imagen
-       </span>`;
+    : `
+      <span class="no-image">
+        Sin imagen
+      </span>
+    `;
 
     const meta =
     [
@@ -2586,14 +4633,15 @@ function render(list){
     .filter(Boolean)
     .join(" · ");
 
-    const badge =
-    p.condition
+    const discount =
+    discountPercent(p);
 
-    ? `<div class="badge">
-         ${safe(p.condition)}
-       </div>`
-
-    : "";
+    const favorite =
+    favorites.has(
+      String(
+        p.id
+      )
+    );
 
     card.innerHTML = `
 
@@ -2604,7 +4652,50 @@ function render(list){
 
         <div class="photo">
 
-          ${badge}
+          <div class="badges-left">
+
+            ${
+              p.featured
+              ? `
+                <div class="badge badge-featured">
+                  🔥 Destacado
+                </div>
+              `
+              : ""
+            }
+
+            ${
+              discount
+              ? `
+                <div class="badge badge-sale">
+                  -${discount}%
+                </div>
+              `
+              : ""
+            }
+
+            ${
+              p.condition
+              ? `
+                <div class="badge">
+                  ${safe(
+                    p.condition
+                  )}
+                </div>
+              `
+              : ""
+            }
+
+          </div>
+
+          <button
+            type="button"
+            class="card-favorite ${favorite ? "active" : ""}"
+            onclick='event.stopPropagation();toggleFavorite(${JSON.stringify(String(p.id))})'
+            aria-label="Favorito"
+          >
+            ${favorite ? "♥" : "♡"}
+          </button>
 
           ${image}
 
@@ -2613,21 +4704,58 @@ function render(list){
         <div class="card-info">
 
           <div class="card-name">
-            ${safe(p.name || "Producto")}
+            ${safe(
+              p.name ||
+              "Producto"
+            )}
           </div>
 
           <div class="card-meta">
-            ${safe(meta)}
+            ${safe(
+              meta
+            )}
           </div>
 
-          ${productRatingHtml(p.id)}
+          ${ratingCardHtml(
+            p.id
+          )}
 
-          <div class="card-price">
-            ${money(p.price)}
+          <div class="card-price-wrap">
+
+            <div class="card-price">
+              ${money(
+                p.price
+              )}
+            </div>
+
+            ${
+              hasOffer(p)
+              ? `
+                <div class="card-old-price">
+                  ${money(
+                    p.old_price
+                  )}
+                </div>
+              `
+              : ""
+            }
+
           </div>
 
-          <div class="card-stock">
-            ● Disponible
+          <div class="card-stock ${
+            Number(p.stock || 0) <= 0
+            ? "out"
+            : ""
+          }">
+
+            ${
+              Number(
+                p.stock || 0
+              ) > 0
+              ? "● Disponible"
+              : "● Consultar disponibilidad"
+            }
+
           </div>
 
         </div>
@@ -2646,67 +4774,97 @@ function render(list){
       </div>
     `;
 
-    grid.appendChild(card);
+    grid.appendChild(
+      card
+    );
   });
 }
 
-/* DETALLE */
+/* ===========================
+   DETALLE
+=========================== */
 
 function openProduct(id){
 
   const p =
   products.find(
     x =>
-    String(x.id) ===
+    String(
+      x.id
+    ) ===
     String(id)
   );
 
   if(!p){
+
     return;
   }
 
   currentProductId =
   String(id);
 
-  currentGalleryIndex = 0;
-  selectedRating = 0;
+  currentGalleryIndex =
+  0;
+
+  selectedRating =
+  0;
 
   const images =
   getProductImages(p);
 
-  let galleryHtml = "";
+  let galleryHtml =
+  "";
 
-  if(images.length){
+  if(
+    images.length
+  ){
 
     const slides =
     images.map(
-      (url,index) => `
+      (
+        url,
+        index
+      ) => `
+
         <div class="gallery-slide">
+
           <img
             src="${safe(url)}"
             alt="${safe(p.name)} ${index+1}"
           >
+
         </div>
+
       `
-    ).join("");
+    )
+    .join("");
 
     const thumbs =
     images.map(
-      (url,index) => `
+      (
+        url,
+        index
+      ) => `
+
         <button
           class="gallery-thumb ${index===0 ? "active" : ""}"
           onclick="goToGalleryImage(${index})"
           type="button"
         >
+
           <img
             src="${safe(url)}"
             alt=""
           >
+
         </button>
+
       `
-    ).join("");
+    )
+    .join("");
 
     galleryHtml = `
+
       <div class="gallery-wrap">
 
         <div class="gallery-shell">
@@ -2720,7 +4878,9 @@ function openProduct(id){
 
           ${
             images.length > 1
+
             ? `
+
               <button
                 class="gallery-arrow left"
                 type="button"
@@ -2736,7 +4896,9 @@ function openProduct(id){
               >
                 ›
               </button>
+
             `
+
             : ""
           }
 
@@ -2746,6 +4908,7 @@ function openProduct(id){
           images.length > 1
 
           ? `
+
             <div
               id="galleryThumbs"
               class="gallery-thumbs"
@@ -2759,6 +4922,7 @@ function openProduct(id){
             >
               1 de ${images.length}
             </div>
+
           `
 
           : ""
@@ -2770,54 +4934,91 @@ function openProduct(id){
   }else{
 
     galleryHtml = `
+
       <div class="gallery-wrap">
+
         <div class="gallery-shell">
+
           <div class="gallery">
+
             <div class="gallery-slide">
+
               <div class="no-image">
                 Sin imagen
               </div>
+
             </div>
+
           </div>
+
         </div>
+
       </div>
     `;
   }
 
-  const specs = [];
+  const specs =
+  [];
 
   if(p.brand){
+
     specs.push(
       `<div><b>Marca:</b> ${safe(p.brand)}</div>`
     );
   }
 
   if(p.model){
+
     specs.push(
       `<div><b>Modelo:</b> ${safe(p.model)}</div>`
     );
   }
 
   if(p.storage){
+
     specs.push(
       `<div><b>Almacenamiento:</b> ${safe(p.storage)}</div>`
     );
   }
 
   if(p.color){
+
     specs.push(
       `<div><b>Color:</b> ${safe(p.color)}</div>`
     );
   }
 
   if(p.condition){
+
     specs.push(
       `<div><b>Condición:</b> ${safe(p.condition)}</div>`
     );
   }
 
+  if(
+    p.stock !== null &&
+    p.stock !== undefined
+  ){
+
+    specs.push(
+      `<div><b>Stock:</b> ${safe(p.stock)}</div>`
+    );
+  }
+
+  const discount =
+  discountPercent(p);
+
+  const favorite =
+  favorites.has(
+    String(
+      p.id
+    )
+  );
+
   document
-  .getElementById("detailBody")
+  .getElementById(
+    "detailBody"
+  )
   .innerHTML = `
 
     ${galleryHtml}
@@ -2825,19 +5026,70 @@ function openProduct(id){
     <div>
 
       <div class="detail-brand">
-        ${safe(p.brand || "LOE MOBIL")}
+
+        ${
+          p.featured
+          ? "🔥 DESTACADO · "
+          : ""
+        }
+
+        ${safe(
+          p.brand ||
+          "LOE MOBIL"
+        )}
+
       </div>
 
       <h2 class="detail-title">
-        ${safe(p.name)}
+        ${safe(
+          p.name
+        )}
       </h2>
 
-      <div class="detail-price">
-        ${money(p.price)}
+      <div class="detail-price-row">
+
+        <div class="detail-price">
+          ${money(
+            p.price
+          )}
+        </div>
+
+        ${
+          hasOffer(p)
+          ? `
+
+            <div class="detail-old-price">
+              ${money(
+                p.old_price
+              )}
+            </div>
+
+            <div class="detail-discount">
+              -${discount}%
+            </div>
+
+          `
+          : ""
+        }
+
       </div>
 
-      <div class="detail-stock">
-        ● Disponible
+      <div class="detail-stock ${
+        Number(
+          p.stock || 0
+        ) <= 0
+        ? "out"
+        : ""
+      }">
+
+        ${
+          Number(
+            p.stock || 0
+          ) > 0
+          ? "● Disponible"
+          : "● Consultar disponibilidad"
+        }
+
       </div>
 
       <div class="detail-specs">
@@ -2845,20 +5097,36 @@ function openProduct(id){
       </div>
 
       <div class="detail-desc">
+
         ${
           safe(
             p.description ||
             "Disponible en LOE MOBIL. Consulta disponibilidad y detalles por WhatsApp."
           )
         }
+
       </div>
 
-      <button
-        class="detail-add"
-        onclick='addById(${JSON.stringify(String(p.id))});closeProduct()'
-      >
-        🛒 Agregar al carrito
-      </button>
+      <div class="detail-actions">
+
+        <button
+          class="detail-add"
+          onclick='addById(${JSON.stringify(String(p.id))});closeProduct()'
+        >
+          🛒 Agregar al carrito
+        </button>
+
+        <button
+          id="detailFavoriteBtn"
+          type="button"
+          class="detail-favorite ${favorite ? "active" : ""}"
+          onclick='toggleFavorite(${JSON.stringify(String(p.id))})'
+          aria-label="Favorito"
+        >
+          ${favorite ? "♥" : "♡"}
+        </button>
+
+      </div>
 
     </div>
 
@@ -2894,32 +5162,49 @@ function openProduct(id){
   `;
 
   document
-  .getElementById("productModal")
-  .classList.add("show");
+  .getElementById(
+    "productModal"
+  )
+  .classList.add(
+    "show"
+  );
 
   setTimeout(
     setupGallery,
     0
   );
 
-  loadReviews(id);
+  loadReviews(
+    id
+  );
 }
 
-/* GALERÍA */
+/* ===========================
+   GALERÍA
+=========================== */
 
 function setupGallery(){
 
   const gallery =
-  document.getElementById("productGallery");
+  document.getElementById(
+    "productGallery"
+  );
 
   if(!gallery){
+
     return;
   }
 
   const slides =
-  gallery.querySelectorAll(".gallery-slide");
+  gallery
+  .querySelectorAll(
+    ".gallery-slide"
+  );
 
-  if(slides.length <= 1){
+  if(
+    slides.length <= 1
+  ){
+
     return;
   }
 
@@ -2931,17 +5216,22 @@ function setupGallery(){
       gallery.clientWidth;
 
       if(!width){
+
         return;
       }
 
       const index =
       Math.round(
-        gallery.scrollLeft / width
+        gallery.scrollLeft /
+        width
       );
 
-      currentGalleryIndex = index;
+      currentGalleryIndex =
+      index;
 
-      updateGalleryUI(index);
+      updateGalleryUI(
+        index
+      );
 
     },
     {
@@ -2950,28 +5240,39 @@ function setupGallery(){
   );
 }
 
-function goToGalleryImage(index){
+function goToGalleryImage(
+  index
+){
 
   const gallery =
-  document.getElementById("productGallery");
+  document.getElementById(
+    "productGallery"
+  );
 
   if(!gallery){
+
     return;
   }
 
   const total =
   gallery
-  .querySelectorAll(".gallery-slide")
+  .querySelectorAll(
+    ".gallery-slide"
+  )
   .length;
 
   if(!total){
+
     return;
   }
 
   const safeIndex =
   Math.max(
     0,
-    Math.min(index,total-1)
+    Math.min(
+      index,
+      total-1
+    )
   );
 
   currentGalleryIndex =
@@ -2981,7 +5282,9 @@ function goToGalleryImage(index){
     left:
       gallery.clientWidth *
       safeIndex,
-    behavior:"smooth"
+
+    behavior:
+      "smooth"
   });
 
   updateGalleryUI(
@@ -2992,74 +5295,105 @@ function goToGalleryImage(index){
 function galleryNext(){
 
   const gallery =
-  document.getElementById("productGallery");
+  document.getElementById(
+    "productGallery"
+  );
 
   if(!gallery){
+
     return;
   }
 
   const total =
   gallery
-  .querySelectorAll(".gallery-slide")
+  .querySelectorAll(
+    ".gallery-slide"
+  )
   .length;
 
   if(!total){
+
     return;
   }
 
   const next =
   currentGalleryIndex + 1 >= total
+
   ? 0
+
   : currentGalleryIndex + 1;
 
-  goToGalleryImage(next);
+  goToGalleryImage(
+    next
+  );
 }
 
 function galleryPrev(){
 
   const gallery =
-  document.getElementById("productGallery");
+  document.getElementById(
+    "productGallery"
+  );
 
   if(!gallery){
+
     return;
   }
 
   const total =
   gallery
-  .querySelectorAll(".gallery-slide")
+  .querySelectorAll(
+    ".gallery-slide"
+  )
   .length;
 
   if(!total){
+
     return;
   }
 
   const prev =
   currentGalleryIndex - 1 < 0
+
   ? total - 1
+
   : currentGalleryIndex - 1;
 
-  goToGalleryImage(prev);
+  goToGalleryImage(
+    prev
+  );
 }
 
-function updateGalleryUI(index){
+function updateGalleryUI(
+  index
+){
 
   const thumbs =
   document
-  .querySelectorAll(".gallery-thumb");
+  .querySelectorAll(
+    ".gallery-thumb"
+  );
 
   thumbs.forEach(
-    (thumb,i) => {
+    (
+      thumb,
+      i
+    ) => {
 
-      thumb.classList.toggle(
+      thumb
+      .classList
+      .toggle(
         "active",
-        i===index
+        i === index
       );
     }
   );
 
   const counter =
   document
-  .getElementById("galleryCounter");
+  .getElementById(
+    "galleryCounter"
+  );
 
   if(counter){
 
@@ -3073,27 +5407,46 @@ function updateGalleryUI(index){
   if(active){
 
     active.scrollIntoView({
-      behavior:"smooth",
-      block:"nearest",
-      inline:"center"
+      behavior:
+      "smooth",
+
+      block:
+      "nearest",
+
+      inline:
+      "center"
     });
   }
 }
 
-/* RESEÑAS */
+/* ===========================
+   RESEÑAS
+=========================== */
 
-async function loadReviews(productId){
+async function loadReviews(
+  productId
+){
 
   const list =
-  document.getElementById("reviewsList");
+  document.getElementById(
+    "reviewsList"
+  );
 
   const summary =
-  document.getElementById("ratingSummary");
+  document.getElementById(
+    "ratingSummary"
+  );
 
   const formArea =
-  document.getElementById("reviewFormArea");
+  document.getElementById(
+    "reviewFormArea"
+  );
 
-  if(!list || !formArea){
+  if(
+    !list ||
+    !formArea
+  ){
+
     return;
   }
 
@@ -3103,24 +5456,33 @@ async function loadReviews(productId){
   try{
 
     const reviewHeaders =
-    currentUser && accessToken
+    currentUser &&
+    accessToken
+
     ? {
-        apikey:SUPABASE_KEY,
-        Authorization:`Bearer ${accessToken}`
+        apikey:
+        SUPABASE_KEY,
+
+        Authorization:
+        `Bearer ${accessToken}`
       }
+
     : {
-        apikey:SUPABASE_KEY
+        apikey:
+        SUPABASE_KEY
       };
 
     const r =
     await fetch(
       `${SUPABASE_URL}/rest/v1/reviews?select=id,product_id,user_id,name,rating,comment,approved,created_at&product_id=eq.${encodeURIComponent(productId)}&order=created_at.desc`,
       {
-        headers:reviewHeaders
+        headers:
+        reviewHeaders
       }
     );
 
     if(!r.ok){
+
       throw new Error();
     }
 
@@ -3129,7 +5491,8 @@ async function loadReviews(productId){
 
     const publicReviews =
     allReviews.filter(
-      x => x.approved === true
+      x =>
+      x.approved === true
     );
 
     renderReviews(
@@ -3146,12 +5509,14 @@ async function loadReviews(productId){
 
   }catch(err){
 
-    list.innerHTML =
-    `<div class="review-empty">
-      No se pudieron cargar las opiniones.
-    </div>`;
+    list.innerHTML = `
+      <div class="review-empty">
+        No se pudieron cargar las opiniones.
+      </div>
+    `;
 
-    summary.textContent = "";
+    summary.textContent =
+    "";
 
     renderReviewForm(
       productId,
@@ -3161,92 +5526,144 @@ async function loadReviews(productId){
   }
 }
 
-function renderReviews(reviews,summary,list){
+function renderReviews(
+  reviews,
+  summary,
+  list
+){
 
-  if(!reviews.length){
+  if(
+    !reviews.length
+  ){
 
     summary.textContent =
     "Sin calificaciones";
 
-    list.innerHTML =
-    `<div class="review-empty">
-      Este producto todavía no tiene opiniones.
-      Sé el primero en calificarlo.
-    </div>`;
+    list.innerHTML = `
+      <div class="review-empty">
+        Este producto todavía no tiene opiniones.
+        Sé el primero en calificarlo.
+      </div>
+    `;
 
     return;
   }
 
   const avg =
   reviews.reduce(
-    (sum,r) =>
-    sum + Number(r.rating || 0),
+    (
+      sum,
+      r
+    ) =>
+    sum +
+    Number(
+      r.rating || 0
+    ),
     0
-  ) / reviews.length;
+  ) /
+  reviews.length;
 
   summary.textContent =
   `${avg.toFixed(1)} ★ · ${reviews.length} reseña${reviews.length===1 ? "" : "s"}`;
 
   list.innerHTML =
-  reviews.map(r => {
+  reviews.map(
+    r => {
 
-    const date =
-    new Date(r.created_at);
-
-    const dateText =
-    Number.isNaN(date.getTime())
-    ? ""
-    : date.toLocaleDateString(
-        "es-DO",
-        {
-          day:"numeric",
-          month:"short",
-          year:"numeric"
-        }
+      const date =
+      new Date(
+        r.created_at
       );
 
-    return `
-      <article class="review-card">
+      const dateText =
+      Number.isNaN(
+        date.getTime()
+      )
 
-        <div class="review-top">
+      ? ""
 
-          <div>
+      : date
+        .toLocaleDateString(
+          "es-DO",
+          {
+            day:
+            "numeric",
 
-            <div class="review-name">
-              ${safe(r.name || "Cliente")}
+            month:
+            "short",
+
+            year:
+            "numeric"
+          }
+        );
+
+      return `
+
+        <article class="review-card">
+
+          <div class="review-top">
+
+            <div>
+
+              <div class="review-name">
+                ${safe(
+                  r.name ||
+                  "Cliente"
+                )}
+              </div>
+
+              <div class="review-date">
+                ${safe(
+                  dateText
+                )}
+              </div>
+
             </div>
 
-            <div class="review-date">
-              ${safe(dateText)}
+            <div class="review-stars">
+              ${starsText(
+                Number(
+                  r.rating
+                )
+              )}
             </div>
 
           </div>
 
-          <div class="review-stars">
-            ${starsText(Number(r.rating))}
+          <div class="review-comment">
+            ${safe(
+              r.comment
+            )}
           </div>
 
-        </div>
+        </article>
+      `;
 
-        <div class="review-comment">
-          ${safe(r.comment)}
-        </div>
-
-      </article>
-    `;
-
-  }).join("");
+    }
+  )
+  .join("");
 }
 
-function renderReviewForm(productId,allReviews,formArea){
+function renderReviewForm(
+  productId,
+  allReviews,
+  formArea
+){
 
   if(!currentUser){
 
     formArea.innerHTML = `
+
       <div class="review-login">
-        <b>¿Compraste o conoces este producto?</b>
+
+        <b>
+          ¿Compraste o conoces este producto?
+        </b>
+
         <br>
+
         Inicia sesión para dejar tu calificación.
+
         <br>
 
         <button
@@ -3255,6 +5672,7 @@ function renderReviewForm(productId,allReviews,formArea){
         >
           Iniciar sesión
         </button>
+
       </div>
     `;
 
@@ -3264,27 +5682,39 @@ function renderReviewForm(productId,allReviews,formArea){
   const ownReview =
   allReviews.find(
     x =>
-    String(x.user_id) ===
-    String(currentUser.id)
+    String(
+      x.user_id
+    ) ===
+    String(
+      currentUser.id
+    )
   );
 
   if(ownReview){
 
-    if(ownReview.approved){
+    if(
+      ownReview.approved
+    ){
 
       formArea.innerHTML = `
+
         <div class="review-login">
+
           ✅ Ya calificaste este producto.
           Tu reseña está publicada.
+
         </div>
       `;
 
     }else{
 
       formArea.innerHTML = `
+
         <div class="review-login">
+
           ⏳ Tu reseña fue enviada y está
           pendiente de aprobación por LOE MOBIL.
+
         </div>
       `;
     }
@@ -3292,7 +5722,8 @@ function renderReviewForm(productId,allReviews,formArea){
     return;
   }
 
-  selectedRating = 0;
+  selectedRating =
+  0;
 
   formArea.innerHTML = `
 
@@ -3305,15 +5736,29 @@ function renderReviewForm(productId,allReviews,formArea){
       class="star-picker"
     >
 
-      ${[1,2,3,4,5].map(n => `
-        <button
-          type="button"
-          data-rating="${n}"
-          onclick="selectRating(${n})"
-        >
-          ★
-        </button>
-      `).join("")}
+      ${
+        [
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+        .map(
+          n => `
+
+            <button
+              type="button"
+              data-rating="${n}"
+              onclick="selectRating(${n})"
+            >
+              ★
+            </button>
+
+          `
+        )
+        .join("")
+      }
 
     </div>
 
@@ -3348,25 +5793,36 @@ function selectRating(n){
   .querySelectorAll(
     "#starPicker button"
   )
-  .forEach(btn => {
+  .forEach(
+    btn => {
 
-    const value =
-    Number(
-      btn.dataset.rating
-    );
+      const value =
+      Number(
+        btn.dataset.rating
+      );
 
-    btn.classList.toggle(
-      "active",
-      value <= selectedRating
-    );
-  });
+      btn
+      .classList
+      .toggle(
+        "active",
+        value <=
+        selectedRating
+      );
+    }
+  );
 }
 
-async function submitReview(productId){
+async function submitReview(
+  productId
+){
 
-  if(!currentUser || !accessToken){
+  if(
+    !currentUser ||
+    !accessToken
+  ){
 
     openAccount();
+
     return;
   }
 
@@ -3381,7 +5837,10 @@ async function submitReview(productId){
   );
 
   const comment =
-  commentBox?.value.trim() || "";
+  commentBox
+  ?.value
+  .trim() ||
+  "";
 
   if(
     selectedRating < 1 ||
@@ -3396,7 +5855,9 @@ async function submitReview(productId){
     return;
   }
 
-  if(comment.length < 3){
+  if(
+    comment.length < 3
+  ){
 
     showReviewNotice(
       "Escribe un comentario un poco más completo.",
@@ -3406,7 +5867,9 @@ async function submitReview(productId){
     return;
   }
 
-  btn.disabled = true;
+  btn.disabled =
+  true;
+
   btn.textContent =
   "Enviando…";
 
@@ -3416,18 +5879,36 @@ async function submitReview(productId){
     await fetch(
       `${SUPABASE_URL}/rest/v1/reviews`,
       {
-        method:"POST",
+        method:
+        "POST",
+
         headers:{
           ...authHeaders(),
-          Prefer:"return=representation"
+
+          Prefer:
+          "return=representation"
         },
-        body:JSON.stringify({
-          product_id:Number(productId),
-          user_id:currentUser.id,
-          name:userName(),
-          rating:selectedRating,
+
+        body:
+        JSON.stringify({
+          product_id:
+          Number(
+            productId
+          ),
+
+          user_id:
+          currentUser.id,
+
+          name:
+          userName(),
+
+          rating:
+          selectedRating,
+
           comment,
-          approved:false
+
+          approved:
+          false
         })
       }
     );
@@ -3446,18 +5927,36 @@ async function submitReview(productId){
         await fetch(
           `${SUPABASE_URL}/rest/v1/reviews`,
           {
-            method:"POST",
+            method:
+            "POST",
+
             headers:{
               ...authHeaders(),
-              Prefer:"return=representation"
+
+              Prefer:
+              "return=representation"
             },
-            body:JSON.stringify({
-              product_id:Number(productId),
-              user_id:currentUser.id,
-              name:userName(),
-              rating:selectedRating,
+
+            body:
+            JSON.stringify({
+              product_id:
+              Number(
+                productId
+              ),
+
+              user_id:
+              currentUser.id,
+
+              name:
+              userName(),
+
+              rating:
+              selectedRating,
+
               comment,
-              approved:false
+
+              approved:
+              false
             })
           }
         );
@@ -3468,7 +5967,9 @@ async function submitReview(productId){
 
       const data =
       await r.json()
-      .catch(() => ({}));
+      .catch(
+        () => ({})
+      );
 
       if(
         String(
@@ -3493,7 +5994,10 @@ async function submitReview(productId){
     );
 
     setTimeout(
-      () => loadReviews(productId),
+      () =>
+      loadReviews(
+        productId
+      ),
       1000
     );
 
@@ -3505,13 +6009,18 @@ async function submitReview(productId){
       false
     );
 
-    btn.disabled = false;
+    btn.disabled =
+    false;
+
     btn.textContent =
     "Enviar reseña";
   }
 }
 
-function showReviewNotice(text,good){
+function showReviewNotice(
+  text,
+  good
+){
 
   const box =
   document.getElementById(
@@ -3519,6 +6028,7 @@ function showReviewNotice(text,good){
   );
 
   if(!box){
+
     return;
   }
 
@@ -3529,7 +6039,9 @@ function showReviewNotice(text,good){
   `review-notice show ${good ? "good" : "bad"}`;
 }
 
-function starsText(rating){
+function starsText(
+  rating
+){
 
   const n =
   Math.max(
@@ -3537,26 +6049,37 @@ function starsText(rating){
     Math.min(
       5,
       Math.round(
-        Number(rating || 0)
+        Number(
+          rating || 0
+        )
       )
     )
   );
 
   return (
     "★".repeat(n) +
-    "☆".repeat(5-n)
+    "☆".repeat(
+      5-n
+    )
   );
 }
 
-/* CERRAR PRODUCTO */
+/* ===========================
+   CERRAR PRODUCTO
+=========================== */
 
 function closeProduct(){
 
   document
-  .getElementById("productModal")
-  .classList.remove("show");
+  .getElementById(
+    "productModal"
+  )
+  .classList.remove(
+    "show"
+  );
 
-  currentProductId = null;
+  currentProductId =
+  null;
 }
 
 function detailOverlayClose(e){
@@ -3565,22 +6088,28 @@ function detailOverlayClose(e){
     e.target.id ===
     "productModal"
   ){
+
     closeProduct();
   }
 }
 
-/* CARRITO */
+/* ===========================
+   CARRITO
+=========================== */
 
 function addById(id){
 
   const p =
   products.find(
     x =>
-    String(x.id) ===
+    String(
+      x.id
+    ) ===
     String(id)
   );
 
   if(p){
+
     addToCart(p);
   }
 }
@@ -3590,8 +6119,12 @@ function addToCart(p){
   const found =
   cart.find(
     x =>
-    String(x.id) ===
-    String(p.id)
+    String(
+      x.id
+    ) ===
+    String(
+      p.id
+    )
   );
 
   if(found){
@@ -3604,18 +6137,29 @@ function addToCart(p){
     getProductImages(p);
 
     cart.push({
-      id:p.id,
-      name:p.name,
-      price:Number(p.price || 0),
+      id:
+      p.id,
+
+      name:
+      p.name,
+
+      price:
+      Number(
+        p.price || 0
+      ),
+
       image_url:
-        images[0] ||
-        p.image_url ||
-        "",
-      qty:1
+      images[0] ||
+      p.image_url ||
+      "",
+
+      qty:
+      1
     });
   }
 
   saveCart();
+
   updateCart();
 }
 
@@ -3624,11 +6168,14 @@ function removeFromCart(id){
   cart =
   cart.filter(
     x =>
-    String(x.id) !==
+    String(
+      x.id
+    ) !==
     String(id)
   );
 
   saveCart();
+
   updateCart();
 }
 
@@ -3636,7 +6183,9 @@ function saveCart(){
 
   localStorage.setItem(
     "loeCart",
-    JSON.stringify(cart)
+    JSON.stringify(
+      cart
+    )
   );
 }
 
@@ -3644,91 +6193,132 @@ function updateCart(){
 
   const count =
   cart.reduce(
-    (n,x) =>
+    (
+      n,
+      x
+    ) =>
     n + x.qty,
     0
   );
 
   document
-  .getElementById("cartCount")
+  .getElementById(
+    "cartCount"
+  )
   .textContent =
   count;
 
   const box =
   document
-  .getElementById("cartItems");
+  .getElementById(
+    "cartItems"
+  );
 
-  box.innerHTML = "";
+  box.innerHTML =
+  "";
 
-  if(!cart.length){
+  if(
+    !cart.length
+  ){
 
     box.innerHTML =
     '<div class="status">Tu carrito está vacío.</div>';
 
   }else{
 
-    cart.forEach(x => {
+    cart.forEach(
+      x => {
 
-      const row =
-      document.createElement("div");
+        const row =
+        document.createElement(
+          "div"
+        );
 
-      row.className =
-      "cart-item";
+        row.className =
+        "cart-item";
 
-      row.innerHTML = `
+        row.innerHTML = `
 
-        ${
-          x.image_url
+          ${
+            x.image_url
 
-          ? `<img
-               src="${safe(x.image_url)}"
-               alt=""
-             >`
+            ? `
 
-          : `<div
-               style="
-                 width:65px;
-                 height:65px;
-                 background:#10232f
-               "
-             ></div>`
-        }
+              <img
+                src="${safe(x.image_url)}"
+                alt=""
+              >
 
-        <div class="cart-info">
+            `
 
-          <div class="cart-name">
-            ${safe(x.name)}
+            : `
+
+              <div
+                style="
+                  width:65px;
+                  height:65px;
+                  background:#10232f
+                "
+              ></div>
+
+            `
+          }
+
+          <div class="cart-info">
+
+            <div class="cart-name">
+              ${safe(
+                x.name
+              )}
+            </div>
+
+            <div>
+
+              ${money(
+                x.price
+              )}
+
+              ×
+
+              ${x.qty}
+
+            </div>
+
+            <button
+              class="remove"
+              onclick='removeFromCart(${JSON.stringify(String(x.id))})'
+            >
+              Eliminar
+            </button>
+
           </div>
+        `;
 
-          <div>
-            ${money(x.price)}
-            ×
-            ${x.qty}
-          </div>
-
-          <button
-            class="remove"
-            onclick='removeFromCart(${JSON.stringify(String(x.id))})'
-          >
-            Eliminar
-          </button>
-
-        </div>
-      `;
-
-      box.appendChild(row);
-    });
+        box.appendChild(
+          row
+        );
+      }
+    );
   }
 
   const total =
   cart.reduce(
-    (n,x) =>
-    n + (x.price * x.qty),
+    (
+      n,
+      x
+    ) =>
+    n +
+    (
+      x.price *
+      x.qty
+    ),
     0
   );
 
   document
-  .getElementById("cartTotal")
+  .getElementById(
+    "cartTotal"
+  )
   .textContent =
   money(total);
 }
@@ -3736,15 +6326,23 @@ function updateCart(){
 function openCart(){
 
   document
-  .getElementById("cartOverlay")
-  .classList.add("show");
+  .getElementById(
+    "cartOverlay"
+  )
+  .classList.add(
+    "show"
+  );
 }
 
 function closeCart(){
 
   document
-  .getElementById("cartOverlay")
-  .classList.remove("show");
+  .getElementById(
+    "cartOverlay"
+  )
+  .classList.remove(
+    "show"
+  );
 }
 
 function overlayClose(e){
@@ -3753,13 +6351,16 @@ function overlayClose(e){
     e.target.id ===
     "cartOverlay"
   ){
+
     closeCart();
   }
 }
 
 function checkout(){
 
-  if(!cart.length){
+  if(
+    !cart.length
+  ){
 
     alert(
       "Tu carrito está vacío."
@@ -3771,16 +6372,25 @@ function checkout(){
   let message =
   "Hola LOE MOBIL, quiero realizar este pedido:\n\n";
 
-  cart.forEach(x => {
+  cart.forEach(
+    x => {
 
-    message +=
-    `• ${x.name} x${x.qty} - ${money(x.price * x.qty)}\n`;
-  });
+      message +=
+      `• ${x.name} x${x.qty} - ${money(x.price * x.qty)}\n`;
+    }
+  );
 
   const total =
   cart.reduce(
-    (n,x) =>
-    n + (x.price * x.qty),
+    (
+      n,
+      x
+    ) =>
+    n +
+    (
+      x.price *
+      x.qty
+    ),
     0
   );
 
@@ -3792,7 +6402,9 @@ function checkout(){
     message +=
     `\n\nCliente: ${userName()}`;
 
-    if(currentUser.email){
+    if(
+      currentUser.email
+    ){
 
       message +=
       `\nCorreo: ${currentUser.email}`;
@@ -3801,12 +6413,16 @@ function checkout(){
 
   window.open(
     "https://wa.me/18498898247?text=" +
-    encodeURIComponent(message),
+    encodeURIComponent(
+      message
+    ),
     "_blank"
   );
 }
 
-/* BUSCADOR */
+/* ===========================
+   BUSCADOR
+=========================== */
 
 const searchInput =
 document.getElementById(
@@ -3819,26 +6435,40 @@ searchInput
   () => {
 
     currentSearch =
-    searchInput.value.trim();
+    searchInput
+    .value
+    .trim();
 
     applyFilters();
   }
 );
 
 document
-.getElementById("searchBtn")
-.onclick = () => {
+.getElementById(
+  "searchBtn"
+)
+.onclick =
+() => {
 
   currentSearch =
-  searchInput.value.trim();
+  searchInput
+  .value
+  .trim();
 
   applyFilters();
 };
 
-/* INICIO */
+/* ===========================
+   INICIO
+=========================== */
 
-restoreSession();
-load();
+(async()=>{
+
+  await restoreSession();
+
+  await load();
+
+})();
 
 </script>
 
