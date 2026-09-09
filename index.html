@@ -9,8 +9,12 @@
 <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.PNG">
 <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.PNG">
 <link rel="apple-touch-icon" sizes="512x512" href="/icon-512.PNG">
+
 <style>
-*{box-sizing:border-box}
+
+*{
+  box-sizing:border-box;
+}
 
 :root{
   --bg:#05090d;
@@ -27,7 +31,9 @@
   --red:#ff4f69;
 }
 
-html{scroll-behavior:smooth}
+html{
+  scroll-behavior:smooth;
+}
 
 body{
   margin:0;
@@ -36,7 +42,10 @@ body{
   color:var(--text);
 }
 
-button,input,textarea,select{
+button,
+input,
+textarea,
+select{
   font:inherit;
 }
 
@@ -84,7 +93,9 @@ button{
   color:#bcc8cf;
 }
 
-/* CUENTA */
+/* ===========================
+   CUENTA
+=========================== */
 
 .account-btn{
   margin-left:auto;
@@ -106,7 +117,9 @@ button{
   border-color:#168f5a;
 }
 
-/* FAVORITOS */
+/* ===========================
+   FAVORITOS
+=========================== */
 
 .favorites-btn{
   position:relative;
@@ -263,7 +276,9 @@ button{
   font-weight:750;
 }
 
-/* DESTACADOS */
+/* ===========================
+   DESTACADOS
+=========================== */
 
 .featured-section{
   display:none;
@@ -380,7 +395,9 @@ button{
   font-weight:950;
 }
 
-/* FILTROS MARKETPLACE */
+/* ===========================
+   FILTROS MARKETPLACE
+=========================== */
 
 .market-controls{
   max-width:1400px;
@@ -562,7 +579,9 @@ main{
   font-size:12px;
 }
 
-/* BADGES MARKETPLACE */
+/* ===========================
+   BADGES MARKETPLACE
+=========================== */
 
 .badges-left{
   position:absolute;
@@ -635,7 +654,9 @@ main{
   font-size:11px;
 }
 
-/* CALIFICACIÓN EN TARJETAS */
+/* ===========================
+   CALIFICACIÓN EN TARJETAS
+=========================== */
 
 .card-rating{
   min-height:19px;
@@ -731,7 +752,9 @@ main{
   box-shadow:0 5px 25px rgba(21,201,108,.35);
 }
 
-/* CARRITO */
+/* ===========================
+   CARRITO
+=========================== */
 
 .overlay{
   display:none;
@@ -834,7 +857,9 @@ main{
   font-weight:900;
 }
 
-/* MODAL DE CUENTA */
+/* ===========================
+   MODAL DE CUENTA
+=========================== */
 
 .auth-modal{
   display:none;
@@ -1013,6 +1038,82 @@ main{
   font-weight:850;
 }
 
+/* ===========================
+   NOTIFICACIONES PUSH
+=========================== */
+
+.push-box{
+  margin-top:16px;
+  padding:14px;
+  border:1px solid #17516a;
+  border-radius:11px;
+  background:#091a24;
+  text-align:left;
+}
+
+.push-box-title{
+  color:white;
+  font-size:14px;
+  font-weight:950;
+}
+
+.push-box-text{
+  margin-top:5px;
+  color:#9babb3;
+  font-size:12px;
+  line-height:1.45;
+}
+
+.push-btn{
+  width:100%;
+  margin-top:11px;
+  min-height:44px;
+  border:0;
+  border-radius:9px;
+  background:linear-gradient(
+    135deg,
+    var(--blue),
+    var(--blue2)
+  );
+  color:white;
+  font-size:13px;
+  font-weight:950;
+}
+
+.push-btn.enabled{
+  background:#12663f;
+}
+
+.push-btn:disabled{
+  opacity:.65;
+  cursor:default;
+}
+
+.push-message{
+  display:none;
+  margin-top:9px;
+  padding:9px 10px;
+  border-radius:8px;
+  font-size:11px;
+  line-height:1.4;
+}
+
+.push-message.show{
+  display:block;
+}
+
+.push-message.good{
+  border:1px solid #176b43;
+  background:#0c2b1c;
+  color:#a8f0cb;
+}
+
+.push-message.bad{
+  border:1px solid #7f3131;
+  background:#301111;
+  color:#ffb5b5;
+}
+
 .logout-btn{
   width:100%;
   margin-top:18px;
@@ -1024,7 +1125,9 @@ main{
   font-weight:900;
 }
 
-/* DETALLE PRODUCTO */
+/* ===========================
+   DETALLE PRODUCTO
+=========================== */
 
 .product-modal{
   display:none;
@@ -1126,8 +1229,13 @@ main{
   box-shadow:0 2px 10px rgba(0,0,0,.2);
 }
 
-.gallery-arrow.left{left:8px}
-.gallery-arrow.right{right:8px}
+.gallery-arrow.left{
+  left:8px;
+}
+
+.gallery-arrow.right{
+  right:8px;
+}
 
 .gallery-thumbs{
   display:flex;
@@ -1272,7 +1380,9 @@ main{
   color:#ff4f69;
 }
 
-/* RESEÑAS */
+/* ===========================
+   RESEÑAS
+=========================== */
 
 .reviews-section{
   grid-column:1/-1;
@@ -1449,6 +1559,10 @@ main{
   background:#311111;
   color:#ffb7b7;
 }
+
+/* ===========================
+   RESPONSIVE
+=========================== */
 
 @media(max-width:1100px){
 
@@ -1678,6 +1792,7 @@ main{
     grid-template-columns:1fr 1fr;
   }
 }
+
 </style>
 </head>
 
@@ -1688,6 +1803,7 @@ main{
   <div class="header-main">
 
     <div class="brand">
+
       <div class="brand-main">
         LOE <span>MOBIL</span>
       </div>
@@ -1695,6 +1811,7 @@ main{
       <div class="brand-sub">
         FIX & GEAR
       </div>
+
     </div>
 
     <button
@@ -1711,12 +1828,14 @@ main{
       aria-label="Favoritos"
     >
       ♥
+
       <span
         id="favoriteCount"
         class="favorite-count"
       >
         0
       </span>
+
     </button>
 
     <button
@@ -1724,12 +1843,14 @@ main{
       onclick="openCart()"
     >
       🛒 Carrito
+
       <span
         class="cart-count"
         id="cartCount"
       >
         0
       </span>
+
     </button>
 
   </div>
@@ -1800,7 +1921,9 @@ main{
 
 </section>
 
-<!-- DESTACADOS Y OFERTAS -->
+<!-- ===========================
+     DESTACADOS Y OFERTAS
+=========================== -->
 
 <section
   id="featuredSection"
@@ -1826,7 +1949,9 @@ main{
 
 </section>
 
-<!-- FILTROS -->
+<!-- ===========================
+     FILTROS
+=========================== -->
 
 <section class="market-controls">
 
@@ -2043,7 +2168,9 @@ main{
   ☏
 </a>
 
-<!-- CARRITO -->
+<!-- ===========================
+     CARRITO
+=========================== -->
 
 <div
   id="cartOverlay"
@@ -2095,7 +2222,9 @@ main{
 
 </div>
 
-<!-- CUENTA -->
+<!-- ===========================
+     CUENTA
+=========================== -->
 
 <div
   id="authModal"
@@ -2296,6 +2425,34 @@ main{
           ♥ 0 favoritos
         </div>
 
+        <!-- NOTIFICACIONES -->
+
+        <div class="push-box">
+
+          <div class="push-box-title">
+            🔔 Notificaciones LOE MOBIL
+          </div>
+
+          <div class="push-box-text">
+            Recibe ofertas, productos nuevos y promociones directamente en tu teléfono.
+          </div>
+
+          <button
+            id="pushBtn"
+            class="push-btn"
+            type="button"
+            onclick="enablePushNotifications()"
+          >
+            🔔 Activar notificaciones
+          </button>
+
+          <div
+            id="pushMessage"
+            class="push-message"
+          ></div>
+
+        </div>
+
         <button
           class="logout-btn"
           onclick="logoutUser()"
@@ -2311,7 +2468,9 @@ main{
 
 </div>
 
-<!-- PRODUCTO -->
+<!-- ===========================
+     PRODUCTO
+=========================== -->
 
 <div
   id="productModal"
@@ -2343,11 +2502,20 @@ main{
 
 <script>
 
+/* ===========================
+   CONFIGURACIÓN SUPABASE
+=========================== */
+
 const SUPABASE_URL =
 "https://zndjyragtbobzuwxaaoe.supabase.co";
 
 const SUPABASE_KEY =
 "sb_publishable_eWJkT8ZBPv0ZcCSLo01P7g_0AAEbN6S";
+
+/* CLAVE PÚBLICA WEB PUSH */
+
+const VAPID_PUBLIC_KEY =
+"BEoXT7mbyFUwd6AOUokVp5w2k5GnLG6lfd7NhC0f1Ytptypel0LeluMMILIQHedlouPZakkdO9FBzT-kba2vY10";
 
 const headers = {
   apikey:SUPABASE_KEY
@@ -2512,6 +2680,577 @@ function productAvailable(p){
 }
 
 /* ===========================
+   WEB PUSH
+=========================== */
+
+function urlBase64ToUint8Array(
+  base64String
+){
+
+  const padding =
+  "=".repeat(
+    (
+      4 -
+      base64String.length % 4
+    ) % 4
+  );
+
+  const base64 =
+  (
+    base64String +
+    padding
+  )
+  .replace(
+    /-/g,
+    "+"
+  )
+  .replace(
+    /_/g,
+    "/"
+  );
+
+  const rawData =
+  window.atob(
+    base64
+  );
+
+  return Uint8Array.from(
+    [...rawData]
+    .map(
+      character =>
+      character.charCodeAt(0)
+    )
+  );
+}
+
+function isIOSDevice(){
+
+  return (
+    /iphone|ipad|ipod/i
+    .test(
+      navigator.userAgent
+    )
+  );
+}
+
+function isStandaloneApp(){
+
+  return (
+    window
+    .matchMedia(
+      "(display-mode: standalone)"
+    )
+    .matches ||
+
+    window
+    .navigator
+    .standalone === true
+  );
+}
+
+function showPushMessage(
+  text,
+  good
+){
+
+  const box =
+  document.getElementById(
+    "pushMessage"
+  );
+
+  if(!box){
+    return;
+  }
+
+  box.textContent =
+  text;
+
+  box.className =
+  `push-message show ${good ? "good" : "bad"}`;
+}
+
+function clearPushMessage(){
+
+  const box =
+  document.getElementById(
+    "pushMessage"
+  );
+
+  if(!box){
+    return;
+  }
+
+  box.textContent =
+  "";
+
+  box.className =
+  "push-message";
+}
+
+async function registerLoeServiceWorker(){
+
+  if(
+    !(
+      "serviceWorker"
+      in navigator
+    )
+  ){
+
+    return null;
+  }
+
+  try{
+
+    const registration =
+    await navigator
+    .serviceWorker
+    .register(
+      "/service-worker.js",
+      {
+        scope:"/"
+      }
+    );
+
+    return registration;
+
+  }catch(error){
+
+    console.error(
+      "Error registrando Service Worker:",
+      error
+    );
+
+    return null;
+  }
+}
+
+async function getCurrentPushSubscription(){
+
+  if(
+    !(
+      "serviceWorker"
+      in navigator
+    )
+  ){
+
+    return null;
+  }
+
+  try{
+
+    const registration =
+    await navigator
+    .serviceWorker
+    .ready;
+
+    return await registration
+    .pushManager
+    .getSubscription();
+
+  }catch(error){
+
+    console.error(
+      "Error comprobando Push:",
+      error
+    );
+
+    return null;
+  }
+}
+
+async function savePushSubscription(
+  subscription
+){
+
+  if(
+    !currentUser ||
+    !accessToken
+  ){
+
+    throw new Error(
+      "Primero debes iniciar sesión."
+    );
+  }
+
+  const data =
+  subscription.toJSON();
+
+  const endpoint =
+  data.endpoint;
+
+  const p256dh =
+  data.keys?.p256dh;
+
+  const auth =
+  data.keys?.auth;
+
+  if(
+    !endpoint ||
+    !p256dh ||
+    !auth
+  ){
+
+    throw new Error(
+      "El teléfono no pudo crear una suscripción válida."
+    );
+  }
+
+  async function send(){
+
+    return await fetch(
+      `${SUPABASE_URL}/rest/v1/push_subscriptions?on_conflict=endpoint`,
+      {
+        method:"POST",
+
+        headers:{
+          ...authHeaders(),
+
+          Prefer:
+          "resolution=merge-duplicates,return=minimal"
+        },
+
+        body:
+        JSON.stringify({
+          user_id:
+          currentUser.id,
+
+          endpoint:
+          endpoint,
+
+          p256dh:
+          p256dh,
+
+          auth:
+          auth,
+
+          user_agent:
+          navigator.userAgent,
+
+          updated_at:
+          new Date()
+          .toISOString()
+        })
+      }
+    );
+  }
+
+  let response =
+  await send();
+
+  if(
+    response.status === 401 ||
+    response.status === 403
+  ){
+
+    const refreshed =
+    await refreshSession();
+
+    if(refreshed){
+
+      response =
+      await send();
+    }
+  }
+
+  if(!response.ok){
+
+    const errorData =
+    await response
+    .json()
+    .catch(
+      () => ({})
+    );
+
+    console.error(
+      "Error Supabase Push:",
+      errorData
+    );
+
+    throw new Error(
+      errorData.message ||
+      "No se pudo guardar este dispositivo."
+    );
+  }
+}
+
+async function updatePushButton(){
+
+  const btn =
+  document.getElementById(
+    "pushBtn"
+  );
+
+  if(!btn){
+    return;
+  }
+
+  clearPushMessage();
+
+  if(!currentUser){
+
+    return;
+  }
+
+  if(
+    !(
+      "Notification"
+      in window
+    ) ||
+    !(
+      "serviceWorker"
+      in navigator
+    ) ||
+    !(
+      "PushManager"
+      in window
+    )
+  ){
+
+    btn.disabled =
+    true;
+
+    btn.classList.remove(
+      "enabled"
+    );
+
+    btn.textContent =
+    "🔕 No compatible";
+
+    showPushMessage(
+      "Este navegador no permite notificaciones Push.",
+      false
+    );
+
+    return;
+  }
+
+  if(
+    isIOSDevice() &&
+    !isStandaloneApp()
+  ){
+
+    btn.disabled =
+    false;
+
+    btn.classList.remove(
+      "enabled"
+    );
+
+    btn.textContent =
+    "🔔 Activar notificaciones";
+
+    return;
+  }
+
+  const subscription =
+  await getCurrentPushSubscription();
+
+  if(
+    subscription &&
+    Notification.permission ===
+    "granted"
+  ){
+
+    btn.disabled =
+    false;
+
+    btn.classList.add(
+      "enabled"
+    );
+
+    btn.textContent =
+    "✅ Notificaciones activadas";
+
+  }else{
+
+    btn.disabled =
+    false;
+
+    btn.classList.remove(
+      "enabled"
+    );
+
+    btn.textContent =
+    "🔔 Activar notificaciones";
+  }
+}
+
+async function enablePushNotifications(){
+
+  const btn =
+  document.getElementById(
+    "pushBtn"
+  );
+
+  if(
+    !currentUser ||
+    !accessToken
+  ){
+
+    showPushMessage(
+      "Primero debes iniciar sesión.",
+      false
+    );
+
+    return;
+  }
+
+  if(
+    !(
+      "Notification"
+      in window
+    ) ||
+    !(
+      "serviceWorker"
+      in navigator
+    ) ||
+    !(
+      "PushManager"
+      in window
+    )
+  ){
+
+    showPushMessage(
+      "Este navegador no admite notificaciones Push.",
+      false
+    );
+
+    return;
+  }
+
+  if(
+    isIOSDevice() &&
+    !isStandaloneApp()
+  ){
+
+    showPushMessage(
+      "En iPhone debes abrir LOE MOBIL desde el icono de la pantalla de inicio para activar las notificaciones.",
+      false
+    );
+
+    return;
+  }
+
+  if(
+    Notification.permission ===
+    "denied"
+  ){
+
+    showPushMessage(
+      "Las notificaciones están bloqueadas para LOE MOBIL. Debes permitirlas desde los ajustes del teléfono.",
+      false
+    );
+
+    return;
+  }
+
+  btn.disabled =
+  true;
+
+  btn.textContent =
+  "Activando…";
+
+  clearPushMessage();
+
+  try{
+
+    const registration =
+    await registerLoeServiceWorker();
+
+    if(!registration){
+
+      throw new Error(
+        "No se pudo iniciar el servicio de notificaciones."
+      );
+    }
+
+    let permission =
+    Notification.permission;
+
+    if(
+      permission !==
+      "granted"
+    ){
+
+      permission =
+      await Notification
+      .requestPermission();
+    }
+
+    if(
+      permission !==
+      "granted"
+    ){
+
+      throw new Error(
+        "No se autorizaron las notificaciones."
+      );
+    }
+
+    let subscription =
+    await registration
+    .pushManager
+    .getSubscription();
+
+    if(!subscription){
+
+      subscription =
+      await registration
+      .pushManager
+      .subscribe({
+        userVisibleOnly:true,
+
+        applicationServerKey:
+        urlBase64ToUint8Array(
+          VAPID_PUBLIC_KEY
+        )
+      });
+    }
+
+    await savePushSubscription(
+      subscription
+    );
+
+    btn.classList.add(
+      "enabled"
+    );
+
+    btn.textContent =
+    "✅ Notificaciones activadas";
+
+    showPushMessage(
+      "Listo 🔔 Este teléfono ya puede recibir ofertas y novedades de LOE MOBIL.",
+      true
+    );
+
+  }catch(error){
+
+    console.error(
+      "Error activando Push:",
+      error
+    );
+
+    btn.classList.remove(
+      "enabled"
+    );
+
+    btn.textContent =
+    "🔔 Activar notificaciones";
+
+    showPushMessage(
+      error.message ||
+      "No se pudieron activar las notificaciones.",
+      false
+    );
+
+  }finally{
+
+    btn.disabled =
+    false;
+  }
+}
+
+/* ===========================
    CALIFICACIONES
 =========================== */
 
@@ -2639,6 +3378,14 @@ function openAccount(){
   );
 
   renderAccountState();
+
+  if(currentUser){
+
+    setTimeout(
+      updatePushButton,
+      100
+    );
+  }
 }
 
 function closeAccount(){
@@ -3296,6 +4043,11 @@ function renderAccountState(){
     .textContent =
     `♥ ${favorites.size} favorito${favorites.size===1 ? "" : "s"}`;
 
+    setTimeout(
+      updatePushButton,
+      100
+    );
+
   }else{
 
     btn.textContent =
@@ -3528,6 +4280,7 @@ async function toggleFavorite(id){
 
           headers:{
             ...authHeaders(),
+
             Prefer:
             "return=minimal"
           },
@@ -3792,9 +4545,6 @@ async function load(){
     products =
     await pr.json();
 
-    /* LAS RESEÑAS YA NO ROMPEN
-       LA TIENDA SI FALLAN */
-
     approvedReviews =
     [];
 
@@ -3831,6 +4581,30 @@ async function load(){
     applyFilters();
 
     updateCart();
+
+    /* ABRIR PRODUCTO DESDE UNA NOTIFICACIÓN */
+
+    const productFromUrl =
+    new URLSearchParams(
+      window.location.search
+    )
+    .get(
+      "product"
+    );
+
+    if(productFromUrl){
+
+      setTimeout(
+        () => {
+
+          openProduct(
+            productFromUrl
+          );
+
+        },
+        150
+      );
+    }
 
   }catch(err){
 
@@ -5172,6 +5946,32 @@ function openProduct(id){
     "show"
   );
 
+  /* URL DEL PRODUCTO PARA NOTIFICACIONES */
+
+  try{
+
+    const productUrl =
+    new URL(
+      window.location.href
+    );
+
+    productUrl
+    .searchParams
+    .set(
+      "product",
+      String(id)
+    );
+
+    window
+    .history
+    .replaceState(
+      {},
+      "",
+      productUrl
+    );
+
+  }catch(error){}
+
   setTimeout(
     setupGallery,
     0
@@ -6083,6 +6883,31 @@ function closeProduct(){
 
   currentProductId =
   null;
+
+  /* LIMPIAR ?product= DE LA URL */
+
+  try{
+
+    const productUrl =
+    new URL(
+      window.location.href
+    );
+
+    productUrl
+    .searchParams
+    .delete(
+      "product"
+    );
+
+    window
+    .history
+    .replaceState(
+      {},
+      "",
+      productUrl
+    );
+
+  }catch(error){}
 }
 
 function detailOverlayClose(e){
@@ -6467,9 +7292,24 @@ document
 
 (async()=>{
 
+  /* Registrar notificaciones */
+
+  await registerLoeServiceWorker();
+
+  /* Recuperar cuenta */
+
   await restoreSession();
 
+  /* Cargar tienda */
+
   await load();
+
+  /* Revisar estado Push */
+
+  if(currentUser){
+
+    await updatePushButton();
+  }
 
 })();
 
