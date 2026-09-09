@@ -20,6 +20,7 @@
   --muted:#91a1ad;
   --danger:#ff5b5b;
   --green:#16c96b;
+  --yellow:#ffc928;
 }
 
 body{
@@ -128,6 +129,11 @@ textarea{
 .danger{
   color:white;
   background:#8c2828;
+}
+
+.approve{
+  color:#00150b;
+  background:var(--green);
 }
 
 .actions{
@@ -307,12 +313,156 @@ textarea{
   font-weight:900;
 }
 
+/* RESEÑAS */
+
+.review-topbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:15px;
+}
+
+.review-count{
+  padding:7px 11px;
+  border-radius:999px;
+  background:#10232f;
+  color:var(--blue);
+  border:1px solid var(--border);
+  font-size:12px;
+  font-weight:900;
+}
+
+.reviews{
+  display:grid;
+  gap:12px;
+}
+
+.review-card{
+  background:#081720;
+  border:1px solid #15394c;
+  border-radius:13px;
+  padding:15px;
+}
+
+.review-card.pending{
+  border-color:#735d13;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255,201,40,.05),
+      transparent 50%
+    ),
+    #081720;
+}
+
+.review-card.approved{
+  border-color:#176a42;
+}
+
+.review-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:10px;
+}
+
+.review-product{
+  color:var(--blue);
+  font-size:12px;
+  font-weight:900;
+  margin-bottom:5px;
+}
+
+.review-name{
+  font-size:17px;
+  font-weight:950;
+}
+
+.review-stars{
+  color:var(--yellow);
+  font-size:19px;
+  letter-spacing:2px;
+  margin-top:8px;
+}
+
+.review-comment{
+  margin-top:12px;
+  color:#e4edf2;
+  line-height:1.5;
+  font-size:14px;
+  white-space:pre-wrap;
+}
+
+.review-date{
+  color:var(--muted);
+  font-size:11px;
+  margin-top:10px;
+}
+
+.review-badge{
+  flex-shrink:0;
+  border-radius:999px;
+  padding:6px 9px;
+  font-size:10px;
+  font-weight:950;
+}
+
+.review-badge.pending{
+  color:#241c00;
+  background:var(--yellow);
+}
+
+.review-badge.approved{
+  color:#00170b;
+  background:var(--green);
+}
+
+.review-actions{
+  display:flex;
+  gap:8px;
+  margin-top:14px;
+  padding-top:12px;
+  border-top:1px solid #15394c;
+}
+
+.review-actions button{
+  flex:1;
+  border:0;
+  border-radius:8px;
+  padding:10px;
+  font-weight:900;
+  cursor:pointer;
+}
+
+.refresh-btn{
+  border:1px solid var(--border);
+  background:#10232f;
+  color:white;
+  border-radius:8px;
+  padding:8px 11px;
+  font-weight:900;
+  cursor:pointer;
+}
+
 @media(max-width:650px){
   .grid{grid-template-columns:1fr}
   .product{align-items:flex-start}
   .mini-actions{flex-direction:column}
   .topline{align-items:flex-start}
   .image-previews{grid-template-columns:repeat(3,1fr)}
+
+  .review-head{
+    align-items:flex-start;
+  }
+
+  .review-actions{
+    flex-direction:column;
+  }
+
+  .review-actions button{
+    width:100%;
+  }
 }
 </style>
 </head>
@@ -549,6 +699,59 @@ textarea{
 
 </section>
 
+<!-- RESEÑAS -->
+
+<section class="panel">
+
+<div class="review-topbar">
+
+  <div>
+    <h2 style="margin:0">
+      ⭐ Opiniones de clientes
+    </h2>
+
+    <div
+      style="
+        color:#91a1ad;
+        font-size:13px;
+        margin-top:5px
+      "
+    >
+      Aprueba o elimina las reseñas recibidas.
+    </div>
+  </div>
+
+  <button
+    class="refresh-btn"
+    onclick="loadReviews()"
+  >
+    ↻
+  </button>
+
+</div>
+
+<div
+  id="reviewCount"
+  class="review-count"
+  style="
+    display:inline-block;
+    margin-bottom:14px
+  "
+>
+  Cargando…
+</div>
+
+<div
+  id="reviews"
+  class="reviews"
+>
+  <div class="status">
+    Cargando opiniones…
+  </div>
+</div>
+
+</section>
+
 </section>
 
 </div>
@@ -571,6 +774,7 @@ sessionStorage.getItem("loeAdminToken")||"";
 
 let products=[];
 let categories=[];
+let reviews=[];
 
 let currentImages=[];
 let selectedFiles=[];
@@ -602,6 +806,11 @@ function showSuccess(msg){
 
   e.textContent=msg;
   e.style.display="block";
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
 
   setTimeout(()=>{
     e.style.display="none";
@@ -729,6 +938,7 @@ async function openDashboard(){
 
   await loadCategories();
   await loadProducts();
+  await loadReviews();
 }
 
 function logout(){
@@ -878,6 +1088,348 @@ async function loadProducts(){
     box.appendChild(row);
   });
 }
+
+/* =========================
+   RESEÑAS
+========================= */
+
+async function loadReviews(){
+
+  const box=
+  document.getElementById("reviews");
+
+  const counter=
+  document.getElementById("reviewCount");
+
+  box.innerHTML=
+  '<div class="status">Cargando opiniones…</div>';
+
+  counter.textContent=
+  "Cargando…";
+
+  try{
+
+    const r=await fetch(
+      `${SUPABASE_URL}/rest/v1/reviews?select=*&order=created_at.desc`,
+      {
+        headers:apiHeaders()
+      }
+    );
+
+    if(!r.ok){
+
+      const text=
+      await r.text();
+
+      throw new Error(text);
+    }
+
+    reviews=
+    await r.json();
+
+    reviews.sort((a,b)=>{
+
+      if(
+        a.approved===
+        b.approved
+      ){
+
+        return new Date(
+          b.created_at||0
+        )-
+        new Date(
+          a.created_at||0
+        );
+      }
+
+      return a.approved
+      ? 1
+      : -1;
+    });
+
+    const pending=
+    reviews.filter(
+      r=>!r.approved
+    ).length;
+
+    counter.textContent=
+    pending===1
+    ? "1 pendiente"
+    : `${pending} pendientes`;
+
+    if(!reviews.length){
+
+      box.innerHTML=`
+        <div class="status">
+          Todavía no hay opiniones.
+        </div>
+      `;
+
+      return;
+    }
+
+    box.innerHTML="";
+
+    reviews.forEach(review=>{
+
+      const product=
+      products.find(
+        p=>
+        String(p.id)===
+        String(review.product_id)
+      );
+
+      const productName=
+      product
+      ? product.name
+      : `Producto #${review.product_id}`;
+
+      const rating=
+      Math.max(
+        1,
+        Math.min(
+          5,
+          Number(review.rating)||1
+        )
+      );
+
+      const stars=
+      "★".repeat(rating)+
+      "☆".repeat(5-rating);
+
+      const card=
+      document.createElement("div");
+
+      card.className=
+      "review-card "+
+      (
+        review.approved
+        ? "approved"
+        : "pending"
+      );
+
+      card.innerHTML=`
+
+        <div class="review-head">
+
+          <div>
+
+            <div class="review-product">
+              ${safe(productName)}
+            </div>
+
+            <div class="review-name">
+              ${safe(review.name||"Cliente")}
+            </div>
+
+            <div class="review-stars">
+              ${stars}
+            </div>
+
+          </div>
+
+          <div
+            class="review-badge ${
+              review.approved
+              ? "approved"
+              : "pending"
+            }"
+          >
+            ${
+              review.approved
+              ? "PUBLICADA"
+              : "PENDIENTE"
+            }
+          </div>
+
+        </div>
+
+        <div class="review-comment">
+          ${safe(review.comment||"")}
+        </div>
+
+        <div class="review-date">
+          ${formatDate(review.created_at)}
+        </div>
+
+        <div class="review-actions">
+
+          ${
+            !review.approved
+            ? `
+              <button
+                class="approve"
+                onclick='approveReview(${JSON.stringify(String(review.id))})'
+              >
+                ✅ Aprobar
+              </button>
+            `
+            : ""
+          }
+
+          <button
+            class="danger"
+            onclick='deleteReview(${JSON.stringify(String(review.id))})'
+          >
+            🗑 Eliminar
+          </button>
+
+        </div>
+
+      `;
+
+      box.appendChild(card);
+    });
+
+  }catch(err){
+
+    console.error(
+      "Error cargando reseñas:",
+      err
+    );
+
+    counter.textContent=
+    "Error";
+
+    box.innerHTML=`
+      <div class="status">
+        No se pudieron cargar las opiniones.
+      </div>
+    `;
+  }
+}
+
+async function approveReview(id){
+
+  if(
+    !confirm(
+      "¿Quieres aprobar y publicar esta opinión?"
+    )
+  ){
+    return;
+  }
+
+  try{
+
+    const r=await fetch(
+      `${SUPABASE_URL}/rest/v1/reviews?id=eq.${encodeURIComponent(id)}`,
+      {
+        method:"PATCH",
+
+        headers:
+          apiHeaders({
+            "Content-Type":
+              "application/json",
+
+            "Prefer":
+              "return=representation"
+          }),
+
+        body:
+          JSON.stringify({
+            approved:true
+          })
+      }
+    );
+
+    if(!r.ok){
+
+      const text=
+      await r.text();
+
+      throw new Error(text);
+    }
+
+    showSuccess(
+      "Opinión aprobada y publicada."
+    );
+
+    await loadReviews();
+
+  }catch(err){
+
+    console.error(err);
+
+    alert(
+      "No se pudo aprobar la opinión."
+    );
+  }
+}
+
+async function deleteReview(id){
+
+  if(
+    !confirm(
+      "¿Seguro que quieres eliminar esta opinión? Esta acción no se puede deshacer."
+    )
+  ){
+    return;
+  }
+
+  try{
+
+    const r=await fetch(
+      `${SUPABASE_URL}/rest/v1/reviews?id=eq.${encodeURIComponent(id)}`,
+      {
+        method:"DELETE",
+        headers:apiHeaders()
+      }
+    );
+
+    if(!r.ok){
+
+      const text=
+      await r.text();
+
+      throw new Error(text);
+    }
+
+    showSuccess(
+      "Opinión eliminada."
+    );
+
+    await loadReviews();
+
+  }catch(err){
+
+    console.error(err);
+
+    alert(
+      "No se pudo eliminar la opinión."
+    );
+  }
+}
+
+function formatDate(value){
+
+  if(!value){
+    return "";
+  }
+
+  try{
+
+    return new Date(
+      value
+    ).toLocaleString(
+      "es-DO",
+      {
+        day:"2-digit",
+        month:"2-digit",
+        year:"numeric",
+        hour:"2-digit",
+        minute:"2-digit"
+      }
+    );
+
+  }catch{
+
+    return "";
+  }
+}
+
+/* =========================
+   IMÁGENES Y PRODUCTOS
+========================= */
 
 function makeFileName(file){
 
