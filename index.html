@@ -10,18 +10,15 @@
 *{box-sizing:border-box}
 
 :root{
-  --nav:#02070b;
-  --nav2:#07131d;
-  --accent:#00bfff;
-  --accent2:#008fe8;
   --bg:#03080d;
+  --nav:#02070b;
   --panel:#08131c;
   --panel2:#0c1b27;
-  --card:#ffffff;
-  --text:#ffffff;
-  --dark:#111111;
-  --muted:#91a1ad;
+  --blue:#00bfff;
+  --blue2:#008fe8;
   --border:#12425a;
+  --white:#fff;
+  --muted:#91a1ad;
   --green:#16c96b;
 }
 
@@ -30,10 +27,8 @@ html{scroll-behavior:smooth}
 body{
   margin:0;
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
-  background:
-    radial-gradient(circle at 90% 0%,rgba(0,191,255,.12),transparent 28%),
-    var(--bg);
-  color:var(--text);
+  background:var(--bg);
+  color:#fff;
 }
 
 button,input{font:inherit}
@@ -42,53 +37,47 @@ button,input{font:inherit}
   position:sticky;
   top:0;
   z-index:100;
-  background:rgba(2,7,11,.96);
-  backdrop-filter:blur(12px);
+  background:rgba(2,7,11,.97);
   border-bottom:1px solid var(--border);
-  box-shadow:0 6px 25px rgba(0,0,0,.35);
+  backdrop-filter:blur(12px);
 }
 
-.top-main{
+.top-row{
   max-width:1400px;
   margin:auto;
+  padding:12px;
   display:flex;
   align-items:center;
-  gap:14px;
-  padding:12px 16px;
+  gap:10px;
 }
 
-.brand{
+.logo{
   min-width:max-content;
-  line-height:.92;
 }
 
-.brand-main{
-  font-size:25px;
+.logo-main{
   font-weight:950;
-  letter-spacing:.6px;
+  font-size:23px;
 }
 
-.brand-main span{
-  color:var(--accent);
-  text-shadow:0 0 16px rgba(0,191,255,.6);
-}
+.logo-main span{color:var(--blue)}
 
-.brand-sub{
-  margin-top:6px;
-  font-size:9px;
+.logo-sub{
+  font-size:8px;
   letter-spacing:4px;
-  color:#c8d4da;
   text-align:center;
+  color:#b7c3ca;
+  margin-top:4px;
 }
 
 .search{
   flex:1;
-  min-height:46px;
   display:flex;
-  border:1px solid #37566a;
+  min-height:44px;
+  border:1px solid #31546a;
   border-radius:10px;
   overflow:hidden;
-  background:#111a22;
+  background:#0b1821;
 }
 
 .search input{
@@ -96,231 +85,182 @@ button,input{font:inherit}
   flex:1;
   border:0;
   outline:0;
-  padding:0 15px;
-  background:transparent;
+  padding:0 13px;
   color:#fff;
-  font-size:15px;
+  background:transparent;
 }
 
-.search input::placeholder{color:#8e9aa3}
+.search input::placeholder{color:#8997a0}
 
 .search button{
-  width:54px;
+  width:52px;
   border:0;
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  background:linear-gradient(135deg,var(--blue),var(--blue2));
   color:#fff;
-  font-size:22px;
-  cursor:pointer;
+  font-size:20px;
 }
 
-.cart{
-  min-height:46px;
-  padding:0 14px;
-  border:1px solid var(--border);
+.cart-btn{
+  min-height:44px;
+  padding:0 13px;
   border-radius:10px;
-  background:#07131d;
+  border:1px solid #176183;
   color:#fff;
-  font-weight:800;
-  cursor:pointer;
+  background:#07131d;
+  font-weight:850;
 }
 
 .cart-count{
   display:inline-flex;
   align-items:center;
   justify-content:center;
-  min-width:20px;
-  height:20px;
+  min-width:21px;
+  height:21px;
   margin-left:4px;
-  border-radius:20px;
-  background:var(--accent);
-  color:#00131c;
+  border-radius:50%;
+  background:var(--blue);
+  color:#00131d;
   font-size:12px;
 }
 
-.catbar{
-  background:#030b11;
-  border-top:1px solid rgba(0,191,255,.12);
+.cat-wrap{
   overflow-x:auto;
   scrollbar-width:none;
+  background:#030b11;
+  border-top:1px solid rgba(0,191,255,.1);
 }
 
-.catbar::-webkit-scrollbar{display:none}
+.cat-wrap::-webkit-scrollbar{display:none}
 
 .cats{
   max-width:1400px;
   margin:auto;
   display:flex;
-  padding:0 12px;
+  padding:0 8px;
 }
 
 .cats button{
   flex:0 0 auto;
-  min-width:110px;
-  padding:15px 13px;
+  min-width:100px;
+  padding:13px 12px;
   border:0;
-  border-right:1px solid #112633;
+  border-right:1px solid #102633;
   background:transparent;
-  color:#dbe5ea;
-  font-weight:700;
-  cursor:pointer;
+  color:#dae5ea;
+  font-weight:800;
 }
 
 .cats button.active{
-  background:linear-gradient(180deg,rgba(0,191,255,.23),rgba(0,191,255,.08));
   color:#fff;
-  box-shadow:inset 0 -3px var(--accent);
+  background:rgba(0,191,255,.14);
+  box-shadow:inset 0 -3px var(--blue);
 }
-
-.cats button.active::first-letter{color:var(--accent)}
 
 .hero{
   max-width:1400px;
-  margin:14px auto 0;
-  padding:0 14px;
+  margin:auto;
+  padding:14px 12px 0;
 }
 
 .hero-box{
-  min-height:300px;
   position:relative;
   overflow:hidden;
   border:1px solid #0879a8;
-  border-radius:16px;
-  padding:38px;
-  display:flex;
-  align-items:center;
+  border-radius:15px;
+  padding:30px;
   background:
-    linear-gradient(90deg,rgba(0,0,0,.25),rgba(0,191,255,.04)),
-    radial-gradient(circle at 75% 50%,rgba(0,191,255,.28),transparent 28%),
-    linear-gradient(120deg,#02070b 5%,#061827 65%,#001724);
-  box-shadow:0 0 35px rgba(0,191,255,.12);
-}
-
-.hero-box:before{
-  content:"";
-  position:absolute;
-  width:340px;
-  height:340px;
-  right:-100px;
-  top:-100px;
-  border:1px solid rgba(0,191,255,.28);
-  transform:rotate(35deg);
-  box-shadow:0 0 45px rgba(0,191,255,.15);
-}
-
-.hero-content{
-  position:relative;
-  z-index:2;
-  max-width:700px;
+    radial-gradient(circle at 85% 15%,rgba(0,191,255,.22),transparent 30%),
+    linear-gradient(135deg,#02070b,#062034);
 }
 
 .hero-small{
-  color:var(--accent);
-  font-weight:850;
-  letter-spacing:5px;
-  font-size:13px;
+  color:var(--blue);
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:4px;
 }
 
 .hero h1{
-  margin:8px 0 8px;
-  font-size:52px;
-  line-height:.98;
-  font-weight:950;
+  margin:7px 0;
+  max-width:700px;
+  font-size:44px;
+  line-height:1;
 }
 
-.hero h1 span{color:var(--accent)}
+.hero h1 span{color:var(--blue)}
 
 .hero p{
-  max-width:630px;
-  color:#c4d1d8;
-  font-size:17px;
-  line-height:1.55;
+  max-width:650px;
+  color:#bdcbd2;
+  line-height:1.5;
 }
 
-.hero-btn{
-  display:inline-block;
-  margin-top:12px;
+.hero button{
+  margin-top:7px;
   border:0;
-  border-radius:25px;
-  padding:13px 25px;
-  color:#00131c;
-  background:linear-gradient(135deg,#15c9ff,#009ce8);
+  border-radius:24px;
+  padding:12px 22px;
   font-weight:900;
-  cursor:pointer;
-  box-shadow:0 0 22px rgba(0,191,255,.25);
+  color:#00131d;
+  background:linear-gradient(135deg,#17c9ff,#009ce8);
 }
 
-.services{
+.benefits{
   max-width:1400px;
-  margin:14px auto;
-  padding:0 14px;
+  margin:12px auto 0;
+  padding:0 12px;
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:10px;
+  gap:8px;
 }
 
-.service{
-  border:1px solid #0b6187;
-  border-radius:12px;
-  background:linear-gradient(135deg,#07131d,#091a25);
-  padding:18px;
-  display:flex;
-  gap:12px;
-  align-items:center;
+.benefit{
+  padding:13px;
+  border:1px solid #0b5879;
+  border-radius:11px;
+  background:#07141d;
 }
 
-.service-icon{
-  font-size:29px;
-  color:var(--accent);
-}
-
-.service strong{
+.benefit b{
   display:block;
-  font-size:15px;
+  font-size:14px;
 }
 
-.service span{
-  color:#9aaab3;
-  font-size:13px;
+.benefit span{
+  color:#8fa0aa;
+  font-size:12px;
 }
 
 main{
   max-width:1400px;
   margin:auto;
-  padding:8px 14px 42px;
+  padding:15px 12px 45px;
 }
 
 .section-head{
   display:flex;
   align-items:end;
   justify-content:space-between;
-  gap:12px;
-  margin:15px 0 13px;
+  margin-bottom:12px;
+  gap:10px;
 }
 
 .section-head h2{
   margin:0;
-  font-size:27px;
-}
-
-.section-line{
-  flex:1;
-  height:1px;
-  background:linear-gradient(90deg,var(--accent),transparent);
-  margin-bottom:7px;
+  font-size:25px;
 }
 
 .result-count{
-  color:var(--accent);
+  color:var(--blue);
   font-size:13px;
-  white-space:nowrap;
 }
 
 .status{
+  padding:25px;
   border:1px solid var(--border);
   border-radius:12px;
-  padding:25px;
   background:#07131d;
-  color:#b8c6cd;
+  color:#aebbc2;
   text-align:center;
 }
 
@@ -335,13 +275,11 @@ main{
   border-radius:12px;
   background:#fff;
   color:#111;
-  box-shadow:0 5px 20px rgba(0,0,0,.3);
-  transition:.2s ease;
+  box-shadow:0 5px 18px rgba(0,0,0,.3);
 }
 
-.card:hover{
-  transform:translateY(-3px);
-  box-shadow:0 7px 28px rgba(0,191,255,.18);
+.product-click{
+  cursor:pointer;
 }
 
 .photo{
@@ -349,177 +287,68 @@ main{
   display:flex;
   align-items:center;
   justify-content:center;
-  background:linear-gradient(#fff,#f5f7f8);
   overflow:hidden;
+  background:#fff;
 }
 
 .photo img{
   width:100%;
   height:100%;
   object-fit:contain;
-  padding:10px;
+  padding:8px;
 }
 
 .no-img{
-  color:#969da1;
-  font-size:13px;
-}
-
-.info{padding:13px}
-
-.name{
-  min-height:42px;
-  font-size:15px;
-  font-weight:800;
-  line-height:1.35;
-}
-
-.meta{
-  min-height:18px;
-  margin-top:3px;
-  color:#5e6870;
+  color:#999;
   font-size:12px;
 }
 
+.info{
+  padding:11px;
+}
+
+.name{
+  min-height:38px;
+  font-size:14px;
+  font-weight:850;
+  line-height:1.3;
+}
+
+.meta{
+  min-height:17px;
+  color:#677178;
+  font-size:11px;
+  margin-top:3px;
+}
+
 .price{
-  margin-top:9px;
-  font-size:20px;
+  margin-top:8px;
+  font-size:19px;
   font-weight:950;
 }
 
 .stock{
-  margin-top:5px;
-  color:#0a9b4d;
-  font-size:12px;
-}
-
-.stock:before{
-  content:"● ";
-  color:var(--green);
+  margin-top:4px;
+  color:#06954b;
+  font-size:11px;
+  font-weight:750;
 }
 
 .add{
   width:100%;
-  margin-top:10px;
-  padding:10px;
+  margin-top:9px;
+  padding:9px;
   border:0;
   border-radius:7px;
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
   color:#fff;
+  background:linear-gradient(135deg,var(--blue),var(--blue2));
   font-weight:900;
-  cursor:pointer;
 }
-
-.promo{
-  max-width:1400px;
-  margin:5px auto 20px;
-  padding:0 14px;
-}
-
-.promo-box{
-  border:1px solid #0879a8;
-  border-radius:15px;
-  padding:28px 30px;
-  text-align:center;
-  background:
-    linear-gradient(90deg,rgba(0,191,255,.05),transparent),
-    #050e15;
-  box-shadow:0 0 30px rgba(0,191,255,.08);
-}
-
-.promo-top{
-  color:var(--accent);
-  letter-spacing:4px;
-  font-weight:800;
-  font-size:11px;
-}
-
-.promo-title{
-  margin-top:5px;
-  font-size:31px;
-  font-weight:950;
-}
-
-.promo-title span{color:var(--accent)}
-
-.benefits{
-  margin-top:18px;
-  display:flex;
-  justify-content:center;
-  gap:28px;
-  flex-wrap:wrap;
-  color:#d2dde2;
-  font-size:13px;
-}
-
-.benefits b{color:var(--accent)}
-
-.contact{
-  border-top:1px solid #0879a8;
-  border-bottom:1px solid #0879a8;
-  background:linear-gradient(90deg,#03121b,#062237,#03121b);
-}
-
-.contact-wrap{
-  max-width:1400px;
-  margin:auto;
-  padding:22px 16px;
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:20px;
-}
-
-.contact-box{
-  display:flex;
-  gap:13px;
-  align-items:center;
-}
-
-.contact-icon{
-  color:var(--accent);
-  font-size:31px;
-}
-
-.contact-label{
-  color:var(--accent);
-  font-size:11px;
-  font-weight:900;
-  text-transform:uppercase;
-}
-
-.contact-value{
-  margin-top:3px;
-  color:#fff;
-  line-height:1.35;
-}
-
-footer{
-  background:#010508;
-  padding:28px 16px;
-  color:#9babb4;
-}
-
-.footer-inner{
-  max-width:1400px;
-  margin:auto;
-  display:flex;
-  justify-content:space-between;
-  gap:20px;
-  flex-wrap:wrap;
-}
-
-.footer-logo{
-  color:#fff;
-  font-size:22px;
-  font-weight:950;
-}
-
-.footer-logo span{color:var(--accent)}
 
 .whatsapp{
   position:fixed;
-  right:18px;
-  bottom:22px;
+  right:17px;
+  bottom:20px;
   z-index:150;
   width:58px;
   height:58px;
@@ -528,19 +357,18 @@ footer{
   align-items:center;
   justify-content:center;
   text-decoration:none;
-  background:#13c968;
+  background:#12c968;
   color:#fff;
-  font-size:29px;
-  box-shadow:0 5px 25px rgba(19,201,104,.35);
+  font-size:27px;
+  box-shadow:0 5px 25px rgba(18,201,104,.38);
 }
 
-/* carrito */
 .overlay{
   display:none;
   position:fixed;
   inset:0;
   z-index:300;
-  background:rgba(0,0,0,.7);
+  background:rgba(0,0,0,.72);
 }
 
 .overlay.show{display:block}
@@ -549,20 +377,19 @@ footer{
   position:absolute;
   right:0;
   top:0;
-  height:100%;
   width:min(430px,94vw);
+  height:100%;
   display:flex;
   flex-direction:column;
   background:#07131d;
-  color:#fff;
   border-left:1px solid #0879a8;
 }
 
 .drawer-head{
-  padding:18px;
+  padding:17px;
   display:flex;
-  justify-content:space-between;
   align-items:center;
+  justify-content:space-between;
   border-bottom:1px solid var(--border);
 }
 
@@ -576,58 +403,169 @@ footer{
 }
 
 #cartItems{
-  padding:15px;
-  overflow:auto;
   flex:1;
+  overflow:auto;
+  padding:14px;
 }
 
 .cart-item{
-  padding:12px 0;
-  border-bottom:1px solid #153445;
   display:flex;
   gap:10px;
+  padding:12px 0;
+  border-bottom:1px solid #173749;
 }
 
 .cart-item img{
-  width:65px;
-  height:65px;
-  background:#fff;
+  width:64px;
+  height:64px;
   object-fit:contain;
+  background:#fff;
 }
 
 .cart-info{flex:1}
 
 .cart-name{
-  font-weight:800;
+  font-weight:850;
   margin-bottom:4px;
 }
 
 .remove{
+  margin-top:5px;
   border:0;
   background:transparent;
-  color:#ff6b6b;
-  padding:4px 0;
+  color:#ff7474;
+  padding:0;
 }
 
 .cart-footer{
-  padding:18px;
+  padding:17px;
   border-top:1px solid var(--border);
 }
 
 .cart-total{
-  margin-bottom:12px;
   font-size:20px;
-  font-weight:900;
+  font-weight:950;
+  margin-bottom:12px;
 }
 
 .checkout{
   width:100%;
+  padding:13px;
   border:0;
   border-radius:9px;
-  padding:13px;
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  background:linear-gradient(135deg,var(--blue),var(--blue2));
   color:#fff;
   font-weight:900;
+}
+
+/* DETALLE PRODUCTO */
+
+.product-modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  z-index:400;
+  background:rgba(0,0,0,.78);
+  padding:15px;
+  overflow:auto;
+}
+
+.product-modal.show{display:block}
+
+.detail{
+  width:min(900px,100%);
+  margin:30px auto;
+  overflow:hidden;
+  border:1px solid #0b719a;
+  border-radius:16px;
+  background:#07131d;
+}
+
+.detail-top{
+  display:flex;
+  justify-content:flex-end;
+  padding:8px 12px 0;
+}
+
+.detail-close{
+  border:0;
+  background:transparent;
+  color:#fff;
+  font-size:31px;
+}
+
+.detail-body{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
+  padding:20px;
+}
+
+.detail-image{
+  min-height:350px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:12px;
+  background:#fff;
+  overflow:hidden;
+}
+
+.detail-image img{
+  width:100%;
+  max-height:500px;
+  object-fit:contain;
+}
+
+.detail-info h2{
+  margin:0 0 8px;
+  font-size:31px;
+}
+
+.detail-meta{
+  color:#a4b2ba;
+}
+
+.detail-price{
+  margin:15px 0;
+  color:var(--blue);
+  font-size:30px;
+  font-weight:950;
+}
+
+.detail-stock{
+  color:#37d27d;
+  font-weight:850;
+}
+
+.detail-desc{
+  margin-top:18px;
+  color:#c2cdd3;
+  line-height:1.6;
+}
+
+.detail-specs{
+  margin-top:17px;
+  display:grid;
+  gap:7px;
+  font-size:14px;
+}
+
+.detail-specs div{
+  padding:9px 10px;
+  border-radius:7px;
+  background:#0b1d28;
+}
+
+.detail-add{
+  width:100%;
+  margin-top:20px;
+  padding:13px;
+  border:0;
+  border-radius:9px;
+  color:#00131d;
+  background:linear-gradient(135deg,#16caff,#009ce8);
+  font-weight:950;
 }
 
 @media(max-width:1100px){
@@ -636,45 +574,39 @@ footer{
 
 @media(max-width:820px){
   .grid{grid-template-columns:repeat(3,minmax(0,1fr))}
-  .services{grid-template-columns:1fr}
-  .contact-wrap{grid-template-columns:1fr}
+  .benefits{grid-template-columns:1fr}
 }
 
 @media(max-width:650px){
-  .top-main{
-    flex-wrap:wrap;
-    gap:9px;
-  }
 
-  .brand-main{font-size:21px}
-  .brand-sub{font-size:7px}
+  .top-row{
+    flex-wrap:wrap;
+    gap:8px;
+  }
 
   .search{
     order:3;
     flex-basis:100%;
   }
 
-  .cart{
+  .cart-btn{
     margin-left:auto;
   }
 
-  .cats button{
-    min-width:92px;
-    padding:12px 10px;
-    font-size:13px;
+  .logo-main{
+    font-size:21px;
   }
 
   .hero-box{
-    min-height:270px;
-    padding:27px 22px;
+    padding:24px 20px;
   }
 
   .hero h1{
-    font-size:39px;
+    font-size:36px;
   }
 
   .hero p{
-    font-size:15px;
+    font-size:14px;
   }
 
   .grid{
@@ -687,15 +619,52 @@ footer{
     padding-right:8px;
   }
 
-  .info{padding:10px}
-  .name{font-size:13px}
-  .price{font-size:17px}
-  .add{font-size:13px}
+  .info{
+    padding:9px;
+  }
 
-  .section-head h2{font-size:23px}
-  .section-line{display:none}
+  .name{
+    min-height:34px;
+    font-size:13px;
+  }
 
-  .promo-title{font-size:24px}
+  .meta{
+    font-size:10px;
+  }
+
+  .price{
+    font-size:16px;
+  }
+
+  .add{
+    font-size:12px;
+    padding:8px 5px;
+  }
+
+  .photo img{
+    padding:5px;
+  }
+
+  .detail{
+    margin:8px auto;
+  }
+
+  .detail-body{
+    grid-template-columns:1fr;
+    padding:14px;
+  }
+
+  .detail-image{
+    min-height:280px;
+  }
+
+  .detail-info h2{
+    font-size:25px;
+  }
+
+  .detail-price{
+    font-size:26px;
+  }
 }
 </style>
 </head>
@@ -703,201 +672,231 @@ footer{
 <body>
 
 <header class="top">
-  <div class="top-main">
-    <div class="brand">
-      <div class="brand-main">LOE <span>MOBIL</span></div>
-      <div class="brand-sub">FIX & GEAR</div>
+
+  <div class="top-row">
+
+    <div class="logo">
+      <div class="logo-main">
+        LOE <span>MOBIL</span>
+      </div>
+
+      <div class="logo-sub">
+        FIX & GEAR
+      </div>
     </div>
 
     <div class="search">
       <input
         id="searchInput"
         type="search"
-        placeholder="Buscar iPhone, pantallas, cargadores, fundas..."
+        placeholder="Buscar iPhone, pantallas, cargadores..."
       >
-      <button id="searchBtn">⌕</button>
+
+      <button id="searchBtn">
+        ⌕
+      </button>
     </div>
 
-    <button class="cart" onclick="openCart()">
+    <button
+      class="cart-btn"
+      onclick="openCart()"
+    >
       🛒 Carrito
-      <span class="cart-count" id="cartCount">0</span>
+      <span
+        class="cart-count"
+        id="cartCount"
+      >
+        0
+      </span>
     </button>
+
   </div>
 
-  <div class="catbar">
-    <div id="cats" class="cats">
-      <button class="active" data-id="">▦ Todos</button>
+  <div class="cat-wrap">
+
+    <div
+      id="cats"
+      class="cats"
+    >
+      <button
+        class="active"
+        data-id=""
+      >
+        ▦ Todos
+      </button>
     </div>
+
   </div>
+
 </header>
 
 <section class="hero">
+
   <div class="hero-box">
-    <div class="hero-content">
-      <div class="hero-small">LOE MOBIL · FIX & GEAR</div>
 
-      <h1>
-        Todo para tu <span>teléfono</span><br>
-        en un solo lugar.
-      </h1>
-
-      <p>
-        Repuestos, accesorios y teléfonos.
-        Calidad, servicio técnico y atención personalizada en Santo Domingo.
-      </p>
-
-      <button class="hero-btn"
-        onclick="document.querySelector('main').scrollIntoView()">
-        Ver productos →
-      </button>
+    <div class="hero-small">
+      LOE MOBIL · FIX & GEAR
     </div>
+
+    <h1>
+      Tecnología para tu
+      <span>día a día.</span>
+    </h1>
+
+    <p>
+      Teléfonos, repuestos y accesorios.
+      Compra fácil, consulta disponibilidad y
+      realiza tu pedido directamente por WhatsApp.
+    </p>
+
+    <button
+      onclick="document.querySelector('main').scrollIntoView()"
+    >
+      Comprar ahora →
+    </button>
+
   </div>
+
 </section>
 
-<section class="services">
-  <div class="service">
-    <div class="service-icon">⚒</div>
-    <div>
-      <strong>Servicio Técnico</strong>
-      <span>Diagnóstico y reparación</span>
-    </div>
+<section class="benefits">
+
+  <div class="benefit">
+    <b>🛠 Servicio técnico</b>
+    <span>Diagnóstico y reparación</span>
   </div>
 
-  <div class="service">
-    <div class="service-icon">🚚</div>
-    <div>
-      <strong>Delivery Disponible</strong>
-      <span>Santo Domingo y zonas cercanas</span>
-    </div>
+  <div class="benefit">
+    <b>🚚 Delivery disponible</b>
+    <span>Santo Domingo y zonas cercanas</span>
   </div>
 
-  <div class="service">
-    <div class="service-icon">✓</div>
-    <div>
-      <strong>Calidad Garantizada</strong>
-      <span>Productos seleccionados</span>
-    </div>
+  <div class="benefit">
+    <b>✓ Calidad garantizada</b>
+    <span>Productos seleccionados</span>
   </div>
+
 </section>
 
 <main>
+
   <div class="section-head">
-    <h2 id="sectionTitle">Productos destacados</h2>
-    <div class="section-line"></div>
-    <div id="resultCount" class="result-count"></div>
+
+    <h2 id="sectionTitle">
+      Productos
+    </h2>
+
+    <div
+      id="resultCount"
+      class="result-count"
+    ></div>
+
   </div>
 
-  <div id="status" class="status">Cargando productos…</div>
-  <div id="products" class="grid"></div>
+  <div
+    id="status"
+    class="status"
+  >
+    Cargando productos…
+  </div>
+
+  <div
+    id="products"
+    class="grid"
+  ></div>
+
 </main>
-
-<section class="promo">
-  <div class="promo-box">
-    <div class="promo-top">
-      REPUESTOS · ACCESORIOS · TELÉFONOS
-    </div>
-
-    <div class="promo-title">
-      TU TELÉFONO <span>EN LAS MEJORES MANOS</span>
-    </div>
-
-    <div class="benefits">
-      <div><b>⚙</b> Repuestos de calidad</div>
-      <div><b>🚚</b> Envíos rápidos</div>
-      <div><b>◉</b> Atención personalizada</div>
-      <div><b>✓</b> Productos garantizados</div>
-    </div>
-  </div>
-</section>
-
-<section class="contact">
-  <div class="contact-wrap">
-
-    <div class="contact-box">
-      <div class="contact-icon">☏</div>
-      <div>
-        <div class="contact-label">Contáctanos por WhatsApp</div>
-        <div class="contact-value"><b>849 889 8247</b></div>
-      </div>
-    </div>
-
-    <div class="contact-box">
-      <div class="contact-icon">●</div>
-      <div>
-        <div class="contact-label">Visítanos</div>
-        <div class="contact-value">
-          Plaza Central, 2 nivel<br>
-          Local LOE MOBIL
-        </div>
-      </div>
-    </div>
-
-    <div class="contact-box">
-      <div class="contact-icon">◷</div>
-      <div>
-        <div class="contact-label">Atención</div>
-        <div class="contact-value">
-          Cotizaciones · Reparaciones<br>
-          Venta de equipos y accesorios
-        </div>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<footer>
-  <div class="footer-inner">
-    <div>
-      <div class="footer-logo">
-        LOE <span>MOBIL</span>
-      </div>
-      <div>FIX & GEAR</div>
-      <br>
-      <div>Tu mundo en conexión</div>
-    </div>
-
-    <div>
-      Repuestos · Accesorios · Teléfonos<br>
-      Santo Domingo, República Dominicana
-    </div>
-  </div>
-</footer>
 
 <a
   class="whatsapp"
   href="https://wa.me/18498898247"
   target="_blank"
-  aria-label="WhatsApp"
->☏</a>
+>
+  ☏
+</a>
 
-<div id="cartOverlay" class="overlay" onclick="overlayClose(event)">
+<!-- CARRITO -->
+
+<div
+  id="cartOverlay"
+  class="overlay"
+  onclick="overlayClose(event)"
+>
+
   <div class="drawer">
 
     <div class="drawer-head">
+
       <h2>Tu carrito</h2>
-      <button class="close" onclick="closeCart()">×</button>
+
+      <button
+        class="close"
+        onclick="closeCart()"
+      >
+        ×
+      </button>
+
     </div>
 
     <div id="cartItems"></div>
 
     <div class="cart-footer">
+
       <div class="cart-total">
         Total:
-        <span id="cartTotal">RD$0.00</span>
+        <span id="cartTotal">
+          RD$0.00
+        </span>
       </div>
 
-      <button class="checkout" onclick="checkout()">
+      <button
+        class="checkout"
+        onclick="checkout()"
+      >
         Pedir por WhatsApp
       </button>
+
     </div>
 
   </div>
+
+</div>
+
+<!-- DETALLE -->
+
+<div
+  id="productModal"
+  class="product-modal"
+  onclick="detailOverlayClose(event)"
+>
+
+  <div class="detail">
+
+    <div class="detail-top">
+      <button
+        class="detail-close"
+        onclick="closeProduct()"
+      >
+        ×
+      </button>
+    </div>
+
+    <div
+      id="detailBody"
+      class="detail-body"
+    ></div>
+
+  </div>
+
 </div>
 
 <script>
-const SUPABASE_URL="https://zndjyragtbobzuwxaaoe.supabase.co";
-const SUPABASE_KEY="sb_publishable_eWJkT8ZBPv0ZcCSLo01P7g_0AAEbN6S";
+
+const SUPABASE_URL=
+"https://zndjyragtbobzuwxaaoe.supabase.co";
+
+const SUPABASE_KEY=
+"sb_publishable_eWJkT8ZBPv0ZcCSLo01P7g_0AAEbN6S";
 
 const headers={
   apikey:SUPABASE_KEY
@@ -905,76 +904,113 @@ const headers={
 
 let products=[];
 let categories=[];
+
 let currentCategory="";
 let currentSearch="";
-let cart=JSON.parse(localStorage.getItem("loeCart")||"[]");
+
+let cart=
+JSON.parse(
+  localStorage.getItem("loeCart")||"[]"
+);
 
 function money(n){
-  return "RD$"+Number(n||0).toLocaleString("es-DO",{
-    minimumFractionDigits:2,
-    maximumFractionDigits:2
-  });
+
+  return "RD$"+
+  Number(n||0)
+  .toLocaleString(
+    "es-DO",
+    {
+      minimumFractionDigits:2,
+      maximumFractionDigits:2
+    }
+  );
 }
 
-function safe(value){
-  return String(value??"")
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
+function safe(v){
+
+  return String(v??"")
+  .replaceAll("&","&amp;")
+  .replaceAll("<","&lt;")
+  .replaceAll(">","&gt;")
+  .replaceAll('"',"&quot;")
+  .replaceAll("'","&#039;");
 }
 
 async function load(){
+
   try{
-    const [cr,pr]=await Promise.all([
+
+    const [cr,pr]=
+    await Promise.all([
+
       fetch(
         `${SUPABASE_URL}/rest/v1/categories?select=*&order=id`,
         {headers}
       ),
+
       fetch(
         `${SUPABASE_URL}/rest/v1/products?select=*&order=id.desc`,
         {headers}
       )
+
     ]);
 
     if(!cr.ok||!pr.ok){
-      throw new Error("Error cargando tienda");
+      throw new Error();
     }
 
-    categories=await cr.json();
-    products=await pr.json();
+    categories=
+    await cr.json();
+
+    products=
+    await pr.json();
 
     renderCategories();
     applyFilters();
     updateCart();
 
   }catch(err){
-    console.error(err);
-    document.getElementById("status").textContent=
-      "No se pudieron cargar los productos.";
+
+    document
+    .getElementById("status")
+    .textContent=
+    "No se pudieron cargar los productos.";
   }
 }
 
 function renderCategories(){
-  const box=document.getElementById("cats");
+
+  const box=
+  document.getElementById("cats");
 
   categories.forEach(cat=>{
-    const b=document.createElement("button");
 
-    b.textContent=cat.name;
-    b.dataset.id=cat.id;
+    const b=
+    document.createElement("button");
+
+    b.textContent=
+    cat.name;
+
+    b.dataset.id=
+    cat.id;
 
     b.onclick=()=>{
-      document.querySelectorAll("#cats button")
-        .forEach(x=>x.classList.remove("active"));
+
+      document
+      .querySelectorAll("#cats button")
+      .forEach(x=>
+        x.classList.remove("active")
+      );
 
       b.classList.add("active");
 
-      currentCategory=String(cat.id);
+      currentCategory=
+      String(cat.id);
 
-      document.getElementById("sectionTitle").textContent=
-        cat.name;
+      document
+      .getElementById("sectionTitle")
+      .textContent=
+      cat.name;
 
       applyFilters();
     };
@@ -982,34 +1018,51 @@ function renderCategories(){
     box.appendChild(b);
   });
 
-  box.querySelector('[data-id=""]').onclick=()=>{
-    document.querySelectorAll("#cats button")
-      .forEach(x=>x.classList.remove("active"));
+  box
+  .querySelector('[data-id=""]')
+  .onclick=()=>{
 
-    box.querySelector('[data-id=""]').classList.add("active");
+    document
+    .querySelectorAll("#cats button")
+    .forEach(x=>
+      x.classList.remove("active")
+    );
+
+    box
+    .querySelector('[data-id=""]')
+    .classList.add("active");
 
     currentCategory="";
 
-    document.getElementById("sectionTitle").textContent=
-      "Productos destacados";
+    document
+    .getElementById("sectionTitle")
+    .textContent=
+    "Productos";
 
     applyFilters();
   };
 }
 
 function applyFilters(){
+
   let list=[...products];
 
   if(currentCategory){
+
     list=list.filter(
-      p=>String(p.category_id)===currentCategory
+      p=>
+      String(p.category_id)===
+      currentCategory
     );
   }
 
   if(currentSearch){
-    const q=currentSearch.toLowerCase();
+
+    const q=
+    currentSearch.toLowerCase();
 
     list=list.filter(p=>
+
       [
         p.name,
         p.brand,
@@ -1019,10 +1072,12 @@ function applyFilters(){
         p.color,
         p.storage
       ]
+
       .filter(Boolean)
       .join(" ")
       .toLowerCase()
       .includes(q)
+
     );
   }
 
@@ -1030,85 +1085,258 @@ function applyFilters(){
 }
 
 function render(list){
-  const status=document.getElementById("status");
-  const grid=document.getElementById("products");
-  const count=document.getElementById("resultCount");
+
+  const status=
+  document.getElementById("status");
+
+  const grid=
+  document.getElementById("products");
+
+  const count=
+  document.getElementById("resultCount");
 
   grid.innerHTML="";
 
   count.textContent=
-    `${list.length} producto${list.length===1?"":"s"}`;
+  `${list.length} producto${list.length===1?"":"s"}`;
 
   if(!list.length){
+
     status.style.display="block";
-    status.textContent="No encontramos productos.";
+
+    status.textContent=
+    "No encontramos productos.";
+
     return;
   }
 
   status.style.display="none";
 
   list.forEach(p=>{
-    const card=document.createElement("article");
+
+    const card=
+    document.createElement("article");
 
     card.className="card";
 
-    const image=p.image_url
-      ? `<img src="${safe(p.image_url)}"
-           alt="${safe(p.name||"Producto")}"
-           loading="lazy">`
-      : `<span class="no-img">Sin imagen</span>`;
+    const image=
+    p.image_url
 
-    const meta=[
+    ? `<img
+         src="${safe(p.image_url)}"
+         alt="${safe(p.name||"Producto")}"
+         loading="lazy"
+       >`
+
+    : `<span class="no-img">
+         Sin imagen
+       </span>`;
+
+    const meta=
+    [
       p.brand,
-      p.model
+      p.storage
     ]
     .filter(Boolean)
     .join(" · ");
 
     card.innerHTML=`
-      <div class="photo">
-        ${image}
+
+      <div
+        class="product-click"
+        onclick='openProduct(${JSON.stringify(String(p.id))})'
+      >
+
+        <div class="photo">
+          ${image}
+        </div>
+
+        <div class="info">
+
+          <div class="name">
+            ${safe(p.name||"Producto")}
+          </div>
+
+          <div class="meta">
+            ${safe(meta)}
+          </div>
+
+          <div class="price">
+            ${money(p.price)}
+          </div>
+
+          <div class="stock">
+            ● Disponible
+          </div>
+
+        </div>
+
       </div>
 
-      <div class="info">
-        <div class="name">
-          ${safe(p.name||"Producto")}
-        </div>
+      <div style="padding:0 9px 10px">
 
-        <div class="meta">
-          ${safe(meta)}
-        </div>
-
-        <div class="price">
-          ${money(p.price)}
-        </div>
-
-        <div class="stock">
-          Disponible
-        </div>
-
-        <button class="add">
+        <button
+          class="add"
+          onclick='addById(${JSON.stringify(String(p.id))})'
+        >
           🛒 Agregar
         </button>
+
       </div>
     `;
-
-    card.querySelector(".add").onclick=()=>{
-      addToCart(p);
-    };
 
     grid.appendChild(card);
   });
 }
 
+function openProduct(id){
+
+  const p=
+  products.find(
+    x=>String(x.id)===String(id)
+  );
+
+  if(!p){
+    return;
+  }
+
+  const image=
+  p.image_url
+
+  ? `<img
+       src="${safe(p.image_url)}"
+       alt="${safe(p.name)}"
+     >`
+
+  : `<div class="no-img">
+       Sin imagen
+     </div>`;
+
+  const specs=[];
+
+  if(p.brand){
+    specs.push(
+      `<div><b>Marca:</b> ${safe(p.brand)}</div>`
+    );
+  }
+
+  if(p.model){
+    specs.push(
+      `<div><b>Modelo:</b> ${safe(p.model)}</div>`
+    );
+  }
+
+  if(p.storage){
+    specs.push(
+      `<div><b>Almacenamiento:</b> ${safe(p.storage)}</div>`
+    );
+  }
+
+  if(p.color){
+    specs.push(
+      `<div><b>Color:</b> ${safe(p.color)}</div>`
+    );
+  }
+
+  if(p.condition){
+    specs.push(
+      `<div><b>Condición:</b> ${safe(p.condition)}</div>`
+    );
+  }
+
+  document
+  .getElementById("detailBody")
+  .innerHTML=`
+
+    <div class="detail-image">
+      ${image}
+    </div>
+
+    <div class="detail-info">
+
+      <div class="detail-meta">
+        ${safe(p.brand||"LOE MOBIL")}
+      </div>
+
+      <h2>
+        ${safe(p.name)}
+      </h2>
+
+      <div class="detail-price">
+        ${money(p.price)}
+      </div>
+
+      <div class="detail-stock">
+        ● Disponible
+      </div>
+
+      <div class="detail-specs">
+        ${specs.join("")}
+      </div>
+
+      <div class="detail-desc">
+        ${
+          safe(
+            p.description||
+            "Disponible en LOE MOBIL. Consulta disponibilidad y detalles por WhatsApp."
+          )
+        }
+      </div>
+
+      <button
+        class="detail-add"
+        onclick='addById(${JSON.stringify(String(p.id))});closeProduct()'
+      >
+        🛒 Agregar al carrito
+      </button>
+
+    </div>
+  `;
+
+  document
+  .getElementById("productModal")
+  .classList.add("show");
+}
+
+function closeProduct(){
+
+  document
+  .getElementById("productModal")
+  .classList.remove("show");
+}
+
+function detailOverlayClose(e){
+
+  if(e.target.id==="productModal"){
+    closeProduct();
+  }
+}
+
+function addById(id){
+
+  const p=
+  products.find(
+    x=>String(x.id)===String(id)
+  );
+
+  if(p){
+    addToCart(p);
+  }
+}
+
 function addToCart(p){
-  const found=cart.find(
+
+  const found=
+  cart.find(
     x=>String(x.id)===String(p.id)
   );
 
   if(found){
+
     found.qty++;
+
   }else{
+
     cart.push({
       id:p.id,
       name:p.name,
@@ -1123,7 +1351,9 @@ function addToCart(p){
 }
 
 function removeFromCart(id){
-  cart=cart.filter(
+
+  cart=
+  cart.filter(
     x=>String(x.id)!==String(id)
   );
 
@@ -1132,6 +1362,7 @@ function removeFromCart(id){
 }
 
 function saveCart(){
+
   localStorage.setItem(
     "loeCart",
     JSON.stringify(cart)
@@ -1139,51 +1370,75 @@ function saveCart(){
 }
 
 function updateCart(){
-  const count=cart.reduce(
+
+  const count=
+  cart.reduce(
     (n,x)=>n+x.qty,
     0
   );
 
-  document.getElementById("cartCount").textContent=count;
+  document
+  .getElementById("cartCount")
+  .textContent=count;
 
-  const box=document.getElementById("cartItems");
+  const box=
+  document.getElementById("cartItems");
 
   box.innerHTML="";
 
   if(!cart.length){
-    box.innerHTML=
-      '<div class="status">Tu carrito está vacío.</div>';
-  }else{
-    cart.forEach(x=>{
-      const row=document.createElement("div");
 
-      row.className="cart-item";
+    box.innerHTML=
+    '<div class="status">Tu carrito está vacío.</div>';
+
+  }else{
+
+    cart.forEach(x=>{
+
+      const row=
+      document.createElement("div");
+
+      row.className=
+      "cart-item";
 
       row.innerHTML=`
+
         ${
           x.image_url
-          ? `<img src="${safe(x.image_url)}" alt="">`
-          : `<div style="
-              width:65px;
-              height:65px;
-              background:#10232f;
-             "></div>`
+
+          ? `<img
+               src="${safe(x.image_url)}"
+               alt=""
+             >`
+
+          : `<div
+               style="
+                 width:64px;
+                 height:64px;
+                 background:#10232f;
+               "
+             ></div>`
         }
 
         <div class="cart-info">
+
           <div class="cart-name">
             ${safe(x.name)}
           </div>
 
           <div>
-            ${money(x.price)} × ${x.qty}
+            ${money(x.price)}
+            ×
+            ${x.qty}
           </div>
 
           <button
             class="remove"
-            onclick='removeFromCart(${JSON.stringify(String(x.id))})'>
+            onclick='removeFromCart(${JSON.stringify(String(x.id))})'
+          >
             Eliminar
           </button>
+
         </div>
       `;
 
@@ -1191,79 +1446,104 @@ function updateCart(){
     });
   }
 
-  const total=cart.reduce(
-    (n,x)=>n+(x.price*x.qty),
+  const total=
+  cart.reduce(
+    (n,x)=>
+    n+(x.price*x.qty),
     0
   );
 
-  document.getElementById("cartTotal").textContent=
-    money(total);
+  document
+  .getElementById("cartTotal")
+  .textContent=
+  money(total);
 }
 
 function openCart(){
+
   document
-    .getElementById("cartOverlay")
-    .classList.add("show");
+  .getElementById("cartOverlay")
+  .classList.add("show");
 }
 
 function closeCart(){
+
   document
-    .getElementById("cartOverlay")
-    .classList.remove("show");
+  .getElementById("cartOverlay")
+  .classList.remove("show");
 }
 
 function overlayClose(e){
+
   if(e.target.id==="cartOverlay"){
     closeCart();
   }
 }
 
 function checkout(){
+
   if(!cart.length){
-    alert("Tu carrito está vacío.");
+
+    alert(
+      "Tu carrito está vacío."
+    );
+
     return;
   }
 
   let message=
-    "Hola LOE MOBIL, quiero realizar este pedido:\n\n";
+  "Hola LOE MOBIL, quiero realizar este pedido:\n\n";
 
   cart.forEach(x=>{
+
     message+=
-      `• ${x.name} x${x.qty} - ${money(x.price*x.qty)}\n`;
+    `• ${x.name} x${x.qty} - ${money(x.price*x.qty)}\n`;
   });
 
-  const total=cart.reduce(
-    (n,x)=>n+(x.price*x.qty),
+  const total=
+  cart.reduce(
+    (n,x)=>
+    n+(x.price*x.qty),
     0
   );
 
-  message+=`\nTotal: ${money(total)}`;
+  message+=
+  `\nTotal: ${money(total)}`;
 
-  const url=
+  window.open(
     "https://wa.me/18498898247?text="+
-    encodeURIComponent(message);
-
-  window.open(url,"_blank");
+    encodeURIComponent(message),
+    "_blank"
+  );
 }
 
 const searchInput=
-  document.getElementById("searchInput");
+document.getElementById("searchInput");
 
-searchInput.addEventListener("input",()=>{
-  currentSearch=
+searchInput
+.addEventListener(
+  "input",
+  ()=>{
+
+    currentSearch=
     searchInput.value.trim();
 
-  applyFilters();
-});
+    applyFilters();
+  }
+);
 
-document.getElementById("searchBtn").onclick=()=>{
+document
+.getElementById("searchBtn")
+.onclick=()=>{
+
   currentSearch=
-    searchInput.value.trim();
+  searchInput.value.trim();
 
   applyFilters();
 };
 
 load();
+
 </script>
 
 </body>
