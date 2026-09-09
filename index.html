@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#050505">
+  <title>LOE MOBIL | Tienda</title>
+  <style>
+    *{box-sizing:border-box}
+    body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#050505;color:#fff}
+    header{padding:34px 20px 22px;border-bottom:1px solid #222}
+    .wrap{max-width:1050px;margin:auto}
+    .brand{font-size:30px;font-weight:900;letter-spacing:.5px}
+    .tag{color:#aaa;margin-top:6px}
+    main{padding:26px 20px}
+    .cats{display:flex;gap:10px;overflow:auto;padding-bottom:18px}
+    button{background:#151515;color:#fff;border:1px solid #333;border-radius:999px;padding:11px 16px;font-weight:700}
+    button.active{background:#fff;color:#000}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+    .card{background:#111;border:1px solid #242424;border-radius:20px;overflow:hidden}
+    .photo{height:180px;background:#191919;display:flex;align-items:center;justify-content:center;color:#777}
+    .photo img{width:100%;height:100%;object-fit:cover}
+    .info{padding:17px}
+    .name{font-size:18px;font-weight:800}
+    .meta{color:#999;margin:6px 0}
+    .price{font-size:21px;font-weight:900;margin-top:12px}
+    .empty{color:#aaa;padding:35px 0}
+    .error{color:#ff8585}
+    footer{padding:35px 20px;color:#777;text-align:center}
+  </style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <div class="brand">LOE MOBIL</div>
+    <div class="tag">Repuestos · Accesorios · Teléfonos</div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div id="cats" class="cats">
+    <button class="active" data-id="">Todos</button>
+  </div>
+  <div id="status" class="empty">Cargando productos…</div>
+  <div id="products" class="grid"></div>
+</main>
+
+<footer>LOE MOBIL · Santo Domingo</footer>
+
+<script>
+const SUPABASE_URL="https://zndjyragtbobzuwxaaoe.supabase.co";
+const SUPABASE_KEY="sb_publishable_eWJkT8ZBPv0ZcCSLo01P7g_0AAEbN6S";
+const headers={apikey:SUPABASE_KEY};
+let products=[];
+
+async function load(){
+  try{
+    const [cr,pr]=await Promise.all([
+      fetch(`${SUPABASE_URL}/rest/v1/categories?select=id,name&active=eq.true&order=id`,{headers}),
+      fetch(`${SUPABASE_URL}/rest/v1/products?select=*&active=eq.true&available=eq.true&order=id.desc`,{headers})
+    ]);
+    if(!cr.ok||!pr.ok) throw new Error("No se pudo leer la tienda");
+    const cats=await cr.json();
+    products=await pr.json();
+
+    const c=document.getElementById("cats");
+    cats.forEach(x=>{
+      const b=document.createElement("button");
+      b.textContent=x.name;
+      b.dataset.id=x.id;
+      b.onclick=()=>filter(x.id,b);
+      c.appendChild(b);
+    });
+
+    document.querySelector('[data-id=""]').onclick=e=>filter("",e.currentTarget);
+    render(products);
+  }catch(e){
+    document.getElementById("status").innerHTML='<span class="error">'+e.message+'</span>';
+  }
+}
+
+function filter(id,b){
+  document.querySelectorAll("#cats button").forEach(x=>x.classList.remove("active"));
+  b.classList.add("active");
+  render(id?products.filter(p=>String(p.category_id)===String(id)):products);
+}
+
+function render(list){
+  const s=document.getElementById("status");
+  const g=document.getElementById("products");
+  g.innerHTML="";
+  if(!list.length){
+    s.textContent="No hay productos disponibles todavía.";
+    s.style.display="block";
+    return;
+  }
+
+  s.style.display="none";
+  list.forEach(p=>{
+    const d=document.createElement("div");
+    d.className="card";
+    const image=p.image_url?`<img src="${p.image_url}" alt="">`:"Sin imagen";
+    const price=Number(p.price||0).toLocaleString("es-DO",{style:"currency",currency:"DOP"});
+    d.innerHTML=`<div class="photo">${image}</div>
+      <div class="info">
+        <div class="name">${p.name||""}</div>
+        <div class="meta">${[p.brand,p.model].filter(Boolean).join(" · ")}</div>
+        <div class="price">${price}</div>
+      </div>`;
+    g.appendChild(d);
+  });
+}
+
+load();
+</script>
+</body>
+</html>
