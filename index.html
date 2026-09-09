@@ -3,115 +3,941 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#050505">
-  <title>LOE MOBIL | Tienda</title>
+  <meta name="theme-color" content="#101820">
+  <title>LOE MOBIL | Repuestos, Accesorios y Teléfonos</title>
+
   <style>
     *{box-sizing:border-box}
-    body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#050505;color:#fff}
-    header{padding:34px 20px 22px;border-bottom:1px solid #222}
-    .wrap{max-width:1050px;margin:auto}
-    .brand{font-size:30px;font-weight:900;letter-spacing:.5px}
-    .tag{color:#aaa;margin-top:6px}
-    main{padding:26px 20px}
-    .cats{display:flex;gap:10px;overflow:auto;padding-bottom:18px}
-    button{background:#151515;color:#fff;border:1px solid #333;border-radius:999px;padding:11px 16px;font-weight:700}
-    button.active{background:#fff;color:#000}
-    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
-    .card{background:#111;border:1px solid #242424;border-radius:20px;overflow:hidden}
-    .photo{height:180px;background:#191919;display:flex;align-items:center;justify-content:center;color:#777}
-    .photo img{width:100%;height:100%;object-fit:cover}
-    .info{padding:17px}
-    .name{font-size:18px;font-weight:800}
-    .meta{color:#999;margin:6px 0}
-    .price{font-size:21px;font-weight:900;margin-top:12px}
-    .empty{color:#aaa;padding:35px 0}
-    .error{color:#ff8585}
-    footer{padding:35px 20px;color:#777;text-align:center}
+
+    :root{
+      --nav:#101820;
+      --nav2:#182430;
+      --accent:#ffb000;
+      --bg:#eef0f2;
+      --card:#fff;
+      --text:#111;
+      --muted:#666;
+      --border:#ddd;
+    }
+
+    body{
+      margin:0;
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+      background:var(--bg);
+      color:var(--text);
+    }
+
+    .top{
+      background:var(--nav);
+      color:#fff;
+      position:sticky;
+      top:0;
+      z-index:100;
+      box-shadow:0 2px 8px rgba(0,0,0,.25);
+    }
+
+    .top-main{
+      max-width:1400px;
+      margin:auto;
+      padding:12px 16px;
+      display:flex;
+      align-items:center;
+      gap:14px;
+    }
+
+    .logo{
+      font-size:24px;
+      font-weight:900;
+      white-space:nowrap;
+      letter-spacing:.5px;
+    }
+
+    .logo span{color:var(--accent)}
+
+    .search{
+      flex:1;
+      display:flex;
+      background:#fff;
+      border-radius:8px;
+      overflow:hidden;
+      min-height:45px;
+    }
+
+    .search input{
+      flex:1;
+      border:0;
+      outline:0;
+      font-size:16px;
+      padding:0 14px;
+    }
+
+    .search button{
+      width:52px;
+      border:0;
+      background:var(--accent);
+      font-size:21px;
+      cursor:pointer;
+    }
+
+    .cart-btn{
+      border:1px solid #53606d;
+      background:#182430;
+      color:#fff;
+      border-radius:9px;
+      min-height:45px;
+      padding:0 14px;
+      font-size:15px;
+      font-weight:700;
+      cursor:pointer;
+    }
+
+    .catbar{
+      background:var(--nav2);
+      overflow-x:auto;
+      white-space:nowrap;
+      scrollbar-width:none;
+    }
+
+    .catbar::-webkit-scrollbar{display:none}
+
+    .cats{
+      max-width:1400px;
+      margin:auto;
+      display:flex;
+      gap:6px;
+      padding:8px 16px;
+    }
+
+    .cats button{
+      flex:0 0 auto;
+      color:#fff;
+      background:transparent;
+      border:1px solid transparent;
+      border-radius:7px;
+      padding:9px 13px;
+      font-weight:650;
+      cursor:pointer;
+    }
+
+    .cats button:hover,
+    .cats button.active{
+      border-color:#fff;
+      background:#263746;
+    }
+
+    .hero{
+      max-width:1400px;
+      margin:18px auto 0;
+      padding:0 16px;
+    }
+
+    .hero-box{
+      min-height:190px;
+      border-radius:15px;
+      background:linear-gradient(120deg,#101820,#263746);
+      color:#fff;
+      padding:28px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      box-shadow:0 4px 18px rgba(0,0,0,.14);
+    }
+
+    .hero h1{
+      font-size:34px;
+      margin:0 0 8px;
+    }
+
+    .hero p{
+      margin:0;
+      color:#d6dce2;
+      font-size:16px;
+      line-height:1.5;
+    }
+
+    .hero strong{color:var(--accent)}
+
+    main{
+      max-width:1400px;
+      margin:auto;
+      padding:22px 16px 50px;
+    }
+
+    .section-head{
+      display:flex;
+      justify-content:space-between;
+      align-items:end;
+      gap:12px;
+      margin-bottom:15px;
+    }
+
+    .section-head h2{
+      margin:0;
+      font-size:25px;
+    }
+
+    #resultCount{
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    .status{
+      background:#fff;
+      border-radius:12px;
+      padding:25px;
+      color:#555;
+      text-align:center;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:16px;
+    }
+
+    .card{
+      background:var(--card);
+      border-radius:12px;
+      overflow:hidden;
+      box-shadow:0 2px 8px rgba(0,0,0,.1);
+      transition:.18s ease;
+      cursor:pointer;
+      position:relative;
+    }
+
+    .card:hover{
+      transform:translateY(-2px);
+      box-shadow:0 5px 18px rgba(0,0,0,.17);
+    }
+
+    .photo{
+      aspect-ratio:1/1;
+      background:#f7f7f7;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      overflow:hidden;
+    }
+
+    .photo img{
+      width:100%;
+      height:100%;
+      object-fit:contain;
+      padding:10px;
+    }
+
+    .no-img{
+      color:#999;
+      font-size:14px;
+    }
+
+    .info{
+      padding:14px;
+    }
+
+    .name{
+      font-size:16px;
+      font-weight:650;
+      line-height:1.35;
+      min-height:43px;
+    }
+
+    .meta{
+      margin-top:5px;
+      color:var(--muted);
+      font-size:13px;
+      min-height:18px;
+    }
+
+    .rating{
+      margin-top:7px;
+      font-size:13px;
+      color:#e79a00;
+    }
+
+    .price{
+      margin-top:8px;
+      font-size:23px;
+      font-weight:800;
+    }
+
+    .stock{
+      color:#087c38;
+      margin-top:5px;
+      font-size:13px;
+      font-weight:600;
+    }
+
+    .add{
+      width:100%;
+      border:0;
+      background:var(--accent);
+      color:#111;
+      border-radius:20px;
+      padding:10px;
+      margin-top:12px;
+      font-weight:750;
+      cursor:pointer;
+    }
+
+    footer{
+      background:var(--nav);
+      color:#cfd6dd;
+      text-align:center;
+      padding:35px 20px;
+      font-size:14px;
+    }
+
+    .overlay{
+      display:none;
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,.55);
+      z-index:200;
+    }
+
+    .overlay.show{display:block}
+
+    .drawer{
+      position:absolute;
+      right:0;
+      top:0;
+      height:100%;
+      width:min(430px,92vw);
+      background:#fff;
+      display:flex;
+      flex-direction:column;
+    }
+
+    .drawer-head{
+      padding:20px;
+      background:var(--nav);
+      color:#fff;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+
+    .drawer-head h2{margin:0}
+
+    .close{
+      border:0;
+      background:transparent;
+      color:inherit;
+      font-size:28px;
+      cursor:pointer;
+    }
+
+    #cartItems{
+      padding:15px;
+      overflow:auto;
+      flex:1;
+    }
+
+    .cart-item{
+      padding:12px 0;
+      border-bottom:1px solid #ddd;
+      display:flex;
+      gap:12px;
+    }
+
+    .cart-item img{
+      width:65px;
+      height:65px;
+      object-fit:contain;
+      background:#f5f5f5;
+    }
+
+    .cart-item-info{
+      flex:1;
+      font-size:14px;
+    }
+
+    .cart-item-name{
+      font-weight:700;
+      margin-bottom:5px;
+    }
+
+    .remove{
+      border:0;
+      background:transparent;
+      color:#c00;
+      padding:4px 0;
+      cursor:pointer;
+    }
+
+    .cart-footer{
+      padding:18px;
+      border-top:1px solid #ddd;
+    }
+
+    .cart-total{
+      font-size:20px;
+      font-weight:800;
+      margin-bottom:12px;
+    }
+
+    .checkout{
+      width:100%;
+      padding:13px;
+      border:0;
+      border-radius:8px;
+      background:var(--accent);
+      color:#111;
+      font-weight:800;
+      cursor:pointer;
+    }
+
+    .modal{
+      display:none;
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,.58);
+      z-index:300;
+      padding:15px;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .modal.show{display:flex}
+
+    .modal-card{
+      width:min(850px,100%);
+      max-height:92vh;
+      overflow:auto;
+      background:#fff;
+      border-radius:14px;
+      padding:22px;
+      position:relative;
+    }
+
+    .modal-content{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:25px;
+    }
+
+    .modal-img{
+      aspect-ratio:1/1;
+      background:#f5f5f5;
+      border-radius:10px;
+      overflow:hidden;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .modal-img img{
+      width:100%;
+      height:100%;
+      object-fit:contain;
+    }
+
+    .modal-title{
+      font-size:28px;
+      font-weight:800;
+      margin:0 0 8px;
+    }
+
+    .modal-price{
+      font-size:30px;
+      font-weight:850;
+      margin:16px 0;
+    }
+
+    .modal-desc{
+      line-height:1.55;
+      color:#444;
+    }
+
+    @media(max-width:1000px){
+      .grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+    }
+
+    @media(max-width:720px){
+      .top-main{
+        flex-wrap:wrap;
+      }
+
+      .logo{
+        font-size:21px;
+      }
+
+      .search{
+        order:3;
+        flex-basis:100%;
+      }
+
+      .hero h1{
+        font-size:27px;
+      }
+
+      .hero-box{
+        min-height:160px;
+        padding:23px;
+      }
+
+      .grid{
+        grid-template-columns:repeat(2,minmax(0,1fr));
+        gap:9px;
+      }
+
+      main{
+        padding-left:9px;
+        padding-right:9px;
+      }
+
+      .info{
+        padding:11px;
+      }
+
+      .name{
+        font-size:14px;
+      }
+
+      .price{
+        font-size:19px;
+      }
+
+      .modal-content{
+        grid-template-columns:1fr;
+      }
+    }
   </style>
 </head>
+
 <body>
-<header>
-  <div class="wrap">
-    <div class="brand">LOE MOBIL</div>
-    <div class="tag">Repuestos · Accesorios · Teléfonos</div>
+
+<header class="top">
+  <div class="top-main">
+    <div class="logo">LOE <span>MOBIL</span></div>
+
+    <div class="search">
+      <input id="searchInput" type="search"
+        placeholder="Buscar iPhone, pantallas, cargadores..."
+        autocomplete="off">
+      <button id="searchBtn">⌕</button>
+    </div>
+
+    <button class="cart-btn" onclick="openCart()">
+      🛒 Carrito <span id="cartCount">0</span>
+    </button>
+  </div>
+
+  <div class="catbar">
+    <div id="cats" class="cats">
+      <button class="active" data-id="">☰ Todos</button>
+    </div>
   </div>
 </header>
 
-<main class="wrap">
-  <div id="cats" class="cats">
-    <button class="active" data-id="">Todos</button>
+<section class="hero">
+  <div class="hero-box">
+    <h1>Todo para tu teléfono en un solo lugar.</h1>
+    <p>
+      <strong>Repuestos, accesorios y teléfonos</strong><br>
+      Compra fácil con LOE MOBIL · Santo Domingo
+    </p>
   </div>
-  <div id="status" class="empty">Cargando productos…</div>
+</section>
+
+<main>
+  <div class="section-head">
+    <h2 id="sectionTitle">Productos destacados</h2>
+    <span id="resultCount"></span>
+  </div>
+
+  <div id="status" class="status">Cargando productos…</div>
   <div id="products" class="grid"></div>
 </main>
 
-<footer>LOE MOBIL · Santo Domingo</footer>
+<footer>
+  <strong>LOE MOBIL</strong><br><br>
+  Repuestos · Accesorios · Teléfonos<br>
+  Santo Domingo, República Dominicana
+</footer>
+
+<div id="cartOverlay" class="overlay" onclick="overlayClose(event)">
+  <div class="drawer">
+    <div class="drawer-head">
+      <h2>Tu carrito</h2>
+      <button class="close" onclick="closeCart()">×</button>
+    </div>
+
+    <div id="cartItems"></div>
+
+    <div class="cart-footer">
+      <div class="cart-total">
+        Total: <span id="cartTotal">RD$0.00</span>
+      </div>
+      <button class="checkout" onclick="checkout()">
+        Continuar pedido
+      </button>
+    </div>
+  </div>
+</div>
+
+<div id="productModal" class="modal" onclick="modalClose(event)">
+  <div class="modal-card">
+    <button class="close"
+      style="position:absolute;right:15px;top:10px;color:#111"
+      onclick="closeProduct()">×</button>
+
+    <div id="modalContent"></div>
+  </div>
+</div>
 
 <script>
 const SUPABASE_URL="https://zndjyragtbobzuwxaaoe.supabase.co";
 const SUPABASE_KEY="sb_publishable_eWJkT8ZBPv0ZcCSLo01P7g_0AAEbN6S";
+
 const headers={apikey:SUPABASE_KEY};
+
 let products=[];
+let categories=[];
+let currentCategory="";
+let currentSearch="";
+let cart=JSON.parse(localStorage.getItem("loeCart")||"[]");
+
+const money=n=>{
+  return "RD$"+Number(n||0).toLocaleString("es-DO",{
+    minimumFractionDigits:2,
+    maximumFractionDigits:2
+  });
+};
 
 async function load(){
   try{
     const [cr,pr]=await Promise.all([
-      fetch(`${SUPABASE_URL}/rest/v1/categories?select=id,name&active=eq.true&order=id`,{headers}),
-      fetch(`${SUPABASE_URL}/rest/v1/products?select=*&active=eq.true&available=eq.true&order=id.desc`,{headers})
+      fetch(`${SUPABASE_URL}/rest/v1/categories?select=*&order=id`,{headers}),
+      fetch(`${SUPABASE_URL}/rest/v1/products?select=*&order=id.desc`,{headers})
     ]);
-    if(!cr.ok||!pr.ok) throw new Error("No se pudo leer la tienda");
-    const cats=await cr.json();
+
+    if(!cr.ok||!pr.ok) throw new Error("No se pudo cargar la tienda.");
+
+    categories=await cr.json();
     products=await pr.json();
 
-    const c=document.getElementById("cats");
-    cats.forEach(x=>{
-      const b=document.createElement("button");
-      b.textContent=x.name;
-      b.dataset.id=x.id;
-      b.onclick=()=>filter(x.id,b);
-      c.appendChild(b);
-    });
+    renderCategories();
+    applyFilters();
+    updateCart();
 
-    document.querySelector('[data-id=""]').onclick=e=>filter("",e.currentTarget);
-    render(products);
-  }catch(e){
-    document.getElementById("status").innerHTML='<span class="error">'+e.message+'</span>';
+  }catch(err){
+    document.getElementById("status").textContent=
+      "No pudimos cargar los productos. Intenta nuevamente.";
+    console.error(err);
   }
 }
 
-function filter(id,b){
-  document.querySelectorAll("#cats button").forEach(x=>x.classList.remove("active"));
-  b.classList.add("active");
-  render(id?products.filter(p=>String(p.category_id)===String(id)):products);
+function renderCategories(){
+  const c=document.getElementById("cats");
+
+  categories.forEach(cat=>{
+    const b=document.createElement("button");
+    b.textContent=cat.name;
+    b.dataset.id=cat.id;
+
+    b.onclick=()=>{
+      document.querySelectorAll("#cats button")
+        .forEach(x=>x.classList.remove("active"));
+
+      b.classList.add("active");
+      currentCategory=String(cat.id);
+      document.getElementById("sectionTitle").textContent=cat.name;
+      applyFilters();
+    };
+
+    c.appendChild(b);
+  });
+
+  const all=c.querySelector('[data-id=""]');
+
+  all.onclick=()=>{
+    document.querySelectorAll("#cats button")
+      .forEach(x=>x.classList.remove("active"));
+
+    all.classList.add("active");
+    currentCategory="";
+    document.getElementById("sectionTitle").textContent=
+      "Productos destacados";
+    applyFilters();
+  };
+}
+
+function applyFilters(){
+  let list=[...products];
+
+  if(currentCategory){
+    list=list.filter(p=>String(p.category_id)===currentCategory);
+  }
+
+  if(currentSearch){
+    const q=currentSearch.toLowerCase();
+
+    list=list.filter(p=>
+      [
+        p.name,
+        p.brand,
+        p.model,
+        p.description,
+        p.condition
+      ]
+      .filter(Boolean)
+      .join(" ")
+      .toLowerCase()
+      .includes(q)
+    );
+  }
+
+  render(list);
 }
 
 function render(list){
   const s=document.getElementById("status");
   const g=document.getElementById("products");
+  const count=document.getElementById("resultCount");
+
   g.innerHTML="";
+  count.textContent=`${list.length} producto${list.length===1?"":"s"}`;
+
   if(!list.length){
-    s.textContent="No hay productos disponibles todavía.";
+    s.textContent="No encontramos productos.";
     s.style.display="block";
     return;
   }
 
   s.style.display="none";
+
   list.forEach(p=>{
-    const d=document.createElement("div");
+    const d=document.createElement("article");
     d.className="card";
-    const image=p.image_url?`<img src="${p.image_url}" alt="">`:"Sin imagen";
-    const price=Number(p.price||0).toLocaleString("es-DO",{style:"currency",currency:"DOP"});
-    d.innerHTML=`<div class="photo">${image}</div>
+
+    const image=p.image_url
+      ? `<img src="${safe(p.image_url)}" alt="${safe(p.name||"Producto")}" loading="lazy">`
+      : `<span class="no-img">Sin imagen</span>`;
+
+    const meta=[p.brand,p.model]
+      .filter(Boolean)
+      .join(" · ");
+
+    d.innerHTML=`
+      <div class="photo">${image}</div>
+
       <div class="info">
-        <div class="name">${p.name||""}</div>
-        <div class="meta">${[p.brand,p.model].filter(Boolean).join(" · ")}</div>
-        <div class="price">${price}</div>
-      </div>`;
+        <div class="name">${safe(p.name||"Producto")}</div>
+
+        <div class="meta">${safe(meta)}</div>
+
+        <div class="rating">★★★★★</div>
+
+        <div class="price">${money(p.price)}</div>
+
+        <div class="stock">
+          ${productAvailability(p)}
+        </div>
+
+        <button class="add">Agregar al carrito</button>
+      </div>
+    `;
+
+    d.addEventListener("click",()=>openProduct(p));
+
+    d.querySelector(".add").onclick=e=>{
+      e.stopPropagation();
+      addToCart(p);
+    };
+
     g.appendChild(d);
   });
 }
 
+function productAvailability(p){
+  if(p.available===false) return "No disponible";
+
+  if(p.stock!==undefined && p.stock!==null){
+    return Number(p.stock)>0
+      ? `Disponible · ${p.stock} en existencia`
+      : "Agotado";
+  }
+
+  return "Disponible";
+}
+
+function safe(v){
+  return String(v??"")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+}
+
+function openProduct(p){
+  const image=p.image_url
+    ? `<img src="${safe(p.image_url)}" alt="${safe(p.name||"Producto")}">`
+    : `<span class="no-img">Sin imagen</span>`;
+
+  const meta=[p.brand,p.model,p.condition,p.storage,p.color]
+    .filter(Boolean)
+    .join(" · ");
+
+  document.getElementById("modalContent").innerHTML=`
+    <div class="modal-content">
+      <div class="modal-img">${image}</div>
+
+      <div>
+        <div class="modal-title">${safe(p.name||"Producto")}</div>
+
+        <div class="meta">${safe(meta)}</div>
+
+        <div class="rating">★★★★★</div>
+
+        <div class="modal-price">${money(p.price)}</div>
+
+        <div class="stock">${productAvailability(p)}</div>
+
+        <p class="modal-desc">
+          ${safe(p.description||"Producto disponible en LOE MOBIL.")}
+        </p>
+
+        <button class="add"
+          onclick='addToCartById(${JSON.stringify(String(p.id))})'>
+          Agregar al carrito
+        </button>
+      </div>
+    </div>
+  `;
+
+  document.getElementById("productModal").classList.add("show");
+}
+
+function closeProduct(){
+  document.getElementById("productModal").classList.remove("show");
+}
+
+function modalClose(e){
+  if(e.target.id==="productModal") closeProduct();
+}
+
+function addToCartById(id){
+  const p=products.find(x=>String(x.id)===String(id));
+  if(p) addToCart(p);
+}
+
+function addToCart(p){
+  const existing=cart.find(x=>String(x.id)===String(p.id));
+
+  if(existing){
+    existing.qty++;
+  }else{
+    cart.push({
+      id:p.id,
+      name:p.name,
+      price:Number(p.price||0),
+      image_url:p.image_url||"",
+      qty:1
+    });
+  }
+
+  saveCart();
+  updateCart();
+}
+
+function removeFromCart(id){
+  cart=cart.filter(x=>String(x.id)!==String(id));
+  saveCart();
+  updateCart();
+}
+
+function saveCart(){
+  localStorage.setItem("loeCart",JSON.stringify(cart));
+}
+
+function updateCart(){
+  const count=cart.reduce((n,x)=>n+x.qty,0);
+
+  document.getElementById("cartCount").textContent=count;
+
+  const box=document.getElementById("cartItems");
+  box.innerHTML="";
+
+  if(!cart.length){
+    box.innerHTML='<div class="status">Tu carrito está vacío.</div>';
+  }else{
+    cart.forEach(x=>{
+      const d=document.createElement("div");
+      d.className="cart-item";
+
+      d.innerHTML=`
+        ${x.image_url
+          ? `<img src="${safe(x.image_url)}" alt="">`
+          : `<div style="width:65px;height:65px;background:#eee"></div>`
+        }
+
+        <div class="cart-item-info">
+          <div class="cart-item-name">${safe(x.name)}</div>
+          <div>${money(x.price)} × ${x.qty}</div>
+          <button class="remove"
+            onclick='removeFromCart(${JSON.stringify(String(x.id))})'>
+            Eliminar
+          </button>
+        </div>
+      `;
+
+      box.appendChild(d);
+    });
+  }
+
+  const total=cart.reduce((n,x)=>n+(x.price*x.qty),0);
+  document.getElementById("cartTotal").textContent=money(total);
+}
+
+function openCart(){
+  document.getElementById("cartOverlay").classList.add("show");
+}
+
+function closeCart(){
+  document.getElementById("cartOverlay").classList.remove("show");
+}
+
+function overlayClose(e){
+  if(e.target.id==="cartOverlay") closeCart();
+}
+
+function checkout(){
+  if(!cart.length){
+    alert("Tu carrito está vacío.");
+    return;
+  }
+
+  let text="Hola LOE MOBIL, quiero hacer este pedido:%0A%0A";
+
+  cart.forEach(x=>{
+    text+=`• ${encodeURIComponent(x.name)} x${x.qty} - ${encodeURIComponent(money(x.price*x.qty))}%0A`;
+  });
+
+  const total=cart.reduce((n,x)=>n+(x.price*x.qty),0);
+  text+=`%0ATotal: ${encodeURIComponent(money(total))}`;
+
+  alert(
+    "El carrito ya funciona. En el próximo paso conectaremos este botón directamente con el WhatsApp de LOE MOBIL."
+  );
+}
+
+const searchInput=document.getElementById("searchInput");
+
+searchInput.addEventListener("input",()=>{
+  currentSearch=searchInput.value.trim();
+  applyFilters();
+});
+
+document.getElementById("searchBtn").onclick=()=>{
+  currentSearch=searchInput.value.trim();
+  applyFilters();
+};
+
 load();
 </script>
+
 </body>
 </html>
