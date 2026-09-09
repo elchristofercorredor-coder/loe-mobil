@@ -1,564 +1,879 @@
 <!doctype html>
 <html lang="es">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#101820">
-  <title>LOE MOBIL | Repuestos, Accesorios y Teléfonos</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#02070b">
+<title>LOE MOBIL | Fix & Gear</title>
 
-  <style>
-    *{box-sizing:border-box}
+<style>
+*{box-sizing:border-box}
 
-    ::root{
+:root{
   --nav:#02070b;
   --nav2:#07131d;
   --accent:#00bfff;
-  --bg:#050a0f;
+  --accent2:#008fe8;
+  --bg:#03080d;
+  --panel:#08131c;
+  --panel2:#0c1b27;
   --card:#ffffff;
-  --text:#111111;
-  --muted:#66727d;
-  --border:#14384b;
+  --text:#ffffff;
+  --dark:#111111;
+  --muted:#91a1ad;
+  --border:#12425a;
+  --green:#16c96b;
 }
 
-    body{
-      margin:0;
-      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
-      background:var(--bg);
-      color:var(--text);
-    }
-
-    .top{
-      background:var(--nav);
-      color:#fff;
-      position:sticky;
-      top:0;
-      z-index:100;
-      box-shadow:0 2px 8px rgba(0,0,0,.25);
-    }
-
-    .top-main{
-      max-width:1400px;
-      margin:auto;
-      padding:12px 16px;
-      display:flex;
-      align-items:center;
-      gap:14px;
-    }
-
-    .logo{
-      font-size:24px;
-      font-weight:900;
-      white-space:nowrap;
-      letter-spacing:.5px;
-    }
-
-    .logo span{color:var(--accent)}
-
-    .search{
-      flex:1;
-      display:flex;
-      background:#fff;
-      border-radius:8px;
-      overflow:hidden;
-      min-height:45px;
-    }
-
-    .search input{
-      flex:1;
-      border:0;
-      outline:0;
-      font-size:16px;
-      padding:0 14px;
-    }
-
-    .search button{
-      width:52px;
-      border:0;
-      background:var(--accent);
-      font-size:21px;
-      cursor:pointer;
-    }
-
-    .cart-btn{
-      border:1px solid #53606d;
-      background:#182430;
-      color:#fff;
-      border-radius:9px;
-      min-height:45px;
-      padding:0 14px;
-      font-size:15px;
-      font-weight:700;
-      cursor:pointer;
-    }
-
-    .catbar{
-      background:var(--nav2);
-      overflow-x:auto;
-      white-space:nowrap;
-      scrollbar-width:none;
-    }
-
-    .catbar::-webkit-scrollbar{display:none}
-
-    .cats{
-      max-width:1400px;
-      margin:auto;
-      display:flex;
-      gap:6px;
-      padding:8px 16px;
-    }
-
-    .cats button{
-      flex:0 0 auto;
-      color:#fff;
-      background:transparent;
-      border:1px solid transparent;
-      border-radius:7px;
-      padding:9px 13px;
-      font-weight:650;
-      cursor:pointer;
-    }
-
-    .cats button:hover,
-    .cats button.active{
-      border-color:#fff;
-      background:#263746;
-    }
-
-    .hero{
-      max-width:1400px;
-      margin:18px auto 0;
-      padding:0 16px;
-    }
-
-    .hero-box{
-      min-height:190px;
-      border-radius:15px;
-      background:linear-gradient(120deg,#101820,#263746);
-      color:#fff;
-      padding:28px;
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-      box-shadow:0 4px 18px rgba(0,0,0,.14);
-    }
-
-    .hero h1{
-      font-size:34px;
-      margin:0 0 8px;
-    }
-
-    .hero p{
-      margin:0;
-      color:#d6dce2;
-      font-size:16px;
-      line-height:1.5;
-    }
-
-    .hero strong{color:var(--accent)}
-
-    main{
-      max-width:1400px;
-      margin:auto;
-      padding:22px 16px 50px;
-    }
-
-    .section-head{
-      display:flex;
-      justify-content:space-between;
-      align-items:end;
-      gap:12px;
-      margin-bottom:15px;
-    }
-
-    .section-head h2{
-      margin:0;
-      font-size:25px;
-    }
-
-    #resultCount{
-      color:var(--muted);
-      font-size:14px;
-    }
-
-    .status{
-      background:#fff;
-      border-radius:12px;
-      padding:25px;
-      color:#555;
-      text-align:center;
-    }
-
-    .grid{
-      display:grid;
-      grid-template-columns:repeat(4,minmax(0,1fr));
-      gap:16px;
-    }
-
-    .card{
-      background:var(--card);
-      border-radius:12px;
-      overflow:hidden;
-      box-shadow:0 2px 8px rgba(0,0,0,.1);
-      transition:.18s ease;
-      cursor:pointer;
-      position:relative;
-    }
-
-    .card:hover{
-      transform:translateY(-2px);
-      box-shadow:0 5px 18px rgba(0,0,0,.17);
-    }
-
-    .photo{
-      aspect-ratio:1/1;
-      background:#f7f7f7;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      overflow:hidden;
-    }
-
-    .photo img{
-      width:100%;
-      height:100%;
-      object-fit:contain;
-      padding:10px;
-    }
-
-    .no-img{
-      color:#999;
-      font-size:14px;
-    }
-
-    .info{
-      padding:14px;
-    }
-
-    .name{
-      font-size:16px;
-      font-weight:650;
-      line-height:1.35;
-      min-height:43px;
-    }
-
-    .meta{
-      margin-top:5px;
-      color:var(--muted);
-      font-size:13px;
-      min-height:18px;
-    }
-
-    .rating{
-      margin-top:7px;
-      font-size:13px;
-      color:#e79a00;
-    }
-
-    .price{
-      margin-top:8px;
-      font-size:23px;
-      font-weight:800;
-    }
-
-    .stock{
-      color:#087c38;
-      margin-top:5px;
-      font-size:13px;
-      font-weight:600;
-    }
-
-    .add{
-      width:100%;
-      border:0;
-      background:var(--accent);
-      color:#111;
-      border-radius:20px;
-      padding:10px;
-      margin-top:12px;
-      font-weight:750;
-      cursor:pointer;
-    }
-
-    footer{
-      background:var(--nav);
-      color:#cfd6dd;
-      text-align:center;
-      padding:35px 20px;
-      font-size:14px;
-    }
-
-    .overlay{
-      display:none;
-      position:fixed;
-      inset:0;
-      background:rgba(0,0,0,.55);
-      z-index:200;
-    }
-
-    .overlay.show{display:block}
-
-    .drawer{
-      position:absolute;
-      right:0;
-      top:0;
-      height:100%;
-      width:min(430px,92vw);
-      background:#fff;
-      display:flex;
-      flex-direction:column;
-    }
-
-    .drawer-head{
-      padding:20px;
-      background:var(--nav);
-      color:#fff;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-    }
-
-    .drawer-head h2{margin:0}
-
-    .close{
-      border:0;
-      background:transparent;
-      color:inherit;
-      font-size:28px;
-      cursor:pointer;
-    }
-
-    #cartItems{
-      padding:15px;
-      overflow:auto;
-      flex:1;
-    }
-
-    .cart-item{
-      padding:12px 0;
-      border-bottom:1px solid #ddd;
-      display:flex;
-      gap:12px;
-    }
-
-    .cart-item img{
-      width:65px;
-      height:65px;
-      object-fit:contain;
-      background:#f5f5f5;
-    }
-
-    .cart-item-info{
-      flex:1;
-      font-size:14px;
-    }
-
-    .cart-item-name{
-      font-weight:700;
-      margin-bottom:5px;
-    }
-
-    .remove{
-      border:0;
-      background:transparent;
-      color:#c00;
-      padding:4px 0;
-      cursor:pointer;
-    }
-
-    .cart-footer{
-      padding:18px;
-      border-top:1px solid #ddd;
-    }
-
-    .cart-total{
-      font-size:20px;
-      font-weight:800;
-      margin-bottom:12px;
-    }
-
-    .checkout{
-      width:100%;
-      padding:13px;
-      border:0;
-      border-radius:8px;
-      background:var(--accent);
-      color:#111;
-      font-weight:800;
-      cursor:pointer;
-    }
-
-    .modal{
-      display:none;
-      position:fixed;
-      inset:0;
-      background:rgba(0,0,0,.58);
-      z-index:300;
-      padding:15px;
-      align-items:center;
-      justify-content:center;
-    }
-
-    .modal.show{display:flex}
-
-    .modal-card{
-      width:min(850px,100%);
-      max-height:92vh;
-      overflow:auto;
-      background:#fff;
-      border-radius:14px;
-      padding:22px;
-      position:relative;
-    }
-
-    .modal-content{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:25px;
-    }
-
-    .modal-img{
-      aspect-ratio:1/1;
-      background:#f5f5f5;
-      border-radius:10px;
-      overflow:hidden;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-    }
-
-    .modal-img img{
-      width:100%;
-      height:100%;
-      object-fit:contain;
-    }
-
-    .modal-title{
-      font-size:28px;
-      font-weight:800;
-      margin:0 0 8px;
-    }
-
-    .modal-price{
-      font-size:30px;
-      font-weight:850;
-      margin:16px 0;
-    }
-
-    .modal-desc{
-      line-height:1.55;
-      color:#444;
-    }
-
-    @media(max-width:1000px){
-      .grid{grid-template-columns:repeat(3,minmax(0,1fr))}
-    }
-
-    @media(max-width:720px){
-      .top-main{
-        flex-wrap:wrap;
-      }
-
-      .logo{
-        font-size:21px;
-      }
-
-      .search{
-        order:3;
-        flex-basis:100%;
-      }
-
-      .hero h1{
-        font-size:27px;
-      }
-
-      .hero-box{
-        min-height:160px;
-        padding:23px;
-      }
-
-      .grid{
-        grid-template-columns:repeat(2,minmax(0,1fr));
-        gap:9px;
-      }
-
-      main{
-        padding-left:9px;
-        padding-right:9px;
-      }
-
-      .info{
-        padding:11px;
-      }
-
-      .name{
-        font-size:14px;
-      }
-
-      .price{
-        font-size:19px;
-      }
-
-      .modal-content{
-        grid-template-columns:1fr;
-      }
-    }
-  </style>
+html{scroll-behavior:smooth}
+
+body{
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  background:
+    radial-gradient(circle at 90% 0%,rgba(0,191,255,.12),transparent 28%),
+    var(--bg);
+  color:var(--text);
+}
+
+button,input{font:inherit}
+
+.top{
+  position:sticky;
+  top:0;
+  z-index:100;
+  background:rgba(2,7,11,.96);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+  box-shadow:0 6px 25px rgba(0,0,0,.35);
+}
+
+.top-main{
+  max-width:1400px;
+  margin:auto;
+  display:flex;
+  align-items:center;
+  gap:14px;
+  padding:12px 16px;
+}
+
+.brand{
+  min-width:max-content;
+  line-height:.92;
+}
+
+.brand-main{
+  font-size:25px;
+  font-weight:950;
+  letter-spacing:.6px;
+}
+
+.brand-main span{
+  color:var(--accent);
+  text-shadow:0 0 16px rgba(0,191,255,.6);
+}
+
+.brand-sub{
+  margin-top:6px;
+  font-size:9px;
+  letter-spacing:4px;
+  color:#c8d4da;
+  text-align:center;
+}
+
+.search{
+  flex:1;
+  min-height:46px;
+  display:flex;
+  border:1px solid #37566a;
+  border-radius:10px;
+  overflow:hidden;
+  background:#111a22;
+}
+
+.search input{
+  min-width:0;
+  flex:1;
+  border:0;
+  outline:0;
+  padding:0 15px;
+  background:transparent;
+  color:#fff;
+  font-size:15px;
+}
+
+.search input::placeholder{color:#8e9aa3}
+
+.search button{
+  width:54px;
+  border:0;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  color:#fff;
+  font-size:22px;
+  cursor:pointer;
+}
+
+.cart{
+  min-height:46px;
+  padding:0 14px;
+  border:1px solid var(--border);
+  border-radius:10px;
+  background:#07131d;
+  color:#fff;
+  font-weight:800;
+  cursor:pointer;
+}
+
+.cart-count{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:20px;
+  height:20px;
+  margin-left:4px;
+  border-radius:20px;
+  background:var(--accent);
+  color:#00131c;
+  font-size:12px;
+}
+
+.catbar{
+  background:#030b11;
+  border-top:1px solid rgba(0,191,255,.12);
+  overflow-x:auto;
+  scrollbar-width:none;
+}
+
+.catbar::-webkit-scrollbar{display:none}
+
+.cats{
+  max-width:1400px;
+  margin:auto;
+  display:flex;
+  padding:0 12px;
+}
+
+.cats button{
+  flex:0 0 auto;
+  min-width:110px;
+  padding:15px 13px;
+  border:0;
+  border-right:1px solid #112633;
+  background:transparent;
+  color:#dbe5ea;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.cats button.active{
+  background:linear-gradient(180deg,rgba(0,191,255,.23),rgba(0,191,255,.08));
+  color:#fff;
+  box-shadow:inset 0 -3px var(--accent);
+}
+
+.cats button.active::first-letter{color:var(--accent)}
+
+.hero{
+  max-width:1400px;
+  margin:14px auto 0;
+  padding:0 14px;
+}
+
+.hero-box{
+  min-height:300px;
+  position:relative;
+  overflow:hidden;
+  border:1px solid #0879a8;
+  border-radius:16px;
+  padding:38px;
+  display:flex;
+  align-items:center;
+  background:
+    linear-gradient(90deg,rgba(0,0,0,.25),rgba(0,191,255,.04)),
+    radial-gradient(circle at 75% 50%,rgba(0,191,255,.28),transparent 28%),
+    linear-gradient(120deg,#02070b 5%,#061827 65%,#001724);
+  box-shadow:0 0 35px rgba(0,191,255,.12);
+}
+
+.hero-box:before{
+  content:"";
+  position:absolute;
+  width:340px;
+  height:340px;
+  right:-100px;
+  top:-100px;
+  border:1px solid rgba(0,191,255,.28);
+  transform:rotate(35deg);
+  box-shadow:0 0 45px rgba(0,191,255,.15);
+}
+
+.hero-content{
+  position:relative;
+  z-index:2;
+  max-width:700px;
+}
+
+.hero-small{
+  color:var(--accent);
+  font-weight:850;
+  letter-spacing:5px;
+  font-size:13px;
+}
+
+.hero h1{
+  margin:8px 0 8px;
+  font-size:52px;
+  line-height:.98;
+  font-weight:950;
+}
+
+.hero h1 span{color:var(--accent)}
+
+.hero p{
+  max-width:630px;
+  color:#c4d1d8;
+  font-size:17px;
+  line-height:1.55;
+}
+
+.hero-btn{
+  display:inline-block;
+  margin-top:12px;
+  border:0;
+  border-radius:25px;
+  padding:13px 25px;
+  color:#00131c;
+  background:linear-gradient(135deg,#15c9ff,#009ce8);
+  font-weight:900;
+  cursor:pointer;
+  box-shadow:0 0 22px rgba(0,191,255,.25);
+}
+
+.services{
+  max-width:1400px;
+  margin:14px auto;
+  padding:0 14px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+}
+
+.service{
+  border:1px solid #0b6187;
+  border-radius:12px;
+  background:linear-gradient(135deg,#07131d,#091a25);
+  padding:18px;
+  display:flex;
+  gap:12px;
+  align-items:center;
+}
+
+.service-icon{
+  font-size:29px;
+  color:var(--accent);
+}
+
+.service strong{
+  display:block;
+  font-size:15px;
+}
+
+.service span{
+  color:#9aaab3;
+  font-size:13px;
+}
+
+main{
+  max-width:1400px;
+  margin:auto;
+  padding:8px 14px 42px;
+}
+
+.section-head{
+  display:flex;
+  align-items:end;
+  justify-content:space-between;
+  gap:12px;
+  margin:15px 0 13px;
+}
+
+.section-head h2{
+  margin:0;
+  font-size:27px;
+}
+
+.section-line{
+  flex:1;
+  height:1px;
+  background:linear-gradient(90deg,var(--accent),transparent);
+  margin-bottom:7px;
+}
+
+.result-count{
+  color:var(--accent);
+  font-size:13px;
+  white-space:nowrap;
+}
+
+.status{
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:25px;
+  background:#07131d;
+  color:#b8c6cd;
+  text-align:center;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  gap:12px;
+}
+
+.card{
+  overflow:hidden;
+  border-radius:12px;
+  background:#fff;
+  color:#111;
+  box-shadow:0 5px 20px rgba(0,0,0,.3);
+  transition:.2s ease;
+}
+
+.card:hover{
+  transform:translateY(-3px);
+  box-shadow:0 7px 28px rgba(0,191,255,.18);
+}
+
+.photo{
+  aspect-ratio:1/1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(#fff,#f5f7f8);
+  overflow:hidden;
+}
+
+.photo img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  padding:10px;
+}
+
+.no-img{
+  color:#969da1;
+  font-size:13px;
+}
+
+.info{padding:13px}
+
+.name{
+  min-height:42px;
+  font-size:15px;
+  font-weight:800;
+  line-height:1.35;
+}
+
+.meta{
+  min-height:18px;
+  margin-top:3px;
+  color:#5e6870;
+  font-size:12px;
+}
+
+.price{
+  margin-top:9px;
+  font-size:20px;
+  font-weight:950;
+}
+
+.stock{
+  margin-top:5px;
+  color:#0a9b4d;
+  font-size:12px;
+}
+
+.stock:before{
+  content:"● ";
+  color:var(--green);
+}
+
+.add{
+  width:100%;
+  margin-top:10px;
+  padding:10px;
+  border:0;
+  border-radius:7px;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  color:#fff;
+  font-weight:900;
+  cursor:pointer;
+}
+
+.promo{
+  max-width:1400px;
+  margin:5px auto 20px;
+  padding:0 14px;
+}
+
+.promo-box{
+  border:1px solid #0879a8;
+  border-radius:15px;
+  padding:28px 30px;
+  text-align:center;
+  background:
+    linear-gradient(90deg,rgba(0,191,255,.05),transparent),
+    #050e15;
+  box-shadow:0 0 30px rgba(0,191,255,.08);
+}
+
+.promo-top{
+  color:var(--accent);
+  letter-spacing:4px;
+  font-weight:800;
+  font-size:11px;
+}
+
+.promo-title{
+  margin-top:5px;
+  font-size:31px;
+  font-weight:950;
+}
+
+.promo-title span{color:var(--accent)}
+
+.benefits{
+  margin-top:18px;
+  display:flex;
+  justify-content:center;
+  gap:28px;
+  flex-wrap:wrap;
+  color:#d2dde2;
+  font-size:13px;
+}
+
+.benefits b{color:var(--accent)}
+
+.contact{
+  border-top:1px solid #0879a8;
+  border-bottom:1px solid #0879a8;
+  background:linear-gradient(90deg,#03121b,#062237,#03121b);
+}
+
+.contact-wrap{
+  max-width:1400px;
+  margin:auto;
+  padding:22px 16px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+}
+
+.contact-box{
+  display:flex;
+  gap:13px;
+  align-items:center;
+}
+
+.contact-icon{
+  color:var(--accent);
+  font-size:31px;
+}
+
+.contact-label{
+  color:var(--accent);
+  font-size:11px;
+  font-weight:900;
+  text-transform:uppercase;
+}
+
+.contact-value{
+  margin-top:3px;
+  color:#fff;
+  line-height:1.35;
+}
+
+footer{
+  background:#010508;
+  padding:28px 16px;
+  color:#9babb4;
+}
+
+.footer-inner{
+  max-width:1400px;
+  margin:auto;
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+  flex-wrap:wrap;
+}
+
+.footer-logo{
+  color:#fff;
+  font-size:22px;
+  font-weight:950;
+}
+
+.footer-logo span{color:var(--accent)}
+
+.whatsapp{
+  position:fixed;
+  right:18px;
+  bottom:22px;
+  z-index:150;
+  width:58px;
+  height:58px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-decoration:none;
+  background:#13c968;
+  color:#fff;
+  font-size:29px;
+  box-shadow:0 5px 25px rgba(19,201,104,.35);
+}
+
+/* carrito */
+.overlay{
+  display:none;
+  position:fixed;
+  inset:0;
+  z-index:300;
+  background:rgba(0,0,0,.7);
+}
+
+.overlay.show{display:block}
+
+.drawer{
+  position:absolute;
+  right:0;
+  top:0;
+  height:100%;
+  width:min(430px,94vw);
+  display:flex;
+  flex-direction:column;
+  background:#07131d;
+  color:#fff;
+  border-left:1px solid #0879a8;
+}
+
+.drawer-head{
+  padding:18px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-bottom:1px solid var(--border);
+}
+
+.drawer-head h2{margin:0}
+
+.close{
+  border:0;
+  background:transparent;
+  color:#fff;
+  font-size:28px;
+}
+
+#cartItems{
+  padding:15px;
+  overflow:auto;
+  flex:1;
+}
+
+.cart-item{
+  padding:12px 0;
+  border-bottom:1px solid #153445;
+  display:flex;
+  gap:10px;
+}
+
+.cart-item img{
+  width:65px;
+  height:65px;
+  background:#fff;
+  object-fit:contain;
+}
+
+.cart-info{flex:1}
+
+.cart-name{
+  font-weight:800;
+  margin-bottom:4px;
+}
+
+.remove{
+  border:0;
+  background:transparent;
+  color:#ff6b6b;
+  padding:4px 0;
+}
+
+.cart-footer{
+  padding:18px;
+  border-top:1px solid var(--border);
+}
+
+.cart-total{
+  margin-bottom:12px;
+  font-size:20px;
+  font-weight:900;
+}
+
+.checkout{
+  width:100%;
+  border:0;
+  border-radius:9px;
+  padding:13px;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  color:#fff;
+  font-weight:900;
+}
+
+@media(max-width:1100px){
+  .grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+}
+
+@media(max-width:820px){
+  .grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .services{grid-template-columns:1fr}
+  .contact-wrap{grid-template-columns:1fr}
+}
+
+@media(max-width:650px){
+  .top-main{
+    flex-wrap:wrap;
+    gap:9px;
+  }
+
+  .brand-main{font-size:21px}
+  .brand-sub{font-size:7px}
+
+  .search{
+    order:3;
+    flex-basis:100%;
+  }
+
+  .cart{
+    margin-left:auto;
+  }
+
+  .cats button{
+    min-width:92px;
+    padding:12px 10px;
+    font-size:13px;
+  }
+
+  .hero-box{
+    min-height:270px;
+    padding:27px 22px;
+  }
+
+  .hero h1{
+    font-size:39px;
+  }
+
+  .hero p{
+    font-size:15px;
+  }
+
+  .grid{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:8px;
+  }
+
+  main{
+    padding-left:8px;
+    padding-right:8px;
+  }
+
+  .info{padding:10px}
+  .name{font-size:13px}
+  .price{font-size:17px}
+  .add{font-size:13px}
+
+  .section-head h2{font-size:23px}
+  .section-line{display:none}
+
+  .promo-title{font-size:24px}
+}
+</style>
 </head>
 
 <body>
 
 <header class="top">
   <div class="top-main">
-    <div class="logo">LOE <span>MOBIL</span></div>
+    <div class="brand">
+      <div class="brand-main">LOE <span>MOBIL</span></div>
+      <div class="brand-sub">FIX & GEAR</div>
+    </div>
 
     <div class="search">
-      <input id="searchInput" type="search"
-        placeholder="Buscar iPhone, pantallas, cargadores..."
-        autocomplete="off">
+      <input
+        id="searchInput"
+        type="search"
+        placeholder="Buscar iPhone, pantallas, cargadores, fundas..."
+      >
       <button id="searchBtn">⌕</button>
     </div>
 
-    <button class="cart-btn" onclick="openCart()">
-      🛒 Carrito <span id="cartCount">0</span>
+    <button class="cart" onclick="openCart()">
+      🛒 Carrito
+      <span class="cart-count" id="cartCount">0</span>
     </button>
   </div>
 
   <div class="catbar">
     <div id="cats" class="cats">
-      <button class="active" data-id="">☰ Todos</button>
+      <button class="active" data-id="">▦ Todos</button>
     </div>
   </div>
 </header>
 
 <section class="hero">
   <div class="hero-box">
-    <h1>Todo para tu teléfono en un solo lugar.</h1>
-    <p>
-      <strong>Repuestos, accesorios y teléfonos</strong><br>
-      Compra fácil con LOE MOBIL · Santo Domingo
-    </p>
+    <div class="hero-content">
+      <div class="hero-small">LOE MOBIL · FIX & GEAR</div>
+
+      <h1>
+        Todo para tu <span>teléfono</span><br>
+        en un solo lugar.
+      </h1>
+
+      <p>
+        Repuestos, accesorios y teléfonos.
+        Calidad, servicio técnico y atención personalizada en Santo Domingo.
+      </p>
+
+      <button class="hero-btn"
+        onclick="document.querySelector('main').scrollIntoView()">
+        Ver productos →
+      </button>
+    </div>
+  </div>
+</section>
+
+<section class="services">
+  <div class="service">
+    <div class="service-icon">⚒</div>
+    <div>
+      <strong>Servicio Técnico</strong>
+      <span>Diagnóstico y reparación</span>
+    </div>
+  </div>
+
+  <div class="service">
+    <div class="service-icon">🚚</div>
+    <div>
+      <strong>Delivery Disponible</strong>
+      <span>Santo Domingo y zonas cercanas</span>
+    </div>
+  </div>
+
+  <div class="service">
+    <div class="service-icon">✓</div>
+    <div>
+      <strong>Calidad Garantizada</strong>
+      <span>Productos seleccionados</span>
+    </div>
   </div>
 </section>
 
 <main>
   <div class="section-head">
     <h2 id="sectionTitle">Productos destacados</h2>
-    <span id="resultCount"></span>
+    <div class="section-line"></div>
+    <div id="resultCount" class="result-count"></div>
   </div>
 
   <div id="status" class="status">Cargando productos…</div>
   <div id="products" class="grid"></div>
 </main>
 
+<section class="promo">
+  <div class="promo-box">
+    <div class="promo-top">
+      REPUESTOS · ACCESORIOS · TELÉFONOS
+    </div>
+
+    <div class="promo-title">
+      TU TELÉFONO <span>EN LAS MEJORES MANOS</span>
+    </div>
+
+    <div class="benefits">
+      <div><b>⚙</b> Repuestos de calidad</div>
+      <div><b>🚚</b> Envíos rápidos</div>
+      <div><b>◉</b> Atención personalizada</div>
+      <div><b>✓</b> Productos garantizados</div>
+    </div>
+  </div>
+</section>
+
+<section class="contact">
+  <div class="contact-wrap">
+
+    <div class="contact-box">
+      <div class="contact-icon">☏</div>
+      <div>
+        <div class="contact-label">Contáctanos por WhatsApp</div>
+        <div class="contact-value"><b>849 889 8247</b></div>
+      </div>
+    </div>
+
+    <div class="contact-box">
+      <div class="contact-icon">●</div>
+      <div>
+        <div class="contact-label">Visítanos</div>
+        <div class="contact-value">
+          Plaza Central, 2 nivel<br>
+          Local LOE MOBIL
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-box">
+      <div class="contact-icon">◷</div>
+      <div>
+        <div class="contact-label">Atención</div>
+        <div class="contact-value">
+          Cotizaciones · Reparaciones<br>
+          Venta de equipos y accesorios
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
 <footer>
-  <strong>LOE MOBIL</strong><br><br>
-  Repuestos · Accesorios · Teléfonos<br>
-  Santo Domingo, República Dominicana
+  <div class="footer-inner">
+    <div>
+      <div class="footer-logo">
+        LOE <span>MOBIL</span>
+      </div>
+      <div>FIX & GEAR</div>
+      <br>
+      <div>Tu mundo en conexión</div>
+    </div>
+
+    <div>
+      Repuestos · Accesorios · Teléfonos<br>
+      Santo Domingo, República Dominicana
+    </div>
+  </div>
 </footer>
+
+<a
+  class="whatsapp"
+  href="https://wa.me/18498898247"
+  target="_blank"
+  aria-label="WhatsApp"
+>☏</a>
 
 <div id="cartOverlay" class="overlay" onclick="overlayClose(event)">
   <div class="drawer">
+
     <div class="drawer-head">
       <h2>Tu carrito</h2>
       <button class="close" onclick="closeCart()">×</button>
@@ -568,22 +883,15 @@
 
     <div class="cart-footer">
       <div class="cart-total">
-        Total: <span id="cartTotal">RD$0.00</span>
+        Total:
+        <span id="cartTotal">RD$0.00</span>
       </div>
+
       <button class="checkout" onclick="checkout()">
-        Continuar pedido
+        Pedir por WhatsApp
       </button>
     </div>
-  </div>
-</div>
 
-<div id="productModal" class="modal" onclick="modalClose(event)">
-  <div class="modal-card">
-    <button class="close"
-      style="position:absolute;right:15px;top:10px;color:#111"
-      onclick="closeProduct()">×</button>
-
-    <div id="modalContent"></div>
   </div>
 </div>
 
@@ -591,7 +899,9 @@
 const SUPABASE_URL="https://zndjyragtbobzuwxaaoe.supabase.co";
 const SUPABASE_KEY="sb_publishable_eWJkT8ZBPv0ZcCSLo01P7g_0AAEbN6S";
 
-const headers={apikey:SUPABASE_KEY};
+const headers={
+  apikey:SUPABASE_KEY
+};
 
 let products=[];
 let categories=[];
@@ -599,21 +909,38 @@ let currentCategory="";
 let currentSearch="";
 let cart=JSON.parse(localStorage.getItem("loeCart")||"[]");
 
-const money=n=>{
+function money(n){
   return "RD$"+Number(n||0).toLocaleString("es-DO",{
     minimumFractionDigits:2,
     maximumFractionDigits:2
   });
-};
+}
+
+function safe(value){
+  return String(value??"")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+}
 
 async function load(){
   try{
     const [cr,pr]=await Promise.all([
-      fetch(`${SUPABASE_URL}/rest/v1/categories?select=*&order=id`,{headers}),
-      fetch(`${SUPABASE_URL}/rest/v1/products?select=*&order=id.desc`,{headers})
+      fetch(
+        `${SUPABASE_URL}/rest/v1/categories?select=*&order=id`,
+        {headers}
+      ),
+      fetch(
+        `${SUPABASE_URL}/rest/v1/products?select=*&order=id.desc`,
+        {headers}
+      )
     ]);
 
-    if(!cr.ok||!pr.ok) throw new Error("No se pudo cargar la tienda.");
+    if(!cr.ok||!pr.ok){
+      throw new Error("Error cargando tienda");
+    }
 
     categories=await cr.json();
     products=await pr.json();
@@ -623,17 +950,18 @@ async function load(){
     updateCart();
 
   }catch(err){
-    document.getElementById("status").textContent=
-      "No pudimos cargar los productos. Intenta nuevamente.";
     console.error(err);
+    document.getElementById("status").textContent=
+      "No se pudieron cargar los productos.";
   }
 }
 
 function renderCategories(){
-  const c=document.getElementById("cats");
+  const box=document.getElementById("cats");
 
   categories.forEach(cat=>{
     const b=document.createElement("button");
+
     b.textContent=cat.name;
     b.dataset.id=cat.id;
 
@@ -642,24 +970,29 @@ function renderCategories(){
         .forEach(x=>x.classList.remove("active"));
 
       b.classList.add("active");
+
       currentCategory=String(cat.id);
-      document.getElementById("sectionTitle").textContent=cat.name;
+
+      document.getElementById("sectionTitle").textContent=
+        cat.name;
+
       applyFilters();
     };
 
-    c.appendChild(b);
+    box.appendChild(b);
   });
 
-  const all=c.querySelector('[data-id=""]');
-
-  all.onclick=()=>{
+  box.querySelector('[data-id=""]').onclick=()=>{
     document.querySelectorAll("#cats button")
       .forEach(x=>x.classList.remove("active"));
 
-    all.classList.add("active");
+    box.querySelector('[data-id=""]').classList.add("active");
+
     currentCategory="";
+
     document.getElementById("sectionTitle").textContent=
       "Productos destacados";
+
     applyFilters();
   };
 }
@@ -668,7 +1001,9 @@ function applyFilters(){
   let list=[...products];
 
   if(currentCategory){
-    list=list.filter(p=>String(p.category_id)===currentCategory);
+    list=list.filter(
+      p=>String(p.category_id)===currentCategory
+    );
   }
 
   if(currentSearch){
@@ -680,7 +1015,9 @@ function applyFilters(){
         p.brand,
         p.model,
         p.description,
-        p.condition
+        p.condition,
+        p.color,
+        p.storage
       ]
       .filter(Boolean)
       .join(" ")
@@ -693,142 +1030,84 @@ function applyFilters(){
 }
 
 function render(list){
-  const s=document.getElementById("status");
-  const g=document.getElementById("products");
+  const status=document.getElementById("status");
+  const grid=document.getElementById("products");
   const count=document.getElementById("resultCount");
 
-  g.innerHTML="";
-  count.textContent=`${list.length} producto${list.length===1?"":"s"}`;
+  grid.innerHTML="";
+
+  count.textContent=
+    `${list.length} producto${list.length===1?"":"s"}`;
 
   if(!list.length){
-    s.textContent="No encontramos productos.";
-    s.style.display="block";
+    status.style.display="block";
+    status.textContent="No encontramos productos.";
     return;
   }
 
-  s.style.display="none";
+  status.style.display="none";
 
   list.forEach(p=>{
-    const d=document.createElement("article");
-    d.className="card";
+    const card=document.createElement("article");
+
+    card.className="card";
 
     const image=p.image_url
-      ? `<img src="${safe(p.image_url)}" alt="${safe(p.name||"Producto")}" loading="lazy">`
+      ? `<img src="${safe(p.image_url)}"
+           alt="${safe(p.name||"Producto")}"
+           loading="lazy">`
       : `<span class="no-img">Sin imagen</span>`;
 
-    const meta=[p.brand,p.model]
-      .filter(Boolean)
-      .join(" · ");
-
-    d.innerHTML=`
-      <div class="photo">${image}</div>
-
-      <div class="info">
-        <div class="name">${safe(p.name||"Producto")}</div>
-
-        <div class="meta">${safe(meta)}</div>
-
-        <div class="rating">★★★★★</div>
-
-        <div class="price">${money(p.price)}</div>
-
-        <div class="stock">
-          ${productAvailability(p)}
-        </div>
-
-        <button class="add">Agregar al carrito</button>
-      </div>
-    `;
-
-    d.addEventListener("click",()=>openProduct(p));
-
-    d.querySelector(".add").onclick=e=>{
-      e.stopPropagation();
-      addToCart(p);
-    };
-
-    g.appendChild(d);
-  });
-}
-
-function productAvailability(p){
-  if(p.available===false) return "No disponible";
-
-  if(p.stock!==undefined && p.stock!==null){
-    return Number(p.stock)>0
-      ? `Disponible · ${p.stock} en existencia`
-      : "Agotado";
-  }
-
-  return "Disponible";
-}
-
-function safe(v){
-  return String(v??"")
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
-}
-
-function openProduct(p){
-  const image=p.image_url
-    ? `<img src="${safe(p.image_url)}" alt="${safe(p.name||"Producto")}">`
-    : `<span class="no-img">Sin imagen</span>`;
-
-  const meta=[p.brand,p.model,p.condition,p.storage,p.color]
+    const meta=[
+      p.brand,
+      p.model
+    ]
     .filter(Boolean)
     .join(" · ");
 
-  document.getElementById("modalContent").innerHTML=`
-    <div class="modal-content">
-      <div class="modal-img">${image}</div>
+    card.innerHTML=`
+      <div class="photo">
+        ${image}
+      </div>
 
-      <div>
-        <div class="modal-title">${safe(p.name||"Producto")}</div>
+      <div class="info">
+        <div class="name">
+          ${safe(p.name||"Producto")}
+        </div>
 
-        <div class="meta">${safe(meta)}</div>
+        <div class="meta">
+          ${safe(meta)}
+        </div>
 
-        <div class="rating">★★★★★</div>
+        <div class="price">
+          ${money(p.price)}
+        </div>
 
-        <div class="modal-price">${money(p.price)}</div>
+        <div class="stock">
+          Disponible
+        </div>
 
-        <div class="stock">${productAvailability(p)}</div>
-
-        <p class="modal-desc">
-          ${safe(p.description||"Producto disponible en LOE MOBIL.")}
-        </p>
-
-        <button class="add"
-          onclick='addToCartById(${JSON.stringify(String(p.id))})'>
-          Agregar al carrito
+        <button class="add">
+          🛒 Agregar
         </button>
       </div>
-    </div>
-  `;
+    `;
 
-  document.getElementById("productModal").classList.add("show");
-}
+    card.querySelector(".add").onclick=()=>{
+      addToCart(p);
+    };
 
-function closeProduct(){
-  document.getElementById("productModal").classList.remove("show");
-}
-
-function modalClose(e){
-  if(e.target.id==="productModal") closeProduct();
-}
-
-function addToCartById(id){
-  const p=products.find(x=>String(x.id)===String(id));
-  if(p) addToCart(p);
+    grid.appendChild(card);
+  });
 }
 
 function addToCart(p){
-  const existing=cart.find(x=>String(x.id)===String(p.id));
+  const found=cart.find(
+    x=>String(x.id)===String(p.id)
+  );
 
-  if(existing){
-    existing.qty++;
+  if(found){
+    found.qty++;
   }else{
     cart.push({
       id:p.id,
@@ -844,64 +1123,99 @@ function addToCart(p){
 }
 
 function removeFromCart(id){
-  cart=cart.filter(x=>String(x.id)!==String(id));
+  cart=cart.filter(
+    x=>String(x.id)!==String(id)
+  );
+
   saveCart();
   updateCart();
 }
 
 function saveCart(){
-  localStorage.setItem("loeCart",JSON.stringify(cart));
+  localStorage.setItem(
+    "loeCart",
+    JSON.stringify(cart)
+  );
 }
 
 function updateCart(){
-  const count=cart.reduce((n,x)=>n+x.qty,0);
+  const count=cart.reduce(
+    (n,x)=>n+x.qty,
+    0
+  );
 
   document.getElementById("cartCount").textContent=count;
 
   const box=document.getElementById("cartItems");
+
   box.innerHTML="";
 
   if(!cart.length){
-    box.innerHTML='<div class="status">Tu carrito está vacío.</div>';
+    box.innerHTML=
+      '<div class="status">Tu carrito está vacío.</div>';
   }else{
     cart.forEach(x=>{
-      const d=document.createElement("div");
-      d.className="cart-item";
+      const row=document.createElement("div");
 
-      d.innerHTML=`
-        ${x.image_url
+      row.className="cart-item";
+
+      row.innerHTML=`
+        ${
+          x.image_url
           ? `<img src="${safe(x.image_url)}" alt="">`
-          : `<div style="width:65px;height:65px;background:#eee"></div>`
+          : `<div style="
+              width:65px;
+              height:65px;
+              background:#10232f;
+             "></div>`
         }
 
-        <div class="cart-item-info">
-          <div class="cart-item-name">${safe(x.name)}</div>
-          <div>${money(x.price)} × ${x.qty}</div>
-          <button class="remove"
+        <div class="cart-info">
+          <div class="cart-name">
+            ${safe(x.name)}
+          </div>
+
+          <div>
+            ${money(x.price)} × ${x.qty}
+          </div>
+
+          <button
+            class="remove"
             onclick='removeFromCart(${JSON.stringify(String(x.id))})'>
             Eliminar
           </button>
         </div>
       `;
 
-      box.appendChild(d);
+      box.appendChild(row);
     });
   }
 
-  const total=cart.reduce((n,x)=>n+(x.price*x.qty),0);
-  document.getElementById("cartTotal").textContent=money(total);
+  const total=cart.reduce(
+    (n,x)=>n+(x.price*x.qty),
+    0
+  );
+
+  document.getElementById("cartTotal").textContent=
+    money(total);
 }
 
 function openCart(){
-  document.getElementById("cartOverlay").classList.add("show");
+  document
+    .getElementById("cartOverlay")
+    .classList.add("show");
 }
 
 function closeCart(){
-  document.getElementById("cartOverlay").classList.remove("show");
+  document
+    .getElementById("cartOverlay")
+    .classList.remove("show");
 }
 
 function overlayClose(e){
-  if(e.target.id==="cartOverlay") closeCart();
+  if(e.target.id==="cartOverlay"){
+    closeCart();
+  }
 }
 
 function checkout(){
@@ -910,29 +1224,42 @@ function checkout(){
     return;
   }
 
-  let text="Hola LOE MOBIL, quiero hacer este pedido:%0A%0A";
+  let message=
+    "Hola LOE MOBIL, quiero realizar este pedido:\n\n";
 
   cart.forEach(x=>{
-    text+=`• ${encodeURIComponent(x.name)} x${x.qty} - ${encodeURIComponent(money(x.price*x.qty))}%0A`;
+    message+=
+      `• ${x.name} x${x.qty} - ${money(x.price*x.qty)}\n`;
   });
 
-  const total=cart.reduce((n,x)=>n+(x.price*x.qty),0);
-  text+=`%0ATotal: ${encodeURIComponent(money(total))}`;
-
-  alert(
-    "El carrito ya funciona. En el próximo paso conectaremos este botón directamente con el WhatsApp de LOE MOBIL."
+  const total=cart.reduce(
+    (n,x)=>n+(x.price*x.qty),
+    0
   );
+
+  message+=`\nTotal: ${money(total)}`;
+
+  const url=
+    "https://wa.me/18498898247?text="+
+    encodeURIComponent(message);
+
+  window.open(url,"_blank");
 }
 
-const searchInput=document.getElementById("searchInput");
+const searchInput=
+  document.getElementById("searchInput");
 
 searchInput.addEventListener("input",()=>{
-  currentSearch=searchInput.value.trim();
+  currentSearch=
+    searchInput.value.trim();
+
   applyFilters();
 });
 
 document.getElementById("searchBtn").onclick=()=>{
-  currentSearch=searchInput.value.trim();
+  currentSearch=
+    searchInput.value.trim();
+
   applyFilters();
 };
 
