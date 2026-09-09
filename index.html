@@ -51,9 +51,7 @@ button,input{font:inherit}
   padding:12px 14px 8px;
 }
 
-.brand{
-  min-width:max-content;
-}
+.brand{min-width:max-content}
 
 .brand-main{
   font-size:24px;
@@ -61,9 +59,7 @@ button,input{font:inherit}
   font-weight:950;
 }
 
-.brand-main span{
-  color:var(--blue);
-}
+.brand-main span{color:var(--blue)}
 
 .brand-sub{
   margin-top:5px;
@@ -123,9 +119,7 @@ button,input{font:inherit}
   color:white;
 }
 
-.search input::placeholder{
-  color:#88959e;
-}
+.search input::placeholder{color:#88959e}
 
 .search button{
   width:56px;
@@ -143,9 +137,7 @@ button,input{font:inherit}
   border-top:1px solid rgba(0,191,255,.1);
 }
 
-.categories-wrap::-webkit-scrollbar{
-  display:none;
-}
+.categories-wrap::-webkit-scrollbar{display:none}
 
 .categories{
   max-width:1400px;
@@ -185,9 +177,7 @@ button,input{font:inherit}
   scrollbar-width:none;
 }
 
-.quick-box::-webkit-scrollbar{
-  display:none;
-}
+.quick-box::-webkit-scrollbar{display:none}
 
 .quick-item{
   flex:0 0 auto;
@@ -247,9 +237,7 @@ main{
   box-shadow:0 4px 18px rgba(0,0,0,.3);
 }
 
-.product-main{
-  cursor:pointer;
-}
+.product-main{cursor:pointer}
 
 .photo{
   position:relative;
@@ -285,9 +273,7 @@ main{
   font-weight:900;
 }
 
-.card-info{
-  padding:9px 10px 7px;
-}
+.card-info{padding:9px 10px 7px}
 
 .card-name{
   min-height:37px;
@@ -316,9 +302,7 @@ main{
   font-weight:800;
 }
 
-.card-actions{
-  padding:0 9px 10px;
-}
+.card-actions{padding:0 9px 10px}
 
 .add{
   width:100%;
@@ -359,9 +343,7 @@ main{
   background:rgba(0,0,0,.72);
 }
 
-.overlay.show{
-  display:block;
-}
+.overlay.show{display:block}
 
 .drawer{
   position:absolute;
@@ -383,9 +365,7 @@ main{
   border-bottom:1px solid var(--border);
 }
 
-.drawer-head h2{
-  margin:0;
-}
+.drawer-head h2{margin:0}
 
 .close{
   border:0;
@@ -414,9 +394,7 @@ main{
   background:white;
 }
 
-.cart-info{
-  flex:1;
-}
+.cart-info{flex:1}
 
 .cart-name{
   margin-bottom:4px;
@@ -459,18 +437,16 @@ main{
   position:fixed;
   inset:0;
   z-index:400;
-  padding:15px;
+  padding:12px;
   overflow:auto;
-  background:rgba(0,0,0,.8);
+  background:rgba(0,0,0,.82);
 }
 
-.product-modal.show{
-  display:block;
-}
+.product-modal.show{display:block}
 
 .detail{
   width:min(900px,100%);
-  margin:25px auto;
+  margin:14px auto;
   overflow:hidden;
   border:1px solid #0c7199;
   border-radius:15px;
@@ -480,7 +456,7 @@ main{
 .detail-head{
   display:flex;
   justify-content:flex-end;
-  padding:7px 10px 0;
+  padding:5px 8px 0;
 }
 
 .detail-close{
@@ -494,13 +470,17 @@ main{
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:22px;
-  padding:18px;
+  padding:14px 16px 18px;
 }
 
-/* GALERÍA */
+/* GALERÍA MEJORADA */
 
 .gallery-wrap{
   min-width:0;
+}
+
+.gallery-shell{
+  position:relative;
 }
 
 .gallery{
@@ -514,14 +494,12 @@ main{
   -webkit-overflow-scrolling:touch;
 }
 
-.gallery::-webkit-scrollbar{
-  display:none;
-}
+.gallery::-webkit-scrollbar{display:none}
 
 .gallery-slide{
   flex:0 0 100%;
   width:100%;
-  min-height:360px;
+  height:430px;
   display:flex;
   align-items:center;
   justify-content:center;
@@ -531,26 +509,45 @@ main{
 
 .gallery-slide img{
   width:100%;
-  max-height:520px;
+  height:100%;
   object-fit:contain;
+  padding:8px;
 }
+
+.gallery-arrow{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  z-index:5;
+  width:38px;
+  height:38px;
+  border:1px solid rgba(0,0,0,.12);
+  border-radius:50%;
+  background:rgba(255,255,255,.92);
+  color:#07131d;
+  font-size:23px;
+  font-weight:900;
+  box-shadow:0 2px 10px rgba(0,0,0,.2);
+  cursor:pointer;
+}
+
+.gallery-arrow.left{left:8px}
+.gallery-arrow.right{right:8px}
 
 .gallery-thumbs{
   display:flex;
   gap:7px;
-  margin-top:9px;
+  margin-top:8px;
   overflow-x:auto;
   scrollbar-width:none;
 }
 
-.gallery-thumbs::-webkit-scrollbar{
-  display:none;
-}
+.gallery-thumbs::-webkit-scrollbar{display:none}
 
 .gallery-thumb{
-  flex:0 0 58px;
-  width:58px;
-  height:58px;
+  flex:0 0 52px;
+  width:52px;
+  height:52px;
   padding:2px;
   overflow:hidden;
   border:2px solid transparent;
@@ -570,7 +567,7 @@ main{
 }
 
 .gallery-counter{
-  margin-top:7px;
+  margin-top:5px;
   color:#9eabb2;
   text-align:center;
   font-size:11px;
@@ -589,7 +586,7 @@ main{
 }
 
 .detail-price{
-  margin:13px 0;
+  margin:10px 0;
   color:var(--blue);
   font-size:30px;
   font-weight:950;
@@ -603,7 +600,7 @@ main{
 .detail-specs{
   display:grid;
   gap:7px;
-  margin-top:17px;
+  margin-top:14px;
 }
 
 .detail-specs div{
@@ -614,14 +611,14 @@ main{
 }
 
 .detail-desc{
-  margin-top:17px;
+  margin-top:14px;
   color:#c2ced4;
-  line-height:1.55;
+  line-height:1.5;
 }
 
 .detail-add{
   width:100%;
-  margin-top:20px;
+  margin-top:16px;
   padding:13px;
   border:0;
   border-radius:9px;
@@ -648,13 +645,9 @@ main{
     padding:11px 12px 8px;
   }
 
-  .brand-main{
-    font-size:21px;
-  }
+  .brand-main{font-size:21px}
 
-  .brand-sub{
-    font-size:7px;
-  }
+  .brand-sub{font-size:7px}
 
   .cart-btn{
     padding:0 11px;
@@ -671,9 +664,7 @@ main{
     font-size:13px;
   }
 
-  .quick{
-    padding:0 8px;
-  }
+  .quick{padding:0 8px}
 
   main{
     padding:13px 7px 55px;
@@ -688,13 +679,9 @@ main{
     gap:7px;
   }
 
-  .card{
-    border-radius:9px;
-  }
+  .card{border-radius:9px}
 
-  .photo img{
-    padding:4px;
-  }
+  .photo img{padding:4px}
 
   .card-info{
     padding:8px 8px 6px;
@@ -705,17 +692,11 @@ main{
     font-size:12.5px;
   }
 
-  .card-meta{
-    font-size:9.5px;
-  }
+  .card-meta{font-size:9.5px}
 
-  .card-price{
-    font-size:16px;
-  }
+  .card-price{font-size:16px}
 
-  .card-stock{
-    font-size:10px;
-  }
+  .card-stock{font-size:10px}
 
   .card-actions{
     padding:0 7px 8px;
@@ -726,26 +707,58 @@ main{
     font-size:11px;
   }
 
+  .product-modal{
+    padding:8px;
+  }
+
   .detail{
-    margin:5px auto;
+    margin:3px auto;
   }
 
   .detail-body{
     grid-template-columns:1fr;
-    gap:15px;
-    padding:13px;
+    gap:11px;
+    padding:10px 12px 15px;
   }
 
   .gallery-slide{
-    min-height:285px;
+    height:390px;
+  }
+
+  .gallery-arrow{
+    width:34px;
+    height:34px;
+    font-size:20px;
+  }
+
+  .gallery-thumb{
+    width:48px;
+    height:48px;
+    flex-basis:48px;
   }
 
   .detail-title{
     font-size:24px;
+    margin-top:3px;
   }
 
   .detail-price{
-    font-size:25px;
+    font-size:26px;
+    margin:8px 0;
+  }
+
+  .detail-specs{
+    margin-top:11px;
+  }
+
+  .detail-desc{
+    margin-top:11px;
+  }
+}
+
+@media(max-width:390px){
+  .gallery-slide{
+    height:350px;
   }
 }
 </style>
@@ -953,6 +966,7 @@ let products = [];
 let categories = [];
 let currentCategory = "";
 let currentSearch = "";
+let currentGalleryIndex = 0;
 
 let cart =
 JSON.parse(
@@ -1292,6 +1306,8 @@ function openProduct(id){
     return;
   }
 
+  currentGalleryIndex = 0;
+
   const images =
   getProductImages(p);
 
@@ -1330,11 +1346,39 @@ function openProduct(id){
     galleryHtml = `
       <div class="gallery-wrap">
 
-        <div
-          id="productGallery"
-          class="gallery"
-        >
-          ${slides}
+        <div class="gallery-shell">
+
+          <div
+            id="productGallery"
+            class="gallery"
+          >
+            ${slides}
+          </div>
+
+          ${
+            images.length > 1
+            ? `
+              <button
+                class="gallery-arrow left"
+                type="button"
+                onclick="galleryPrev()"
+                aria-label="Foto anterior"
+              >
+                ‹
+              </button>
+
+              <button
+                class="gallery-arrow right"
+                type="button"
+                onclick="galleryNext()"
+                aria-label="Foto siguiente"
+              >
+                ›
+              </button>
+            `
+            : ""
+          }
+
         </div>
 
         ${
@@ -1366,10 +1410,12 @@ function openProduct(id){
 
     galleryHtml = `
       <div class="gallery-wrap">
-        <div class="gallery">
-          <div class="gallery-slide">
-            <div class="no-image">
-              Sin imagen
+        <div class="gallery-shell">
+          <div class="gallery">
+            <div class="gallery-slide">
+              <div class="no-image">
+                Sin imagen
+              </div>
             </div>
           </div>
         </div>
@@ -1498,6 +1544,8 @@ function setupGallery(){
         gallery.scrollLeft / width
       );
 
+      currentGalleryIndex = index;
+
       updateGalleryUI(index);
 
     },
@@ -1516,22 +1564,90 @@ function goToGalleryImage(index){
     return;
   }
 
+  const total =
+  gallery.querySelectorAll(".gallery-slide").length;
+
+  if(!total){
+    return;
+  }
+
+  const safeIndex =
+  Math.max(
+    0,
+    Math.min(index,total-1)
+  );
+
+  currentGalleryIndex =
+  safeIndex;
+
   gallery.scrollTo({
     left:
       gallery.clientWidth *
-      index,
+      safeIndex,
 
     behavior:"smooth"
   });
 
-  updateGalleryUI(index);
+  updateGalleryUI(
+    safeIndex
+  );
+}
+
+function galleryNext(){
+
+  const gallery =
+  document.getElementById("productGallery");
+
+  if(!gallery){
+    return;
+  }
+
+  const total =
+  gallery.querySelectorAll(".gallery-slide").length;
+
+  if(!total){
+    return;
+  }
+
+  const next =
+  currentGalleryIndex + 1 >= total
+  ? 0
+  : currentGalleryIndex + 1;
+
+  goToGalleryImage(next);
+}
+
+function galleryPrev(){
+
+  const gallery =
+  document.getElementById("productGallery");
+
+  if(!gallery){
+    return;
+  }
+
+  const total =
+  gallery.querySelectorAll(".gallery-slide").length;
+
+  if(!total){
+    return;
+  }
+
+  const prev =
+  currentGalleryIndex - 1 < 0
+  ? total - 1
+  : currentGalleryIndex - 1;
+
+  goToGalleryImage(prev);
 }
 
 function updateGalleryUI(index){
 
+  const thumbs =
   document
-  .querySelectorAll(".gallery-thumb")
-  .forEach(
+  .querySelectorAll(".gallery-thumb");
+
+  thumbs.forEach(
     (thumb,i) => {
 
       thumb.classList.toggle(
@@ -1543,10 +1659,6 @@ function updateGalleryUI(index){
 
   const counter =
   document.getElementById("galleryCounter");
-
-  const thumbs =
-  document
-  .querySelectorAll(".gallery-thumb");
 
   if(counter){
 
