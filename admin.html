@@ -1157,6 +1157,58 @@ if(
 
 }
 
+async function sendPushRequest(
+  title,
+  body,
+  url
+){
+
+const r =
+await fetch(
+  `${SUPABASE_URL}/functions/v1/hyper-responder`,
+  {
+    method:
+    "POST",
+
+    headers:{
+      apikey:
+      SUPABASE_KEY,
+
+      Authorization:
+      `Bearer ${token}`,
+
+      "Content-Type":
+      "application/json"
+    },
+
+    body:
+    JSON.stringify({
+      title,
+      body,
+      url
+    })
+  }
+);
+
+const data =
+await r.json()
+.catch(
+  () => ({})
+);
+
+if(!r.ok){
+
+  throw new Error(
+    data.error ||
+    data.message ||
+    "No se pudo enviar la notificación."
+  );
+}
+
+return data;
+
+}
+
 async function sendPushNotification(){
 
 const btn =
@@ -1225,47 +1277,12 @@ showPushAdminStatus(
 
 try{
 
-  const r =
-  await fetch(
-    `${SUPABASE_URL}/functions/v1/hyper-responder`,
-    {
-      method:
-      "POST",
-
-      headers:{
-        apikey:
-        SUPABASE_KEY,
-
-        Authorization:
-        `Bearer ${token}`,
-
-        "Content-Type":
-        "application/json"
-      },
-
-      body:
-      JSON.stringify({
-        title,
-        body,
-        url
-      })
-    }
-  );
-
   const data =
-  await r.json()
-  .catch(
-    () => ({})
+  await sendPushRequest(
+    title,
+    body,
+    url
   );
-
-  if(!r.ok){
-
-    throw new Error(
-      data.error ||
-      data.message ||
-      "No se pudo enviar la notificación."
-    );
-  }
 
   const sent =
   Number(
@@ -1313,6 +1330,121 @@ try{
 
   btn.textContent =
   "📣 Enviar notificación";
+}
+
+}
+
+/* =====================
+   PUSH AUTOMÁTICO
+===================== */
+
+async function sendAutomaticProductPush(
+  product
+){
+
+if(
+  !product ||
+  !product.id
+){
+  return;
+}
+
+const price =
+Number(
+  product.price || 0
+);
+
+const oldPrice =
+Number(
+  product.old_price || 0
+);
+
+const isOffer =
+oldPrice > price &&
+price > 0;
+
+const isFeatured =
+product.featured === true;
+
+if(
+  !isOffer &&
+  !isFeatured
+){
+  return;
+}
+
+let title =
+"🆕 Nuevo en LOE MOBIL";
+
+let body =
+`${product.name || "Nuevo producto"} disponible por ${money(price)}.`;
+
+if(isOffer){
+
+  title =
+  "🔥 Nueva oferta en LOE MOBIL";
+
+  body =
+  `${product.name || "Producto en oferta"} ahora por ${money(price)}.`;
+
+}else if(isFeatured){
+
+  title =
+  "🆕 Nuevo en LOE MOBIL";
+
+  body =
+  `${product.name || "Nuevo producto"} ya está disponible por ${money(price)}.`;
+}
+
+const url =
+`/?product=${encodeURIComponent(product.id)}`;
+
+try{
+
+  const data =
+  await sendPushRequest(
+    title,
+    body,
+    url
+  );
+
+  const sent =
+  Number(
+    data.sent || 0
+  );
+
+  const failed =
+  Number(
+    data.failed || 0
+  );
+
+  if(sent > 0){
+
+    showPushAdminStatus(
+      `🤖 Notificación automática enviada a ${sent} dispositivo${sent === 1 ? "" : "s"}${failed ? ` · ${failed} fallida${failed === 1 ? "" : "s"}` : ""}.`,
+      true
+    );
+
+  }else{
+
+    showPushAdminStatus(
+      data.message ||
+      "Producto guardado, pero todavía no hay dispositivos suscritos.",
+      false
+    );
+  }
+
+}catch(error){
+
+  console.error(
+    "Error Push automático:",
+    error
+  );
+
+  showPushAdminStatus(
+    "⚠️ El producto se guardó correctamente, pero la notificación automática no pudo enviarse.",
+    false
+  );
 }
 
 }
@@ -2150,11 +2282,64 @@ try{
     );
   }
 
+  const savedRows =
+  await r.json()
+  .catch(
+    () => []
+  );
+
+  const savedProduct =
+  Array.isArray(
+    savedRows
+  )
+  ? savedRows[0]
+  : savedRows;
+
   showSuccess(
     editing
     ? "Producto actualizado."
     : "Producto agregado."
   );
+
+  /*
+    NOTIFICACIÓN AUTOMÁTICA
+
+    Solo cuando:
+    - Es un producto NUEVO
+    - Y está DESTACADO
+      o tiene una OFERTA REAL
+
+    Editar un producto NO envía
+    una notificación automática.
+  */
+
+  if(
+    !editing &&
+    savedProduct &&
+    savedProduct.id
+  ){
+
+    const isOffer =
+    Number(
+      savedProduct.old_price || 0
+    ) >
+    Number(
+      savedProduct.price || 0
+    );
+
+    const isFeatured =
+    savedProduct.featured === true;
+
+    if(
+      isOffer ||
+      isFeatured
+    ){
+
+      await sendAutomaticProductPush(
+        savedProduct
+      );
+    }
+  }
 
   resetForm();
 
