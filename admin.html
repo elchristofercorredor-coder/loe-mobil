@@ -794,6 +794,22 @@ textarea{
   cursor:not-allowed
 }
 
+.delete-order-btn{
+  flex:1;
+  border:1px solid #893d3d;
+  border-radius:9px;
+  padding:11px;
+  background:#772727;
+  color:#fff;
+  font-weight:950;
+  cursor:pointer
+}
+
+.delete-order-btn:disabled{
+  opacity:.55;
+  cursor:not-allowed
+}
+
 /* =========================
    HISTORIAL DE VENTAS
 ========================= */
@@ -1108,6 +1124,15 @@ textarea{
 
   .order-status{
     align-self:flex-start
+  }
+
+  .order-actions{
+    flex-direction:column
+  }
+
+  .complete-order-btn,
+  .delete-order-btn{
+    width:100%
   }
 
 }
@@ -3016,6 +3041,14 @@ try{
                 ✅ Completar pedido
               </button>
 
+              <button
+                type="button"
+                class="delete-order-btn"
+                onclick='deleteWebOrder(${JSON.stringify(String(order.id))},this)'
+              >
+                🗑 Eliminar pedido
+              </button>
+
             </div>
           `
           : ""
@@ -3226,6 +3259,159 @@ try{
 
     button.textContent =
     "✅ Completar pedido";
+  }
+
+}
+
+}
+
+/* =====================
+   ELIMINAR PEDIDO WEB
+===================== */
+
+async function deleteWebOrder(
+  orderId,
+  button
+){
+
+const order =
+orders.find(
+  item =>
+  String(
+    item.id
+  ) ===
+  String(
+    orderId
+  )
+);
+
+if(!order){
+
+  alert(
+    "No se encontró este pedido."
+  );
+
+  return;
+}
+
+const status =
+normalizeOrderStatus(
+  order.status
+);
+
+if(
+  status ===
+  "completed"
+){
+
+  alert(
+    "Los pedidos completados no se pueden eliminar desde aquí."
+  );
+
+  return;
+}
+
+const confirmed =
+confirm(
+  `¿Eliminar definitivamente el pedido #${order.id}?\n\n` +
+  `${order.customer_name || "Cliente"}\n` +
+  `Total: ${money(order.total)}\n\n` +
+  `Se eliminará el pedido y sus productos asociados.\n\n` +
+  `El stock y las ganancias NO se modificarán.`
+);
+
+if(!confirmed){
+  return;
+}
+
+if(button){
+
+  button.disabled =
+  true;
+
+  button.textContent =
+  "Eliminando…";
+}
+
+try{
+
+  const r =
+  await fetch(
+    `${SUPABASE_URL}/rest/v1/rpc/delete_web_order`,
+    {
+      method:
+      "POST",
+
+      headers:
+      apiHeaders({
+        "Content-Type":
+        "application/json"
+      }),
+
+      body:
+      JSON.stringify({
+        p_order_id:
+        Number(
+          orderId
+        )
+      })
+    }
+  );
+
+  const data =
+  await r.json()
+  .catch(
+    () => null
+  );
+
+  if(!r.ok){
+
+    let message =
+    "No se pudo eliminar el pedido.";
+
+    if(
+      data &&
+      typeof data ===
+      "object"
+    ){
+
+      message =
+      data.message ||
+      data.error ||
+      data.details ||
+      message;
+    }
+
+    throw new Error(
+      message
+    );
+  }
+
+  showSuccess(
+    `🗑 Pedido #${orderId} eliminado correctamente.`
+  );
+
+  await loadOrders();
+
+}catch(error){
+
+  console.error(
+    "Error eliminando pedido:",
+    error
+  );
+
+  alert(
+    error.message ||
+    "No se pudo eliminar el pedido."
+  );
+
+  if(button){
+
+    button.disabled =
+    false;
+
+    button.textContent =
+    "🗑 Eliminar pedido";
   }
 
 }
