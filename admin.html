@@ -1,30 +1,632 @@
 <!doctype html>
 <html lang="es">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#02070b">
-<title>LOE MOBIL | Admin</title>
+
+<meta charset="utf-8">
+
+<meta
+  name="viewport"
+  content="width=device-width,initial-scale=1"
+>
+
+<meta
+  name="theme-color"
+  content="#02070b"
+>
+
+<title>
+LOE MOBIL | Admin
+</title>
+
 <style>
-*{box-sizing:border-box}:root{--bg:#03080d;--panel:#07131d;--blue:#00bfff;--blue2:#008fe8;--border:#12425a;--text:#fff;--muted:#91a1ad;--danger:#ff5b5b;--green:#16c96b;--yellow:#ffc928}
-body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;background:radial-gradient(circle at 90% 0%,rgba(0,191,255,.12),transparent 30%),var(--bg);color:var(--text)}
-button,input,select,textarea{font:inherit}header{padding:18px;border-bottom:1px solid var(--border);background:#02070b}.logo{font-size:25px;font-weight:950}.logo span{color:var(--blue)}.sub{margin-top:5px;letter-spacing:4px;font-size:9px;color:#aab9c1}
-.wrap{width:min(1100px,100%);margin:auto;padding:20px 14px 60px}.panel{background:var(--panel);border:1px solid var(--border);border-radius:15px;padding:20px;margin-bottom:18px}h1,h2{margin-top:0}
-label{display:block;margin:13px 0 6px;color:#cbd7dd;font-size:13px;font-weight:700}input,select,textarea{width:100%;border:1px solid #25485b;border-radius:9px;background:#081720;color:white;padding:12px;outline:none}
-input:focus,select:focus,textarea:focus{border-color:var(--blue)}textarea{min-height:100px;resize:vertical}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-.btn{border:0;border-radius:9px;padding:12px 17px;font-weight:900;cursor:pointer}.primary{color:#00121b;background:linear-gradient(135deg,var(--blue),var(--blue2))}.secondary{color:white;background:#122633;border:1px solid var(--border)}.danger{color:white;background:#8c2828}.approve{color:#00150b;background:var(--green)}
-.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}#loginBox{max-width:470px;margin:60px auto}#error,#success{display:none;padding:11px;border-radius:8px;margin-bottom:12px}#error{border:1px solid #733;color:#ff9696;background:#271010}#success{border:1px solid #176a42;color:#78e6aa;background:#092317}
-#dashboard{display:none}.topline{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:18px}.products,.reviews{display:grid;gap:10px}
-.product{display:flex;align-items:center;gap:12px;padding:12px;background:#081720;border:1px solid #15394c;border-radius:11px}.product img{width:70px;height:70px;object-fit:contain;background:white;border-radius:7px}.placeholder{width:70px;height:70px;display:flex;align-items:center;justify-content:center;background:#10232f;color:#78909c;border-radius:7px;font-size:11px}.pinfo{flex:1}.pname{font-weight:900;margin-bottom:5px}.pmeta{color:var(--muted);font-size:12px}.pprice{color:var(--blue);font-weight:900;margin-top:5px}.old-price{text-decoration:line-through;color:#7f8d95;font-size:11px;margin-left:5px}
-.tag{display:inline-block;margin:5px 5px 0 0;padding:3px 6px;border-radius:999px;font-size:9px;font-weight:900}.tag.featured{background:#123243;color:#7edfff}.tag.sale{background:#422d0b;color:#ffd45a}
-.mini-actions{display:flex;gap:6px;flex-wrap:wrap}.mini-actions button{border:0;border-radius:7px;padding:8px 10px;font-weight:800}.status{text-align:center;color:var(--muted);padding:20px}.upload-note{margin-top:7px;color:var(--muted);font-size:12px}.uploading{display:none;margin-top:10px;color:var(--blue);font-weight:800}
-.image-previews{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:12px}.preview-card{position:relative;aspect-ratio:1/1;overflow:hidden;border:1px solid var(--border);border-radius:10px;background:#10232f}.preview-card img{width:100%;height:100%;object-fit:contain;background:white}.preview-remove{position:absolute;top:5px;right:5px;width:27px;height:27px;padding:0;border:0;border-radius:50%;background:#a32929;color:white;font-weight:950}.preview-main{position:absolute;left:5px;bottom:5px;padding:3px 6px;border-radius:5px;background:#07131d;color:white;font-size:9px;font-weight:900}
-.review-topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:15px}.review-count{padding:7px 11px;border-radius:999px;background:#10232f;color:var(--blue);border:1px solid var(--border);font-size:12px;font-weight:900}
-.review-card{background:#081720;border:1px solid #15394c;border-radius:13px;padding:15px}.review-card.pending{border-color:#735d13}.review-card.approved{border-color:#176a42}.review-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}.review-product{color:var(--blue);font-size:12px;font-weight:900;margin-bottom:5px}.review-name{font-size:17px;font-weight:950}.review-stars{color:var(--yellow);font-size:19px;letter-spacing:2px;margin-top:8px}.review-comment{margin-top:12px;color:#e4edf2;line-height:1.5;font-size:14px;white-space:pre-wrap}.review-date{color:var(--muted);font-size:11px;margin-top:10px}.review-badge{flex-shrink:0;border-radius:999px;padding:6px 9px;font-size:10px;font-weight:950}.review-badge.pending{color:#241c00;background:var(--yellow)}.review-badge.approved{color:#00170b;background:var(--green)}.review-actions{display:flex;gap:8px;margin-top:14px;padding-top:12px;border-top:1px solid #15394c}.review-actions button{flex:1;border:0;border-radius:8px;padding:10px;font-weight:900}.refresh-btn{border:1px solid var(--border);background:#10232f;color:white;border-radius:8px;padding:8px 11px;font-weight:900}
-.switchrow{display:flex;align-items:center;gap:9px;padding-top:7px}.switchrow input{width:auto;transform:scale(1.2)}
+
+*{
+  box-sizing:border-box
+}
+
+:root{
+  --bg:#03080d;
+  --panel:#07131d;
+  --blue:#00bfff;
+  --blue2:#008fe8;
+  --border:#12425a;
+  --text:#fff;
+  --muted:#91a1ad;
+  --danger:#ff5b5b;
+  --green:#16c96b;
+  --yellow:#ffc928
+}
+
+body{
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  background:
+    radial-gradient(
+      circle at 90% 0%,
+      rgba(0,191,255,.12),
+      transparent 30%
+    ),
+    var(--bg);
+  color:var(--text)
+}
+
+button,
+input,
+select,
+textarea{
+  font:inherit
+}
+
+header{
+  padding:18px;
+  border-bottom:1px solid var(--border);
+  background:#02070b
+}
+
+.logo{
+  font-size:25px;
+  font-weight:950
+}
+
+.logo span{
+  color:var(--blue)
+}
+
+.sub{
+  margin-top:5px;
+  letter-spacing:4px;
+  font-size:9px;
+  color:#aab9c1
+}
+
+.wrap{
+  width:min(1100px,100%);
+  margin:auto;
+  padding:20px 14px 60px
+}
+
+.panel{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:15px;
+  padding:20px;
+  margin-bottom:18px
+}
+
+h1,
+h2{
+  margin-top:0
+}
+
+label{
+  display:block;
+  margin:13px 0 6px;
+  color:#cbd7dd;
+  font-size:13px;
+  font-weight:700
+}
+
+input,
+select,
+textarea{
+  width:100%;
+  border:1px solid #25485b;
+  border-radius:9px;
+  background:#081720;
+  color:white;
+  padding:12px;
+  outline:none
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+  border-color:var(--blue)
+}
+
+textarea{
+  min-height:100px;
+  resize:vertical
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px
+}
+
+.btn{
+  border:0;
+  border-radius:9px;
+  padding:12px 17px;
+  font-weight:900;
+  cursor:pointer
+}
+
+.btn:disabled{
+  opacity:.55;
+  cursor:not-allowed
+}
+
+.primary{
+  color:#00121b;
+  background:
+    linear-gradient(
+      135deg,
+      var(--blue),
+      var(--blue2)
+    )
+}
+
+.secondary{
+  color:white;
+  background:#122633;
+  border:1px solid var(--border)
+}
+
+.danger{
+  color:white;
+  background:#8c2828
+}
+
+.approve{
+  color:#00150b;
+  background:var(--green)
+}
+
+.actions{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:16px
+}
+
+#loginBox{
+  max-width:470px;
+  margin:60px auto
+}
+
+#error,
+#success{
+  display:none;
+  padding:11px;
+  border-radius:8px;
+  margin-bottom:12px
+}
+
+#error{
+  border:1px solid #733;
+  color:#ff9696;
+  background:#271010
+}
+
+#success{
+  border:1px solid #176a42;
+  color:#78e6aa;
+  background:#092317
+}
+
+#dashboard{
+  display:none
+}
+
+.topline{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  margin-bottom:18px
+}
+
+.products,
+.reviews{
+  display:grid;
+  gap:10px
+}
+
+.product{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:12px;
+  background:#081720;
+  border:1px solid #15394c;
+  border-radius:11px
+}
+
+.product img{
+  width:70px;
+  height:70px;
+  object-fit:contain;
+  background:white;
+  border-radius:7px
+}
+
+.placeholder{
+  width:70px;
+  height:70px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#10232f;
+  color:#78909c;
+  border-radius:7px;
+  font-size:11px
+}
+
+.pinfo{
+  flex:1;
+  min-width:0
+}
+
+.pname{
+  font-weight:900;
+  margin-bottom:5px
+}
+
+.pmeta{
+  color:var(--muted);
+  font-size:12px
+}
+
+.pprice{
+  color:var(--blue);
+  font-weight:900;
+  margin-top:5px
+}
+
+.old-price{
+  text-decoration:line-through;
+  color:#7f8d95;
+  font-size:11px;
+  margin-left:5px
+}
+
+.product-inventory{
+  margin-top:8px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:5px
+}
+
+.inv-pill{
+  padding:4px 7px;
+  border-radius:7px;
+  background:#10232f;
+  border:1px solid #183e52;
+  color:#bfd0d9;
+  font-size:10px;
+  font-weight:800
+}
+
+.inv-pill strong{
+  color:white
+}
+
+.inv-pill.profit strong{
+  color:#6ce3a1
+}
+
+.inv-pill.stock-low{
+  border-color:#795f13;
+  color:#ffd763
+}
+
+.inv-pill.stock-zero{
+  border-color:#713232;
+  color:#ff9999
+}
+
+.tag{
+  display:inline-block;
+  margin:5px 5px 0 0;
+  padding:3px 6px;
+  border-radius:999px;
+  font-size:9px;
+  font-weight:900
+}
+
+.tag.featured{
+  background:#123243;
+  color:#7edfff
+}
+
+.tag.sale{
+  background:#422d0b;
+  color:#ffd45a
+}
+
+.mini-actions{
+  display:flex;
+  gap:6px;
+  flex-wrap:wrap
+}
+
+.mini-actions button{
+  border:0;
+  border-radius:7px;
+  padding:8px 10px;
+  font-weight:800;
+  cursor:pointer
+}
+
+.sale-btn{
+  color:#00170b;
+  background:var(--green)
+}
+
+.status{
+  text-align:center;
+  color:var(--muted);
+  padding:20px
+}
+
+.upload-note{
+  margin-top:7px;
+  color:var(--muted);
+  font-size:12px
+}
+
+.uploading{
+  display:none;
+  margin-top:10px;
+  color:var(--blue);
+  font-weight:800
+}
+
+.image-previews{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:9px;
+  margin-top:12px
+}
+
+.preview-card{
+  position:relative;
+  aspect-ratio:1/1;
+  overflow:hidden;
+  border:1px solid var(--border);
+  border-radius:10px;
+  background:#10232f
+}
+
+.preview-card img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  background:white
+}
+
+.preview-remove{
+  position:absolute;
+  top:5px;
+  right:5px;
+  width:27px;
+  height:27px;
+  padding:0;
+  border:0;
+  border-radius:50%;
+  background:#a32929;
+  color:white;
+  font-weight:950
+}
+
+.preview-main{
+  position:absolute;
+  left:5px;
+  bottom:5px;
+  padding:3px 6px;
+  border-radius:5px;
+  background:#07131d;
+  color:white;
+  font-size:9px;
+  font-weight:900
+}
+
+.review-topbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:15px
+}
+
+.review-count{
+  padding:7px 11px;
+  border-radius:999px;
+  background:#10232f;
+  color:var(--blue);
+  border:1px solid var(--border);
+  font-size:12px;
+  font-weight:900
+}
+
+.review-card{
+  background:#081720;
+  border:1px solid #15394c;
+  border-radius:13px;
+  padding:15px
+}
+
+.review-card.pending{
+  border-color:#735d13
+}
+
+.review-card.approved{
+  border-color:#176a42
+}
+
+.review-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:10px
+}
+
+.review-product{
+  color:var(--blue);
+  font-size:12px;
+  font-weight:900;
+  margin-bottom:5px
+}
+
+.review-name{
+  font-size:17px;
+  font-weight:950
+}
+
+.review-stars{
+  color:var(--yellow);
+  font-size:19px;
+  letter-spacing:2px;
+  margin-top:8px
+}
+
+.review-comment{
+  margin-top:12px;
+  color:#e4edf2;
+  line-height:1.5;
+  font-size:14px;
+  white-space:pre-wrap
+}
+
+.review-date{
+  color:var(--muted);
+  font-size:11px;
+  margin-top:10px
+}
+
+.review-badge{
+  flex-shrink:0;
+  border-radius:999px;
+  padding:6px 9px;
+  font-size:10px;
+  font-weight:950
+}
+
+.review-badge.pending{
+  color:#241c00;
+  background:var(--yellow)
+}
+
+.review-badge.approved{
+  color:#00170b;
+  background:var(--green)
+}
+
+.review-actions{
+  display:flex;
+  gap:8px;
+  margin-top:14px;
+  padding-top:12px;
+  border-top:1px solid #15394c
+}
+
+.review-actions button{
+  flex:1;
+  border:0;
+  border-radius:8px;
+  padding:10px;
+  font-weight:900
+}
+
+.refresh-btn{
+  border:1px solid var(--border);
+  background:#10232f;
+  color:white;
+  border-radius:8px;
+  padding:8px 11px;
+  font-weight:900
+}
+
+.switchrow{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  padding-top:7px
+}
+
+.switchrow input{
+  width:auto;
+  transform:scale(1.2)
+}
+
+/* =========================
+   DASHBOARD INVENTARIO
+========================= */
+
+.inventory-dashboard{
+  display:grid;
+  grid-template-columns:
+    repeat(3,minmax(0,1fr));
+  gap:11px;
+  margin-top:16px
+}
+
+.inventory-card{
+  min-height:112px;
+  border:1px solid #153e52;
+  border-radius:13px;
+  padding:15px;
+  background:
+    linear-gradient(
+      145deg,
+      #081720,
+      #091d29
+    )
+}
+
+.inventory-icon{
+  font-size:21px;
+  margin-bottom:9px
+}
+
+.inventory-label{
+  color:#91a1ad;
+  font-size:11px;
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:.6px
+}
+
+.inventory-value{
+  margin-top:5px;
+  color:white;
+  font-size:21px;
+  font-weight:950;
+  overflow-wrap:anywhere
+}
+
+.inventory-card.profit-card
+.inventory-value{
+  color:#64e29d
+}
+
+.inventory-card.sales-card
+.inventory-value{
+  color:#70dfff
+}
+
+.inventory-card.cost-card
+.inventory-value{
+  color:#ffd45a
+}
+
+.inventory-note{
+  color:#91a1ad;
+  font-size:11px;
+  line-height:1.4;
+  margin-top:12px
+}
+
+/* =========================
+   PUSH
+========================= */
 
 .push-admin-grid{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:12px;
+  gap:12px
 }
 
 .push-admin-status{
@@ -33,56 +635,243 @@ input:focus,select:focus,textarea:focus{border-color:var(--blue)}textarea{min-he
   padding:11px;
   border-radius:8px;
   font-size:13px;
-  line-height:1.4;
+  line-height:1.4
 }
 
 .push-admin-status.show{
-  display:block;
+  display:block
 }
 
 .push-admin-status.good{
   border:1px solid #176a42;
   color:#78e6aa;
-  background:#092317;
+  background:#092317
 }
 
 .push-admin-status.bad{
   border:1px solid #733;
   color:#ff9696;
-  background:#271010;
+  background:#271010
 }
 
 .push-send-btn{
   width:100%;
   margin-top:14px;
-  min-height:46px;
+  min-height:46px
+}
+
+/* =========================
+   MODAL VENTA
+========================= */
+
+.sale-modal{
+  position:fixed;
+  inset:0;
+  z-index:9999;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
+  background:rgba(0,0,0,.72);
+  backdrop-filter:blur(5px)
+}
+
+.sale-modal.show{
+  display:flex
+}
+
+.sale-dialog{
+  width:min(480px,100%);
+  max-height:90vh;
+  overflow:auto;
+  background:#07131d;
+  border:1px solid #17624a;
+  border-radius:17px;
+  box-shadow:
+    0 25px 70px
+    rgba(0,0,0,.55);
+  padding:20px
+}
+
+.sale-dialog-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:12px;
+  margin-bottom:14px
+}
+
+.sale-dialog-title{
+  font-size:20px;
+  font-weight:950
+}
+
+.sale-dialog-subtitle{
+  margin-top:4px;
+  color:#91a1ad;
+  font-size:12px
+}
+
+.modal-close{
+  flex-shrink:0;
+  width:34px;
+  height:34px;
+  border:1px solid #284d5e;
+  border-radius:50%;
+  background:#10232f;
+  color:white;
+  font-size:19px;
+  font-weight:900
+}
+
+.sale-product-info{
+  background:#081b25;
+  border:1px solid #164254;
+  border-radius:11px;
+  padding:12px;
+  margin-bottom:12px
+}
+
+.sale-product-name{
+  font-weight:950;
+  color:white
+}
+
+.sale-product-stock{
+  margin-top:5px;
+  color:#9fb2bc;
+  font-size:12px
+}
+
+.sale-profit-preview{
+  margin-top:14px;
+  padding:12px;
+  border-radius:10px;
+  border:1px solid #176a42;
+  background:#092317
+}
+
+.sale-profit-preview-label{
+  color:#86b99d;
+  font-size:11px;
+  font-weight:800
+}
+
+.sale-profit-preview-value{
+  margin-top:4px;
+  color:#68e5a0;
+  font-size:20px;
+  font-weight:950
+}
+
+.sale-actions{
+  display:flex;
+  gap:9px;
+  margin-top:16px
+}
+
+.sale-actions button{
+  flex:1
+}
+
+@media(max-width:760px){
+
+  .inventory-dashboard{
+    grid-template-columns:
+      repeat(2,minmax(0,1fr))
+  }
+
 }
 
 @media(max-width:650px){
+
   .push-admin-grid{
-    grid-template-columns:1fr;
+    grid-template-columns:1fr
   }
+
+  .grid{
+    grid-template-columns:1fr
+  }
+
+  .product{
+    align-items:flex-start;
+    flex-wrap:wrap
+  }
+
+  .product .pinfo{
+    min-width:
+      calc(100% - 95px)
+  }
+
+  .mini-actions{
+    width:100%;
+    flex-direction:row
+  }
+
+  .mini-actions button{
+    flex:1
+  }
+
+  .review-actions{
+    flex-direction:column
+  }
+
+  .topline{
+    align-items:flex-start
+  }
+
+  .image-previews{
+    grid-template-columns:
+      repeat(3,1fr)
+  }
+
 }
 
-@media(max-width:650px){.grid{grid-template-columns:1fr}.product{align-items:flex-start}.mini-actions,.review-actions{flex-direction:column}.topline{align-items:flex-start}.image-previews{grid-template-columns:repeat(3,1fr)}}
-</style></head>
+@media(max-width:430px){
+
+  .inventory-dashboard{
+    grid-template-columns:1fr 1fr
+  }
+
+  .inventory-card{
+    padding:12px;
+    min-height:105px
+  }
+
+  .inventory-value{
+    font-size:17px
+  }
+
+}
+
+</style>
+
+</head>
 
 <body>
 
 <header>
+
   <div class="logo">
     LOE <span>MOBIL</span>
   </div>
+
   <div class="sub">
     ADMIN · FIX & GEAR
   </div>
+
 </header>
 
 <div class="wrap">
 
-<section id="loginBox" class="panel">
+<section
+  id="loginBox"
+  class="panel"
+>
 
-<h1>Panel de administración</h1>
+<h1>
+Panel de administración
+</h1>
 
 <p style="color:#91a1ad">
 Acceso exclusivo LOE MOBIL.
@@ -90,7 +879,9 @@ Acceso exclusivo LOE MOBIL.
 
 <div id="error"></div>
 
-<label>Correo</label>
+<label>
+Correo
+</label>
 
 <input
   id="email"
@@ -98,7 +889,9 @@ Acceso exclusivo LOE MOBIL.
   autocomplete="username"
 >
 
-<label>Contraseña</label>
+<label>
+Contraseña
+</label>
 
 <input
   id="password"
@@ -108,10 +901,13 @@ Acceso exclusivo LOE MOBIL.
 
 <button
   class="btn primary"
-  style="width:100%;margin-top:17px"
+  style="
+    width:100%;
+    margin-top:17px
+  "
   onclick="login()"
 >
-  Entrar
+Entrar
 </button>
 
 </section>
@@ -127,7 +923,7 @@ Acceso exclusivo LOE MOBIL.
     </h1>
 
     <div style="color:#91a1ad">
-      Productos, ofertas y reseñas
+      Productos, inventario, ventas y reseñas
     </div>
 
   </div>
@@ -143,10 +939,160 @@ Acceso exclusivo LOE MOBIL.
 
 <div id="success"></div>
 
+<!-- =========================
+     DASHBOARD INVENTARIO
+========================= -->
+
 <section class="panel">
 
 <h2>
-  📣 Enviar notificación
+📊 Inventario LOE MOBIL
+</h2>
+
+<div
+  style="
+    color:#91a1ad;
+    font-size:13px
+  "
+>
+Resumen de existencias, ventas y ganancia bruta.
+</div>
+
+<div
+  id="inventoryDashboard"
+  class="inventory-dashboard"
+>
+
+  <div class="inventory-card">
+
+    <div class="inventory-icon">
+      📱
+    </div>
+
+    <div class="inventory-label">
+      Productos
+    </div>
+
+    <div
+      id="statProducts"
+      class="inventory-value"
+    >
+      —
+    </div>
+
+  </div>
+
+  <div class="inventory-card">
+
+    <div class="inventory-icon">
+      📦
+    </div>
+
+    <div class="inventory-label">
+      Unidades en stock
+    </div>
+
+    <div
+      id="statStock"
+      class="inventory-value"
+    >
+      —
+    </div>
+
+  </div>
+
+  <div class="inventory-card">
+
+    <div class="inventory-icon">
+      🛒
+    </div>
+
+    <div class="inventory-label">
+      Unidades vendidas
+    </div>
+
+    <div
+      id="statSold"
+      class="inventory-value"
+    >
+      —
+    </div>
+
+  </div>
+
+  <div class="inventory-card sales-card">
+
+    <div class="inventory-icon">
+      💵
+    </div>
+
+    <div class="inventory-label">
+      Ventas acumuladas
+    </div>
+
+    <div
+      id="statRevenue"
+      class="inventory-value"
+    >
+      —
+    </div>
+
+  </div>
+
+  <div class="inventory-card cost-card">
+
+    <div class="inventory-icon">
+      🧾
+    </div>
+
+    <div class="inventory-label">
+      Costo del stock
+    </div>
+
+    <div
+      id="statInventoryCost"
+      class="inventory-value"
+    >
+      —
+    </div>
+
+  </div>
+
+  <div class="inventory-card profit-card">
+
+    <div class="inventory-icon">
+      📈
+    </div>
+
+    <div class="inventory-label">
+      Ganancia bruta
+    </div>
+
+    <div
+      id="statProfit"
+      class="inventory-value"
+    >
+      —
+    </div>
+
+  </div>
+
+</div>
+
+<div class="inventory-note">
+La ganancia se calcula con las ventas registradas: precio de venta menos costo de compra.
+</div>
+
+</section>
+
+<!-- =========================
+     PUSH
+========================= -->
+
+<section class="panel">
+
+<h2>
+📣 Enviar notificación
 </h2>
 
 <div
@@ -156,7 +1102,7 @@ Acceso exclusivo LOE MOBIL.
     margin-bottom:4px
   "
 >
-  Envía ofertas, productos nuevos o avisos a los clientes que activaron las notificaciones.
+Envía ofertas, productos nuevos o avisos a los clientes que activaron las notificaciones.
 </div>
 
 <div class="push-admin-grid">
@@ -195,7 +1141,7 @@ Acceso exclusivo LOE MOBIL.
 </div>
 
 <label>
-  Mensaje
+Mensaje
 </label>
 
 <textarea
@@ -210,7 +1156,7 @@ Acceso exclusivo LOE MOBIL.
   type="button"
   onclick="sendPushNotification()"
 >
-  📣 Enviar notificación
+📣 Enviar notificación
 </button>
 
 <div
@@ -220,15 +1166,25 @@ Acceso exclusivo LOE MOBIL.
 
 </section>
 
+<!-- =========================
+     PRODUCTO
+========================= -->
+
 <section class="panel">
 
 <h2 id="formTitle">
 Agregar producto
 </h2>
 
-<input id="productId" type="hidden">
+<input
+  id="productId"
+  type="hidden"
+>
 
-<input id="image_url" type="hidden">
+<input
+  id="image_url"
+  type="hidden"
+>
 
 <div class="grid">
 
@@ -284,7 +1240,7 @@ Modelo
 <div>
 
 <label>
-Precio actual RD$ *
+Precio de venta RD$ *
 </label>
 
 <input
@@ -294,6 +1250,26 @@ Precio actual RD$ *
   min="0"
   placeholder="39000"
 >
+
+</div>
+
+<div>
+
+<label>
+💰 Costo de compra RD$
+</label>
+
+<input
+  id="cost_price"
+  type="number"
+  step="0.01"
+  min="0"
+  placeholder="32000"
+>
+
+<div class="upload-note">
+Lo que LOE MOBIL pagó por esta unidad.
+</div>
 
 </div>
 
@@ -477,6 +1453,10 @@ Limpiar
 
 </section>
 
+<!-- =========================
+     PRODUCTOS
+========================= -->
+
 <section class="panel">
 
 <h2>
@@ -495,6 +1475,10 @@ Cargando productos…
 </div>
 
 </section>
+
+<!-- =========================
+     RESEÑAS
+========================= -->
 
 <section class="panel">
 
@@ -530,7 +1514,10 @@ Aprueba o elimina las reseñas recibidas.
 <div
   id="reviewCount"
   class="review-count"
-  style="display:inline-block;margin-bottom:14px"
+  style="
+    display:inline-block;
+    margin-bottom:14px
+  "
 >
 Cargando…
 </div>
@@ -552,7 +1539,157 @@ Cargando opiniones…
 
 </div>
 
+<!-- =========================
+     MODAL REGISTRAR VENTA
+========================= -->
+
+<div
+  id="saleModal"
+  class="sale-modal"
+  onclick="saleModalBackdrop(event)"
+>
+
+<div class="sale-dialog">
+
+<div class="sale-dialog-header">
+
+  <div>
+
+    <div class="sale-dialog-title">
+      ✅ Registrar venta
+    </div>
+
+    <div class="sale-dialog-subtitle">
+      Esta acción descontará el inventario.
+    </div>
+
+  </div>
+
+  <button
+    type="button"
+    class="modal-close"
+    onclick="closeSaleModal()"
+  >
+    ×
+  </button>
+
+</div>
+
+<input
+  id="saleProductId"
+  type="hidden"
+>
+
+<div class="sale-product-info">
+
+  <div
+    id="saleProductName"
+    class="sale-product-name"
+  >
+    Producto
+  </div>
+
+  <div
+    id="saleProductStock"
+    class="sale-product-stock"
+  >
+    Stock disponible: 0
+  </div>
+
+</div>
+
+<div class="grid">
+
+<div>
+
+<label>
+Cantidad vendida *
+</label>
+
+<input
+  id="saleQuantity"
+  type="number"
+  min="1"
+  step="1"
+  value="1"
+  oninput="updateSaleProfitPreview()"
+>
+
+</div>
+
+<div>
+
+<label>
+Precio por unidad RD$ *
+</label>
+
+<input
+  id="saleUnitPrice"
+  type="number"
+  min="0"
+  step="0.01"
+  oninput="updateSaleProfitPreview()"
+>
+
+</div>
+
+</div>
+
+<label>
+Nota
+</label>
+
+<input
+  id="saleNote"
+  maxlength="120"
+  placeholder="Ej: Venta en tienda física"
+>
+
+<div class="sale-profit-preview">
+
+  <div class="sale-profit-preview-label">
+    GANANCIA ESTIMADA DE ESTA VENTA
+  </div>
+
+  <div
+    id="saleProfitPreview"
+    class="sale-profit-preview-value"
+  >
+    RD$0.00
+  </div>
+
+</div>
+
+<div class="sale-actions">
+
+<button
+  type="button"
+  class="btn secondary"
+  onclick="closeSaleModal()"
+>
+Cancelar
+</button>
+
+<button
+  id="confirmSaleBtn"
+  type="button"
+  class="btn approve"
+  onclick="registerSale()"
+>
+✅ Registrar
+</button>
+
+</div>
+
+</div>
+
+</div>
+
 <script>
+
+/* =====================
+   CONFIGURACIÓN
+===================== */
 
 const SUPABASE_URL =
 "https://zndjyragtbobzuwxaaoe.supabase.co";
@@ -574,16 +1711,24 @@ sessionStorage.getItem(
 let products = [];
 let categories = [];
 let reviews = [];
+let inventorySummary = [];
 
 let currentImages = [];
 let selectedFiles = [];
 
+/* =====================
+   UTILIDADES
+===================== */
+
 function apiHeaders(extra={}){
 
 return {
-  apikey:SUPABASE_KEY,
 
-  ...(token
+  apikey:
+  SUPABASE_KEY,
+
+  ...(
+    token
     ? {
         Authorization:
         "Bearer " + token
@@ -615,8 +1760,11 @@ return (
   .toLocaleString(
     "es-DO",
     {
-      minimumFractionDigits:2,
-      maximumFractionDigits:2
+      minimumFractionDigits:
+      2,
+
+      maximumFractionDigits:
+      2
     }
   )
 );
@@ -672,13 +1820,19 @@ window.scrollTo({
 
 setTimeout(
   () => {
+
     e.style.display =
     "none";
+
   },
   3000
 );
 
 }
+
+/* =====================
+   LOGIN
+===================== */
 
 async function login(){
 
@@ -722,7 +1876,8 @@ try{
   await fetch(
     `${SUPABASE_URL}/auth/v1/token?grant_type=password`,
     {
-      method:"POST",
+      method:
+      "POST",
 
       headers:{
         apikey:
@@ -773,7 +1928,7 @@ try{
     token
   );
 
-  openDashboard();
+  await openDashboard();
 
 }catch(err){
 
@@ -846,6 +2001,10 @@ location.reload();
 
 }
 
+/* =====================
+   CATEGORÍAS
+===================== */
+
 async function loadCategories(){
 
 const r =
@@ -895,6 +2054,193 @@ categories.forEach(
 
 }
 
+/* =====================
+   INVENTARIO
+===================== */
+
+async function loadInventorySummary(){
+
+try{
+
+  const r =
+  await fetch(
+    `${SUPABASE_URL}/rest/v1/inventory_summary?select=*&order=id.desc`,
+    {
+      headers:
+      apiHeaders()
+    }
+  );
+
+  if(!r.ok){
+
+    throw new Error(
+      await r.text()
+    );
+  }
+
+  inventorySummary =
+  await r.json();
+
+}catch(error){
+
+  console.error(
+    "Error cargando inventario:",
+    error
+  );
+
+  inventorySummary =
+  [];
+
+}
+
+renderInventoryDashboard();
+
+}
+
+function getInventoryRow(
+  productId
+){
+
+return (
+  inventorySummary.find(
+    row =>
+    String(
+      row.id
+    ) ===
+    String(
+      productId
+    )
+  ) || null
+);
+
+}
+
+function renderInventoryDashboard(){
+
+const totalProducts =
+products.length;
+
+const totalStock =
+products.reduce(
+  (total,product) =>
+  total +
+  Number(
+    product.stock || 0
+  ),
+  0
+);
+
+const totalSold =
+inventorySummary.reduce(
+  (total,row) =>
+  total +
+  Number(
+    row.units_sold || 0
+  ),
+  0
+);
+
+const totalRevenue =
+inventorySummary.reduce(
+  (total,row) =>
+  total +
+  Number(
+    row.revenue || 0
+  ),
+  0
+);
+
+const totalProfit =
+inventorySummary.reduce(
+  (total,row) =>
+  total +
+  Number(
+    row.gross_profit || 0
+  ),
+  0
+);
+
+const inventoryCost =
+products.reduce(
+  (total,product) =>
+  total +
+  (
+    Number(
+      product.stock || 0
+    ) *
+    Number(
+      product.cost_price || 0
+    )
+  ),
+  0
+);
+
+document
+.getElementById(
+  "statProducts"
+)
+.textContent =
+String(
+  totalProducts
+);
+
+document
+.getElementById(
+  "statStock"
+)
+.textContent =
+Number(
+  totalStock
+)
+.toLocaleString(
+  "es-DO"
+);
+
+document
+.getElementById(
+  "statSold"
+)
+.textContent =
+Number(
+  totalSold
+)
+.toLocaleString(
+  "es-DO"
+);
+
+document
+.getElementById(
+  "statRevenue"
+)
+.textContent =
+money(
+  totalRevenue
+);
+
+document
+.getElementById(
+  "statInventoryCost"
+)
+.textContent =
+money(
+  inventoryCost
+);
+
+document
+.getElementById(
+  "statProfit"
+)
+.textContent =
+money(
+  totalProfit
+);
+
+}
+
+/* =====================
+   PRODUCTOS
+===================== */
+
 async function loadProducts(){
 
 const box =
@@ -922,6 +2268,8 @@ if(!r.ok){
 products =
 await r.json();
 
+await loadInventorySummary();
+
 loadPushProducts();
 
 if(!products.length){
@@ -937,6 +2285,31 @@ box.innerHTML =
 
 products.forEach(
   p => {
+
+    const inventory =
+    getInventoryRow(
+      p.id
+    );
+
+    const unitsSold =
+    Number(
+      inventory?.units_sold || 0
+    );
+
+    const profit =
+    Number(
+      inventory?.gross_profit || 0
+    );
+
+    const stock =
+    Number(
+      p.stock || 0
+    );
+
+    const cost =
+    Number(
+      p.cost_price || 0
+    );
 
     const row =
     document.createElement(
@@ -974,6 +2347,20 @@ products.forEach(
     Number(
       p.price
     );
+
+    let stockClass =
+    "";
+
+    if(stock <= 0){
+
+      stockClass =
+      "stock-zero";
+
+    }else if(stock <= 2){
+
+      stockClass =
+      "stock-low";
+    }
 
     row.innerHTML = `
 
@@ -1022,6 +2409,38 @@ products.forEach(
 
         </div>
 
+        <div class="product-inventory">
+
+          <span class="inv-pill">
+            Costo:
+            <strong>
+              ${money(cost)}
+            </strong>
+          </span>
+
+          <span class="inv-pill ${stockClass}">
+            Stock:
+            <strong>
+              ${stock}
+            </strong>
+          </span>
+
+          <span class="inv-pill">
+            Vendidos:
+            <strong>
+              ${unitsSold}
+            </strong>
+          </span>
+
+          <span class="inv-pill profit">
+            Ganancia:
+            <strong>
+              ${money(profit)}
+            </strong>
+          </span>
+
+        </div>
+
         ${
           p.featured
           ? `
@@ -1047,6 +2466,14 @@ products.forEach(
       <div class="mini-actions">
 
         <button
+          class="sale-btn"
+          onclick='openSaleModal(${JSON.stringify(String(p.id))})'
+          ${stock <= 0 ? "disabled" : ""}
+        >
+          ✅ Registrar venta
+        </button>
+
+        <button
           onclick='editProduct(${JSON.stringify(String(p.id))})'
         >
           Editar
@@ -1068,6 +2495,447 @@ products.forEach(
 
   }
 );
+
+}
+
+/* =====================
+   REGISTRAR VENTA
+===================== */
+
+function openSaleModal(id){
+
+const p =
+products.find(
+  product =>
+  String(
+    product.id
+  ) ===
+  String(
+    id
+  )
+);
+
+if(!p){
+  return;
+}
+
+const stock =
+Number(
+  p.stock || 0
+);
+
+if(stock <= 0){
+
+  alert(
+    "Este producto no tiene stock disponible."
+  );
+
+  return;
+}
+
+document
+.getElementById(
+  "saleProductId"
+)
+.value =
+String(
+  p.id
+);
+
+document
+.getElementById(
+  "saleProductName"
+)
+.textContent =
+p.name ||
+"Producto";
+
+document
+.getElementById(
+  "saleProductStock"
+)
+.textContent =
+`Stock disponible: ${stock} · Costo: ${money(p.cost_price || 0)}`;
+
+document
+.getElementById(
+  "saleQuantity"
+)
+.value =
+"1";
+
+document
+.getElementById(
+  "saleQuantity"
+)
+.max =
+String(
+  stock
+);
+
+document
+.getElementById(
+  "saleUnitPrice"
+)
+.value =
+Number(
+  p.price || 0
+);
+
+document
+.getElementById(
+  "saleNote"
+)
+.value =
+"Venta en tienda física";
+
+document
+.getElementById(
+  "saleModal"
+)
+.classList.add(
+  "show"
+);
+
+document.body.style.overflow =
+"hidden";
+
+updateSaleProfitPreview();
+
+}
+
+function closeSaleModal(){
+
+document
+.getElementById(
+  "saleModal"
+)
+.classList.remove(
+  "show"
+);
+
+document.body.style.overflow =
+"";
+
+}
+
+function saleModalBackdrop(event){
+
+if(
+  event.target.id ===
+  "saleModal"
+){
+
+  closeSaleModal();
+}
+
+}
+
+function updateSaleProfitPreview(){
+
+const productId =
+document
+.getElementById(
+  "saleProductId"
+)
+.value;
+
+const product =
+products.find(
+  p =>
+  String(
+    p.id
+  ) ===
+  String(
+    productId
+  )
+);
+
+if(!product){
+  return;
+}
+
+const quantity =
+Math.max(
+  0,
+  Number(
+    document
+    .getElementById(
+      "saleQuantity"
+    )
+    .value || 0
+  )
+);
+
+const unitPrice =
+Math.max(
+  0,
+  Number(
+    document
+    .getElementById(
+      "saleUnitPrice"
+    )
+    .value || 0
+  )
+);
+
+const cost =
+Number(
+  product.cost_price || 0
+);
+
+const profit =
+(
+  unitPrice -
+  cost
+) *
+quantity;
+
+document
+.getElementById(
+  "saleProfitPreview"
+)
+.textContent =
+money(
+  profit
+);
+
+}
+
+async function registerSale(){
+
+const btn =
+document.getElementById(
+  "confirmSaleBtn"
+);
+
+const productId =
+document
+.getElementById(
+  "saleProductId"
+)
+.value;
+
+const product =
+products.find(
+  p =>
+  String(
+    p.id
+  ) ===
+  String(
+    productId
+  )
+);
+
+if(!product){
+
+  alert(
+    "No se encontró el producto."
+  );
+
+  return;
+}
+
+const quantity =
+Number(
+  document
+  .getElementById(
+    "saleQuantity"
+  )
+  .value
+);
+
+const unitPrice =
+Number(
+  document
+  .getElementById(
+    "saleUnitPrice"
+  )
+  .value
+);
+
+const note =
+document
+.getElementById(
+  "saleNote"
+)
+.value
+.trim();
+
+const stock =
+Number(
+  product.stock || 0
+);
+
+if(
+  !Number.isInteger(
+    quantity
+  ) ||
+  quantity <= 0
+){
+
+  alert(
+    "Escribe una cantidad válida."
+  );
+
+  return;
+}
+
+if(
+  quantity >
+  stock
+){
+
+  alert(
+    `Solo quedan ${stock} unidades de este producto.`
+  );
+
+  return;
+}
+
+if(
+  !Number.isFinite(
+    unitPrice
+  ) ||
+  unitPrice < 0
+){
+
+  alert(
+    "Escribe un precio de venta válido."
+  );
+
+  return;
+}
+
+const saleTotal =
+unitPrice *
+quantity;
+
+const costTotal =
+Number(
+  product.cost_price || 0
+) *
+quantity;
+
+const estimatedProfit =
+saleTotal -
+costTotal;
+
+const confirmed =
+confirm(
+  `¿Registrar esta venta?\n\n` +
+  `${product.name || "Producto"}\n` +
+  `Cantidad: ${quantity}\n` +
+  `Venta: ${money(saleTotal)}\n` +
+  `Ganancia estimada: ${money(estimatedProfit)}\n\n` +
+  `El stock bajará de ${stock} a ${stock - quantity}.`
+);
+
+if(!confirmed){
+  return;
+}
+
+btn.disabled =
+true;
+
+btn.textContent =
+"Registrando…";
+
+try{
+
+  const r =
+  await fetch(
+    `${SUPABASE_URL}/rest/v1/rpc/register_inventory_sale`,
+    {
+      method:
+      "POST",
+
+      headers:
+      apiHeaders({
+        "Content-Type":
+        "application/json"
+      }),
+
+      body:
+      JSON.stringify({
+
+        p_product_id:
+        Number(
+          productId
+        ),
+
+        p_quantity:
+        quantity,
+
+        p_unit_price:
+        unitPrice,
+
+        p_note:
+        note === ""
+        ? null
+        : note
+
+      })
+    }
+  );
+
+  const data =
+  await r.json()
+  .catch(
+    () => null
+  );
+
+  if(!r.ok){
+
+    let message =
+    "No se pudo registrar la venta.";
+
+    if(
+      data &&
+      typeof data ===
+      "object"
+    ){
+
+      message =
+      data.message ||
+      data.error ||
+      message;
+    }
+
+    throw new Error(
+      message
+    );
+  }
+
+  closeSaleModal();
+
+  showSuccess(
+    `✅ Venta registrada · Ganancia ${money(data?.profit || estimatedProfit)}`
+  );
+
+  await loadProducts();
+
+}catch(error){
+
+  console.error(
+    "Error registrando venta:",
+    error
+  );
+
+  alert(
+    error.message ||
+    "No se pudo registrar la venta."
+  );
+
+}finally{
+
+  btn.disabled =
+  false;
+
+  btn.textContent =
+  "✅ Registrar";
+
+}
 
 }
 
@@ -1330,6 +3198,7 @@ try{
 
   btn.textContent =
   "📣 Enviar notificación";
+
 }
 
 }
@@ -1445,6 +3314,7 @@ try{
     "⚠️ El producto se guardó correctamente, pero la notificación automática no pudo enviarse.",
     false
   );
+
 }
 
 }
@@ -1513,6 +3383,7 @@ try{
       return a.approved
       ? 1
       : -1;
+
     }
   );
 
@@ -2064,6 +3935,11 @@ document
 )
 .value;
 
+const editing =
+Boolean(
+  id
+);
+
 const name =
 document
 .getElementById(
@@ -2079,25 +3955,89 @@ document
 )
 .value;
 
+const priceRaw =
+document
+.getElementById(
+  "price"
+)
+.value
+.trim();
+
 const price =
 Number(
-  document
-  .getElementById(
-    "price"
-  )
-  .value
+  priceRaw
 );
+
+const costRaw =
+document
+.getElementById(
+  "cost_price"
+)
+.value
+.trim();
+
+const cost_price =
+costRaw === ""
+? 0
+: Number(
+    costRaw
+  );
+
+const stockRaw =
+document
+.getElementById(
+  "stock"
+)
+.value
+.trim();
+
+const stock =
+stockRaw === ""
+? 0
+: Number(
+    stockRaw
+  );
 
 if(
   !name ||
   !category_id ||
+  priceRaw === "" ||
   !Number.isFinite(
     price
-  )
+  ) ||
+  price < 0
 ){
 
   alert(
     "Completa nombre, categoría y precio."
+  );
+
+  return;
+}
+
+if(
+  !Number.isFinite(
+    cost_price
+  ) ||
+  cost_price < 0
+){
+
+  alert(
+    "El costo de compra no es válido."
+  );
+
+  return;
+}
+
+if(
+  !Number.isInteger(
+    stock
+  ) ||
+  stock < 0
+){
+
+  alert(
+    "El stock debe ser un número entero igual o mayor que 0."
   );
 
   return;
@@ -2121,15 +4061,15 @@ try{
     of selectedFiles
   ){
 
-    const url =
+    const imageUrl =
     await uploadImage(
       file
     );
 
-    if(url){
+    if(imageUrl){
 
       uploaded.push(
-        url
+        imageUrl
       );
     }
   }
@@ -2170,6 +4110,21 @@ try{
       oldRaw
     );
 
+  if(
+    old_price !== null &&
+    (
+      !Number.isFinite(
+        old_price
+      ) ||
+      old_price < 0
+    )
+  ){
+
+    throw new Error(
+      "El precio anterior no es válido."
+    );
+  }
+
   const payload = {
 
     name,
@@ -2177,6 +4132,8 @@ try{
     category_id,
 
     price,
+
+    cost_price,
 
     old_price,
 
@@ -2229,20 +4186,21 @@ try{
     .value ===
     "true",
 
-    stock:
-    Number(
-      document
-      .getElementById(
-        "stock"
-      )
-      .value || 0
-    )
+    stock
+
   };
 
-  const editing =
-  Boolean(
-    id
-  );
+  /*
+    Para un producto NUEVO,
+    el stock inicial será igual
+    a la cantidad con la que entra.
+  */
+
+  if(!editing){
+
+    payload.initial_stock =
+    stock;
+  }
 
   const url =
   editing
@@ -2302,15 +4260,12 @@ try{
   );
 
   /*
-    NOTIFICACIÓN AUTOMÁTICA
+    PUSH AUTOMÁTICO
 
-    Solo cuando:
-    - Es un producto NUEVO
-    - Y está DESTACADO
-      o tiene una OFERTA REAL
-
-    Editar un producto NO envía
-    una notificación automática.
+    Solo:
+    - producto nuevo
+    - destacado
+      o con oferta real
   */
 
   if(
@@ -2359,6 +4314,10 @@ try{
 }
 
 }
+
+/* =====================
+   EDITAR PRODUCTO
+===================== */
 
 function editProduct(id){
 
@@ -2417,14 +4376,21 @@ document
   "price"
 )
 .value =
-p.price || "";
+p.price ?? "";
+
+document
+.getElementById(
+  "cost_price"
+)
+.value =
+p.cost_price ?? "";
 
 document
 .getElementById(
   "old_price"
 )
 .value =
-p.old_price || "";
+p.old_price ?? "";
 
 document
 .getElementById(
@@ -2538,6 +4504,10 @@ window.scrollTo({
 
 }
 
+/* =====================
+   ELIMINAR PRODUCTO
+===================== */
+
 async function deleteProduct(id){
 
 if(
@@ -2577,6 +4547,10 @@ await loadProducts();
 
 }
 
+/* =====================
+   LIMPIAR FORMULARIO
+===================== */
+
 function resetForm(){
 
 [
@@ -2585,6 +4559,7 @@ function resetForm(){
   "brand",
   "model",
   "price",
+  "cost_price",
   "old_price",
   "stock",
   "storage",
@@ -2650,6 +4625,10 @@ document
 
 }
 
+/* =====================
+   INPUT DE IMÁGENES
+===================== */
+
 document
 .getElementById(
   "imageFile"
@@ -2692,6 +4671,10 @@ document
   }
 );
 
+/* =====================
+   RECUPERAR SESIÓN
+===================== */
+
 (async()=>{
 
 if(!token){
@@ -2703,7 +4686,7 @@ await checkAdmin();
 
 if(allowed){
 
-  openDashboard();
+  await openDashboard();
 
 }else{
 
@@ -2711,7 +4694,8 @@ if(allowed){
     "loeAdminToken"
   );
 
-  token = "";
+  token =
+  "";
 
 }
 
