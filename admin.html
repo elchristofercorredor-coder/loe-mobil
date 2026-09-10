@@ -620,6 +620,181 @@ textarea{
 }
 
 /* =========================
+   PEDIDOS WEB
+========================= */
+
+.orders-list{
+  display:grid;
+  gap:11px
+}
+
+.order-card{
+  background:#081720;
+  border:1px solid #15394c;
+  border-radius:13px;
+  padding:15px
+}
+
+.order-card.completed{
+  border-color:#176a42
+}
+
+.order-card.cancelled{
+  border-color:#713232
+}
+
+.order-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:12px
+}
+
+.order-number{
+  color:var(--blue);
+  font-size:12px;
+  font-weight:950
+}
+
+.order-customer{
+  margin-top:4px;
+  font-size:17px;
+  font-weight:950
+}
+
+.order-date{
+  margin-top:5px;
+  color:#91a1ad;
+  font-size:11px
+}
+
+.order-status{
+  flex-shrink:0;
+  padding:6px 9px;
+  border-radius:999px;
+  border:1px solid #315164;
+  background:#10232f;
+  color:#d3e0e6;
+  font-size:10px;
+  font-weight:950;
+  text-transform:uppercase
+}
+
+.order-status.completed{
+  border-color:#176a42;
+  background:#092317;
+  color:#76e4a8
+}
+
+.order-status.cancelled{
+  border-color:#713232;
+  background:#271010;
+  color:#ff9696
+}
+
+.order-contact{
+  margin-top:12px;
+  padding:10px;
+  border:1px solid #15394c;
+  border-radius:9px;
+  background:#07141d;
+  color:#b9cad2;
+  font-size:12px;
+  line-height:1.6
+}
+
+.order-items{
+  display:grid;
+  gap:7px;
+  margin-top:12px
+}
+
+.order-item{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:10px;
+  padding:9px 10px;
+  border-radius:8px;
+  background:#0d202b;
+  border:1px solid #15394c
+}
+
+.order-item-name{
+  min-width:0;
+  font-size:12px;
+  font-weight:850
+}
+
+.order-item-meta{
+  margin-top:3px;
+  color:#91a1ad;
+  font-size:10px
+}
+
+.order-item-total{
+  flex-shrink:0;
+  color:#7edfff;
+  font-size:12px;
+  font-weight:950
+}
+
+.order-total-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  margin-top:13px;
+  padding-top:13px;
+  border-top:1px solid #15394c
+}
+
+.order-total-label{
+  color:#91a1ad;
+  font-size:11px;
+  font-weight:850;
+  text-transform:uppercase
+}
+
+.order-total{
+  color:white;
+  font-size:19px;
+  font-weight:950
+}
+
+.order-notes{
+  margin-top:10px;
+  padding:9px 10px;
+  border-radius:8px;
+  background:#10232f;
+  color:#c1d0d7;
+  font-size:11px;
+  white-space:pre-wrap
+}
+
+.order-actions{
+  display:flex;
+  gap:8px;
+  margin-top:13px
+}
+
+.complete-order-btn{
+  flex:1;
+  border:0;
+  border-radius:9px;
+  padding:11px;
+  background:var(--green);
+  color:#00170b;
+  font-weight:950;
+  cursor:pointer
+}
+
+.complete-order-btn:disabled{
+  opacity:.55;
+  cursor:not-allowed
+}
+
+/* =========================
    HISTORIAL DE VENTAS
 ========================= */
 
@@ -683,6 +858,11 @@ textarea{
 
 .sale-history-pill.profit strong{
   color:#67e49e
+}
+
+.sale-history-pill.web{
+  border-color:#176284;
+  color:#8fddff
 }
 
 .sale-history-note{
@@ -922,6 +1102,14 @@ textarea{
     width:100%
   }
 
+  .order-head{
+    flex-direction:column
+  }
+
+  .order-status{
+    align-self:flex-start
+  }
+
 }
 
 @media(max-width:430px){
@@ -1020,7 +1208,7 @@ Entrar
     </h1>
 
     <div style="color:#91a1ad">
-      Productos, inventario, ventas y reseñas
+      Productos, inventario, pedidos, ventas y reseñas
     </div>
 
   </div>
@@ -1177,7 +1365,66 @@ Resumen de existencias, ventas y ganancia bruta.
 </div>
 
 <div class="inventory-note">
-La ganancia se calcula con las ventas registradas: precio de venta menos costo de compra.
+La ganancia incluye ventas físicas registradas y pedidos web completados.
+</div>
+
+</section>
+
+<!-- =========================
+     PEDIDOS WEB
+========================= -->
+
+<section class="panel">
+
+<div class="review-topbar">
+
+  <div>
+
+    <h2 style="margin:0">
+      🛍️ Pedidos de la tienda
+    </h2>
+
+    <div
+      style="
+        color:#91a1ad;
+        font-size:13px;
+        margin-top:5px
+      "
+    >
+      Completa los pedidos para descontarlos del inventario y registrar la venta.
+    </div>
+
+  </div>
+
+  <button
+    class="refresh-btn"
+    onclick="loadOrders()"
+  >
+    ↻
+  </button>
+
+</div>
+
+<div
+  id="ordersCount"
+  class="review-count"
+  style="
+    display:inline-block;
+    margin-bottom:14px
+  "
+>
+Cargando…
+</div>
+
+<div
+  id="orders"
+  class="orders-list"
+>
+
+<div class="status">
+Cargando pedidos…
+</div>
+
 </div>
 
 </section>
@@ -1203,7 +1450,7 @@ La ganancia se calcula con las ventas registradas: precio de venta menos costo d
         margin-top:5px
       "
     >
-      Ventas registradas manualmente desde el inventario.
+      Ventas físicas y pedidos web completados.
     </div>
 
   </div>
@@ -1869,6 +2116,8 @@ let categories = [];
 let reviews = [];
 let inventorySummary = [];
 let salesHistory = [];
+let orders = [];
+let orderItems = [];
 
 let currentImages = [];
 let selectedFiles = [];
@@ -2142,6 +2391,8 @@ await loadCategories();
 
 await loadProducts();
 
+await loadOrders();
+
 await loadSalesHistory();
 
 await loadReviews();
@@ -2397,6 +2648,591 @@ money(
 }
 
 /* =====================
+   PEDIDOS WEB
+===================== */
+
+function normalizeOrderStatus(status){
+
+return String(
+  status || ""
+)
+.trim()
+.toLowerCase();
+
+}
+
+function orderStatusText(status){
+
+const value =
+normalizeOrderStatus(
+  status
+);
+
+if(
+  value ===
+  "completed"
+){
+  return "Completado";
+}
+
+if(
+  value ===
+  "cancelled" ||
+  value ===
+  "canceled"
+){
+  return "Cancelado";
+}
+
+if(
+  value ===
+  "pending"
+){
+  return "Pendiente";
+}
+
+return status ||
+"Pendiente";
+
+}
+
+async function loadOrders(){
+
+const box =
+document.getElementById(
+  "orders"
+);
+
+const counter =
+document.getElementById(
+  "ordersCount"
+);
+
+if(
+  !box ||
+  !counter
+){
+  return;
+}
+
+box.innerHTML =
+'<div class="status">Cargando pedidos…</div>';
+
+counter.textContent =
+"Cargando…";
+
+try{
+
+  const [
+    ordersResponse,
+    itemsResponse
+  ] =
+  await Promise.all([
+
+    fetch(
+      `${SUPABASE_URL}/rest/v1/orders?select=*&order=created_at.desc`,
+      {
+        headers:
+        apiHeaders()
+      }
+    ),
+
+    fetch(
+      `${SUPABASE_URL}/rest/v1/order_items?select=*&order=id.asc`,
+      {
+        headers:
+        apiHeaders()
+      }
+    )
+
+  ]);
+
+  if(
+    !ordersResponse.ok
+  ){
+
+    throw new Error(
+      await ordersResponse.text()
+    );
+  }
+
+  if(
+    !itemsResponse.ok
+  ){
+
+    throw new Error(
+      await itemsResponse.text()
+    );
+  }
+
+  orders =
+  await ordersResponse.json();
+
+  orderItems =
+  await itemsResponse.json();
+
+  const pendingCount =
+  orders.filter(
+    order =>
+    ![
+      "completed",
+      "cancelled",
+      "canceled"
+    ].includes(
+      normalizeOrderStatus(
+        order.status
+      )
+    )
+  ).length;
+
+  counter.textContent =
+  pendingCount === 1
+  ? "1 pedido pendiente"
+  : `${pendingCount} pedidos pendientes`;
+
+  if(
+    !orders.length
+  ){
+
+    box.innerHTML =
+    '<div class="status">Todavía no hay pedidos.</div>';
+
+    return;
+  }
+
+  box.innerHTML =
+  "";
+
+  orders.forEach(
+    order => {
+
+      const status =
+      normalizeOrderStatus(
+        order.status
+      );
+
+      const isCompleted =
+      status ===
+      "completed";
+
+      const isCancelled =
+      status ===
+      "cancelled" ||
+      status ===
+      "canceled";
+
+      const items =
+      orderItems.filter(
+        item =>
+        String(
+          item.order_id
+        ) ===
+        String(
+          order.id
+        )
+      );
+
+      const card =
+      document.createElement(
+        "div"
+      );
+
+      card.className =
+      "order-card" +
+      (
+        isCompleted
+        ? " completed"
+        : isCancelled
+        ? " cancelled"
+        : ""
+      );
+
+      const itemsHtml =
+      items.length
+      ? items.map(
+          item => {
+
+            const product =
+            products.find(
+              p =>
+              String(
+                p.id
+              ) ===
+              String(
+                item.product_id
+              )
+            );
+
+            const productName =
+            product
+            ? product.name
+            : `Producto #${item.product_id}`;
+
+            const quantity =
+            Number(
+              item.quantity || 1
+            );
+
+            const unitPrice =
+            Number(
+              item.unit_price || 0
+            );
+
+            const itemTotal =
+            quantity *
+            unitPrice;
+
+            return `
+
+              <div class="order-item">
+
+                <div class="order-item-name">
+
+                  ${safe(productName)}
+
+                  <div class="order-item-meta">
+                    ${quantity} × ${money(unitPrice)}
+                  </div>
+
+                </div>
+
+                <div class="order-item-total">
+                  ${money(itemTotal)}
+                </div>
+
+              </div>
+            `;
+
+          }
+        ).join("")
+      : `
+          <div class="status">
+            Este pedido no tiene productos.
+          </div>
+        `;
+
+      card.innerHTML = `
+
+        <div class="order-head">
+
+          <div>
+
+            <div class="order-number">
+              PEDIDO #${safe(order.id)}
+            </div>
+
+            <div class="order-customer">
+              ${safe(
+                order.customer_name ||
+                "Cliente"
+              )}
+            </div>
+
+            <div class="order-date">
+              ${formatDate(
+                order.created_at
+              )}
+            </div>
+
+          </div>
+
+          <div
+            class="order-status ${
+              isCompleted
+              ? "completed"
+              : isCancelled
+              ? "cancelled"
+              : ""
+            }"
+          >
+            ${safe(
+              orderStatusText(
+                order.status
+              )
+            )}
+          </div>
+
+        </div>
+
+        <div class="order-contact">
+
+          ${
+            order.customer_phone
+            ? `
+              📞 ${safe(order.customer_phone)}
+              <br>
+            `
+            : ""
+          }
+
+          ${
+            order.delivery_location
+            ? `
+              📍 ${safe(order.delivery_location)}
+            `
+            : "📍 Sin ubicación registrada"
+          }
+
+        </div>
+
+        <div class="order-items">
+          ${itemsHtml}
+        </div>
+
+        ${
+          order.notes
+          ? `
+            <div class="order-notes">
+              📝 ${safe(order.notes)}
+            </div>
+          `
+          : ""
+        }
+
+        <div class="order-total-row">
+
+          <div class="order-total-label">
+            Total del pedido
+          </div>
+
+          <div class="order-total">
+            ${money(order.total)}
+          </div>
+
+        </div>
+
+        ${
+          !isCompleted &&
+          !isCancelled &&
+          items.length
+          ? `
+            <div class="order-actions">
+
+              <button
+                type="button"
+                class="complete-order-btn"
+                onclick='completeWebOrder(${JSON.stringify(String(order.id))},this)'
+              >
+                ✅ Completar pedido
+              </button>
+
+            </div>
+          `
+          : ""
+        }
+      `;
+
+      box.appendChild(
+        card
+      );
+
+    }
+  );
+
+}catch(error){
+
+  console.error(
+    "Error cargando pedidos:",
+    error
+  );
+
+  counter.textContent =
+  "Error";
+
+  box.innerHTML =
+  '<div class="status">No se pudieron cargar los pedidos.</div>';
+
+}
+
+}
+
+async function completeWebOrder(
+  orderId,
+  button
+){
+
+const order =
+orders.find(
+  item =>
+  String(
+    item.id
+  ) ===
+  String(
+    orderId
+  )
+);
+
+if(!order){
+
+  alert(
+    "No se encontró este pedido."
+  );
+
+  return;
+}
+
+const items =
+orderItems.filter(
+  item =>
+  String(
+    item.order_id
+  ) ===
+  String(
+    orderId
+  )
+);
+
+if(
+  !items.length
+){
+
+  alert(
+    "Este pedido no tiene productos."
+  );
+
+  return;
+}
+
+const summary =
+items.map(
+  item => {
+
+    const product =
+    products.find(
+      p =>
+      String(
+        p.id
+      ) ===
+      String(
+        item.product_id
+      )
+    );
+
+    return (
+      `${Number(item.quantity || 1)} × ` +
+      `${
+        product
+        ? product.name
+        : `Producto #${item.product_id}`
+      }`
+    );
+
+  }
+)
+.join("\n");
+
+const confirmed =
+confirm(
+  `¿Completar el pedido #${order.id}?\n\n` +
+  `${order.customer_name || "Cliente"}\n\n` +
+  `${summary}\n\n` +
+  `Total: ${money(order.total)}\n\n` +
+  `Al completar el pedido se descontará el stock y contará como venta en el inventario.`
+);
+
+if(!confirmed){
+  return;
+}
+
+if(button){
+
+  button.disabled =
+  true;
+
+  button.textContent =
+  "Procesando…";
+}
+
+try{
+
+  const r =
+  await fetch(
+    `${SUPABASE_URL}/rest/v1/rpc/complete_web_order`,
+    {
+      method:
+      "POST",
+
+      headers:
+      apiHeaders({
+        "Content-Type":
+        "application/json"
+      }),
+
+      body:
+      JSON.stringify({
+        p_order_id:
+        Number(
+          orderId
+        )
+      })
+    }
+  );
+
+  const data =
+  await r.json()
+  .catch(
+    () => null
+  );
+
+  if(!r.ok){
+
+    let message =
+    "No se pudo completar el pedido.";
+
+    if(
+      data &&
+      typeof data ===
+      "object"
+    ){
+
+      message =
+      data.message ||
+      data.error ||
+      data.details ||
+      message;
+    }
+
+    throw new Error(
+      message
+    );
+  }
+
+  showSuccess(
+    `✅ Pedido #${orderId} completado · ${Number(data?.units_sold || 0)} unidad${Number(data?.units_sold || 0) === 1 ? "" : "es"} · Ganancia ${money(data?.profit || 0)}`
+  );
+
+  await loadProducts();
+
+  await loadOrders();
+
+  await loadSalesHistory();
+
+}catch(error){
+
+  console.error(
+    "Error completando pedido:",
+    error
+  );
+
+  alert(
+    error.message ||
+    "No se pudo completar el pedido."
+  );
+
+  if(button){
+
+    button.disabled =
+    false;
+
+    button.textContent =
+    "✅ Completar pedido";
+  }
+
+}
+
+}
+
+/* =====================
    HISTORIAL DE VENTAS
 ===================== */
 
@@ -2426,7 +3262,7 @@ try{
 
   const r =
   await fetch(
-    `${SUPABASE_URL}/rest/v1/inventory_movements?select=*&movement_type=eq.sale&order=created_at.desc`,
+    `${SUPABASE_URL}/rest/v1/inventory_movements?select=*&movement_type=in.(sale,web_sale)&order=created_at.desc`,
     {
       headers:
       apiHeaders()
@@ -2506,6 +3342,10 @@ try{
         unitCost
       );
 
+      const isWebSale =
+      sale.movement_type ===
+      "web_sale";
+
       const card =
       document.createElement(
         "div"
@@ -2538,6 +3378,14 @@ try{
           </div>
 
           <div class="sale-history-money">
+
+            <span class="sale-history-pill ${isWebSale ? "web" : ""}">
+              ${
+                isWebSale
+                ? `🌐 Venta web${sale.order_id ? ` · Pedido #${safe(sale.order_id)}` : ""}`
+                : "🏪 Venta física"
+              }
+            </span>
 
             <span class="sale-history-pill">
               Precio/u:
@@ -2581,13 +3429,19 @@ try{
 
         </div>
 
-        <button
-          type="button"
-          class="cancel-sale-btn"
-          onclick='cancelSale(${JSON.stringify(String(sale.id))})'
-        >
-          ↩️ Anular venta
-        </button>
+        ${
+          !isWebSale
+          ? `
+            <button
+              type="button"
+              class="cancel-sale-btn"
+              onclick='cancelSale(${JSON.stringify(String(sale.id))})'
+            >
+              ↩️ Anular venta
+            </button>
+          `
+          : ""
+        }
       `;
 
       box.appendChild(
@@ -2633,6 +3487,18 @@ if(!sale){
 
   alert(
     "No se encontró esta venta."
+  );
+
+  return;
+}
+
+if(
+  sale.movement_type !==
+  "sale"
+){
+
+  alert(
+    "Esta venta web no se puede anular desde este botón."
   );
 
   return;
@@ -5061,6 +5927,8 @@ showSuccess(
 );
 
 await loadProducts();
+
+await loadOrders();
 
 await loadSalesHistory();
 
