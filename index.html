@@ -654,10 +654,6 @@ main{
   font-size:11px;
 }
 
-/* ===========================
-   CALIFICACIÓN EN TARJETAS
-=========================== */
-
 .card-rating{
   min-height:19px;
   margin-top:5px;
@@ -855,6 +851,171 @@ main{
   background:linear-gradient(135deg,var(--blue),var(--blue2));
   color:white;
   font-weight:900;
+}
+
+/* ===========================
+   FORMULARIO DE PEDIDO
+=========================== */
+
+.order-modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  z-index:550;
+  padding:16px;
+  overflow:auto;
+  background:rgba(0,0,0,.88);
+}
+
+.order-modal.show{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.order-box{
+  width:min(470px,100%);
+  overflow:hidden;
+  border:1px solid #126b91;
+  border-radius:16px;
+  background:#07131d;
+  box-shadow:0 20px 60px rgba(0,0,0,.6);
+}
+
+.order-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:17px 18px 13px;
+  border-bottom:1px solid #163646;
+}
+
+.order-head h2{
+  margin:0;
+  font-size:22px;
+}
+
+.order-close{
+  border:0;
+  background:transparent;
+  color:white;
+  font-size:30px;
+}
+
+.order-content{
+  padding:18px;
+}
+
+.order-text{
+  margin-bottom:16px;
+  color:#9babb3;
+  font-size:13px;
+  line-height:1.5;
+}
+
+.order-field{
+  margin-bottom:13px;
+}
+
+.order-field label{
+  display:block;
+  margin-bottom:6px;
+  color:#cbd7dd;
+  font-size:13px;
+  font-weight:800;
+}
+
+.order-field input,
+.order-field textarea{
+  width:100%;
+  border:1px solid #25485a;
+  border-radius:9px;
+  outline:0;
+  padding:11px 12px;
+  background:#0b1a24;
+  color:white;
+}
+
+.order-field input{
+  min-height:46px;
+}
+
+.order-field textarea{
+  min-height:85px;
+  resize:vertical;
+}
+
+.order-field input:focus,
+.order-field textarea:focus{
+  border-color:var(--blue);
+}
+
+.order-summary{
+  margin:15px 0;
+  padding:12px;
+  border:1px solid #174960;
+  border-radius:9px;
+  background:#091821;
+}
+
+.order-summary-row{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:6px;
+  color:#b8c5cb;
+  font-size:12px;
+}
+
+.order-summary-total{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  padding-top:9px;
+  border-top:1px solid #1b3c4c;
+  color:white;
+  font-size:17px;
+  font-weight:950;
+}
+
+.order-submit{
+  width:100%;
+  min-height:48px;
+  border:0;
+  border-radius:9px;
+  background:linear-gradient(135deg,var(--blue),var(--blue2));
+  color:white;
+  font-weight:950;
+}
+
+.order-submit:disabled{
+  opacity:.6;
+  cursor:default;
+}
+
+.order-message{
+  display:none;
+  margin-top:11px;
+  padding:10px;
+  border-radius:8px;
+  font-size:12px;
+  line-height:1.4;
+}
+
+.order-message.show{
+  display:block;
+}
+
+.order-message.error{
+  border:1px solid #7f3131;
+  background:#301111;
+  color:#ffb5b5;
+}
+
+.order-message.success{
+  border:1px solid #176b43;
+  background:#0c2b1c;
+  color:#a8f0cb;
 }
 
 /* ===========================
@@ -1780,6 +1941,15 @@ main{
   .reviews-title h3{
     font-size:19px;
   }
+
+  .order-modal{
+    padding:8px;
+  }
+
+  .order-box{
+    max-height:96vh;
+    overflow:auto;
+  }
 }
 
 @media(max-width:390px){
@@ -2223,6 +2393,133 @@ main{
 </div>
 
 <!-- ===========================
+     FORMULARIO DEL PEDIDO
+=========================== -->
+
+<div
+  id="orderModal"
+  class="order-modal"
+  onclick="orderOverlayClose(event)"
+>
+
+  <div class="order-box">
+
+    <div class="order-head">
+
+      <h2>
+        📦 Completar pedido
+      </h2>
+
+      <button
+        class="order-close"
+        type="button"
+        onclick="closeOrderForm()"
+      >
+        ×
+      </button>
+
+    </div>
+
+    <div class="order-content">
+
+      <div class="order-text">
+        Completa tus datos para registrar el pedido en LOE MOBIL.
+        Después te llevaremos a WhatsApp para confirmar la compra.
+      </div>
+
+      <form
+        id="orderForm"
+        onsubmit="submitWebOrder(event)"
+      >
+
+        <div class="order-field">
+
+          <label>
+            Nombre
+          </label>
+
+          <input
+            id="orderName"
+            type="text"
+            maxlength="80"
+            required
+            placeholder="Tu nombre"
+          >
+
+        </div>
+
+        <div class="order-field">
+
+          <label>
+            Teléfono / WhatsApp
+          </label>
+
+          <input
+            id="orderPhone"
+            type="tel"
+            maxlength="30"
+            required
+            placeholder="Ej: 809 555 1234"
+          >
+
+        </div>
+
+        <div class="order-field">
+
+          <label>
+            Ubicación de entrega
+          </label>
+
+          <textarea
+            id="orderLocation"
+            maxlength="300"
+            required
+            placeholder="Sector, ciudad, plaza o referencia..."
+          ></textarea>
+
+        </div>
+
+        <div class="order-field">
+
+          <label>
+            Nota adicional (opcional)
+          </label>
+
+          <textarea
+            id="orderNotes"
+            maxlength="500"
+            placeholder="Color, referencia o instrucciones..."
+          ></textarea>
+
+        </div>
+
+        <div
+          id="orderSummary"
+          class="order-summary"
+        ></div>
+
+        <button
+          id="orderSubmit"
+          class="order-submit"
+          type="submit"
+        >
+          Confirmar y continuar por WhatsApp
+        </button>
+
+        <div
+          id="orderMessage"
+          class="order-message"
+        ></div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ===========================
      CUENTA
 =========================== -->
 
@@ -2425,8 +2722,6 @@ main{
           ♥ 0 favoritos
         </div>
 
-        <!-- NOTIFICACIONES -->
-
         <div class="push-box">
 
           <div class="push-box-title">
@@ -2512,8 +2807,6 @@ const SUPABASE_URL =
 const SUPABASE_KEY =
 "sb_publishable_eWJkT8ZBPv0ZcCSLo01P7g_0AAEbN6S";
 
-/* CLAVE PÚBLICA WEB PUSH */
-
 const VAPID_PUBLIC_KEY =
 "BEoXT7mbyFUwd6AOUokVp5w2k5GnLG6lfd7NhC0f1Ytptypel0LeluMMILIQHedlouPZakkdO9FBzT-kba2vY10";
 
@@ -2545,8 +2838,6 @@ JSON.parse(
     "loeCart"
   ) || "[]"
 );
-
-/* MARKETPLACE */
 
 let favorites =
 new Set();
@@ -4523,7 +4814,7 @@ async function load(){
       ),
 
       fetch(
-        `${SUPABASE_URL}/rest/v1/products?select=*&order=id.desc`,
+        `${SUPABASE_URL}/rest/v1/products?select=id,name,price,old_price,images,image_url,category_id,available,featured,condition,brand,storage,model,description,color,stock&order=id.desc`,
         {
           headers
         }
@@ -4581,8 +4872,6 @@ async function load(){
     applyFilters();
 
     updateCart();
-
-    /* ABRIR PRODUCTO DESDE UNA NOTIFICACIÓN */
 
     const productFromUrl =
     new URLSearchParams(
@@ -4886,14 +5175,10 @@ function applyFilters(){
   let list =
   [...products];
 
-  /* DISPONIBLES */
-
   list =
   list.filter(
     productAvailable
   );
-
-  /* CATEGORÍA */
 
   if(currentCategory){
 
@@ -4906,8 +5191,6 @@ function applyFilters(){
       currentCategory
     );
   }
-
-  /* BUSCADOR */
 
   if(currentSearch){
 
@@ -4938,8 +5221,6 @@ function applyFilters(){
     );
   }
 
-  /* MARCA */
-
   const brand =
   document
   .getElementById(
@@ -4957,8 +5238,6 @@ function applyFilters(){
       ) === brand
     );
   }
-
-  /* CONDICIÓN */
 
   const condition =
   document
@@ -4978,8 +5257,6 @@ function applyFilters(){
     );
   }
 
-  /* ALMACENAMIENTO */
-
   const storage =
   document
   .getElementById(
@@ -4997,8 +5274,6 @@ function applyFilters(){
       ) === storage
     );
   }
-
-  /* PRECIO MÍNIMO */
 
   const minRaw =
   document
@@ -5025,8 +5300,6 @@ function applyFilters(){
     );
   }
 
-  /* PRECIO MÁXIMO */
-
   const maxRaw =
   document
   .getElementById(
@@ -5052,8 +5325,6 @@ function applyFilters(){
     );
   }
 
-  /* FAVORITOS */
-
   if(favoritesOnly){
 
     list =
@@ -5066,8 +5337,6 @@ function applyFilters(){
       )
     );
   }
-
-  /* ORDEN */
 
   const sort =
   document
@@ -5945,8 +6214,6 @@ function openProduct(id){
   .classList.add(
     "show"
   );
-
-  /* URL DEL PRODUCTO PARA NOTIFICACIONES */
 
   try{
 
@@ -6884,8 +7151,6 @@ function closeProduct(){
   currentProductId =
   null;
 
-  /* LIMPIAR ?product= DE LA URL */
-
   try{
 
     const productUrl =
@@ -7184,6 +7449,10 @@ function overlayClose(e){
   }
 }
 
+/* ===========================
+   PEDIDOS WEB
+=========================== */
+
 function checkout(){
 
   if(
@@ -7197,55 +7466,537 @@ function checkout(){
     return;
   }
 
-  let message =
-  "Hola LOE MOBIL, quiero realizar este pedido:\n\n";
+  clearOrderMessage();
 
-  cart.forEach(
-    x => {
-
-      message +=
-      `• ${x.name} x${x.qty} - ${money(x.price * x.qty)}\n`;
-    }
+  const nameInput =
+  document.getElementById(
+    "orderName"
   );
+
+  if(
+    currentUser &&
+    nameInput &&
+    !nameInput.value.trim()
+  ){
+
+    nameInput.value =
+    userName();
+  }
+
+  renderOrderSummary();
+
+  closeCart();
+
+  document
+  .getElementById(
+    "orderModal"
+  )
+  .classList.add(
+    "show"
+  );
+}
+
+function closeOrderForm(){
+
+  document
+  .getElementById(
+    "orderModal"
+  )
+  .classList.remove(
+    "show"
+  );
+}
+
+function orderOverlayClose(e){
+
+  if(
+    e.target.id ===
+    "orderModal"
+  ){
+
+    closeOrderForm();
+  }
+}
+
+function renderOrderSummary(){
+
+  const box =
+  document.getElementById(
+    "orderSummary"
+  );
+
+  if(!box){
+    return;
+  }
 
   const total =
   cart.reduce(
     (
-      n,
-      x
+      sum,
+      item
     ) =>
-    n +
+    sum +
     (
-      x.price *
-      x.qty
+      Number(
+        item.price || 0
+      ) *
+      Number(
+        item.qty || 0
+      )
     ),
     0
   );
 
-  message +=
-  `\nTotal: ${money(total)}`;
+  const units =
+  cart.reduce(
+    (
+      sum,
+      item
+    ) =>
+    sum +
+    Number(
+      item.qty || 0
+    ),
+    0
+  );
 
-  if(currentUser){
+  box.innerHTML = `
 
-    message +=
-    `\n\nCliente: ${userName()}`;
+    <div class="order-summary-row">
 
-    if(
-      currentUser.email
-    ){
+      <span>
+        Productos
+      </span>
 
-      message +=
-      `\nCorreo: ${currentUser.email}`;
-    }
+      <strong>
+        ${units}
+      </strong>
+
+    </div>
+
+    <div class="order-summary-total">
+
+      <span>
+        Total estimado
+      </span>
+
+      <span>
+        ${money(total)}
+      </span>
+
+    </div>
+  `;
+}
+
+function showOrderMessage(
+  text,
+  type
+){
+
+  const box =
+  document.getElementById(
+    "orderMessage"
+  );
+
+  if(!box){
+    return;
   }
 
-  window.open(
+  box.textContent =
+  text;
+
+  box.className =
+  `order-message show ${type}`;
+}
+
+function clearOrderMessage(){
+
+  const box =
+  document.getElementById(
+    "orderMessage"
+  );
+
+  if(!box){
+    return;
+  }
+
+  box.textContent =
+  "";
+
+  box.className =
+  "order-message";
+}
+
+async function submitWebOrder(e){
+
+  e.preventDefault();
+
+  if(
+    !cart.length
+  ){
+
+    showOrderMessage(
+      "Tu carrito está vacío.",
+      "error"
+    );
+
+    return;
+  }
+
+  clearOrderMessage();
+
+  const name =
+  document
+  .getElementById(
+    "orderName"
+  )
+  .value
+  .trim();
+
+  const phone =
+  document
+  .getElementById(
+    "orderPhone"
+  )
+  .value
+  .trim();
+
+  const location =
+  document
+  .getElementById(
+    "orderLocation"
+  )
+  .value
+  .trim();
+
+  const notes =
+  document
+  .getElementById(
+    "orderNotes"
+  )
+  .value
+  .trim();
+
+  if(
+    name.length < 2
+  ){
+
+    showOrderMessage(
+      "Escribe un nombre válido.",
+      "error"
+    );
+
+    return;
+  }
+
+  if(
+    phone.length < 7
+  ){
+
+    showOrderMessage(
+      "Escribe un teléfono válido.",
+      "error"
+    );
+
+    return;
+  }
+
+  if(
+    location.length < 3
+  ){
+
+    showOrderMessage(
+      "Escribe la ubicación de entrega.",
+      "error"
+    );
+
+    return;
+  }
+
+  const items =
+  cart.map(
+    item => ({
+      product_id:
+      Number(
+        item.id
+      ),
+
+      quantity:
+      Number(
+        item.qty || 0
+      )
+    })
+  );
+
+  const invalidItem =
+  items.find(
+    item =>
+    !Number.isFinite(
+      item.product_id
+    ) ||
+    !Number.isFinite(
+      item.quantity
+    ) ||
+    item.quantity <= 0
+  );
+
+  if(invalidItem){
+
+    showOrderMessage(
+      "Hay un producto inválido en el carrito.",
+      "error"
+    );
+
+    return;
+  }
+
+  const btn =
+  document.getElementById(
+    "orderSubmit"
+  );
+
+  btn.disabled =
+  true;
+
+  btn.textContent =
+  "Registrando pedido…";
+
+  try{
+
+    const requestHeaders = {
+      apikey:
+      SUPABASE_KEY,
+
+      "Content-Type":
+      "application/json"
+    };
+
+    if(accessToken){
+
+      requestHeaders.Authorization =
+      `Bearer ${accessToken}`;
+    }
+
+    let response =
+    await fetch(
+      `${SUPABASE_URL}/rest/v1/rpc/create_web_order`,
+      {
+        method:"POST",
+
+        headers:
+        requestHeaders,
+
+        body:
+        JSON.stringify({
+          p_customer_name:
+          name,
+
+          p_customer_phone:
+          phone,
+
+          p_delivery_location:
+          location,
+
+          p_notes:
+          notes || "",
+
+          p_items:
+          items
+        })
+      }
+    );
+
+    if(
+      (
+        response.status === 401 ||
+        response.status === 403
+      ) &&
+      accessToken
+    ){
+
+      const refreshed =
+      await refreshSession();
+
+      if(refreshed){
+
+        response =
+        await fetch(
+          `${SUPABASE_URL}/rest/v1/rpc/create_web_order`,
+          {
+            method:"POST",
+
+            headers:{
+              apikey:
+              SUPABASE_KEY,
+
+              Authorization:
+              `Bearer ${accessToken}`,
+
+              "Content-Type":
+              "application/json"
+            },
+
+            body:
+            JSON.stringify({
+              p_customer_name:
+              name,
+
+              p_customer_phone:
+              phone,
+
+              p_delivery_location:
+              location,
+
+              p_notes:
+              notes || "",
+
+              p_items:
+              items
+            })
+          }
+        );
+      }
+    }
+
+    const data =
+    await response
+    .json()
+    .catch(
+      () => ({})
+    );
+
+    if(!response.ok){
+
+      console.error(
+        "Error creando pedido:",
+        data
+      );
+
+      throw new Error(
+        data.message ||
+        data.error ||
+        "No se pudo registrar el pedido."
+      );
+    }
+
+    const orderId =
+    data.order_id;
+
+    if(!orderId){
+
+      throw new Error(
+        "No se recibió el número del pedido."
+      );
+    }
+
+    const serverTotal =
+    Number(
+      data.total || 0
+    );
+
+    let message =
+    `Hola LOE MOBIL, quiero confirmar el pedido #${orderId}:\n\n`;
+
+    cart.forEach(
+      item => {
+
+        const product =
+        products.find(
+          p =>
+          String(
+            p.id
+          ) ===
+          String(
+            item.id
+          )
+        );
+
+        const productName =
+        product?.name ||
+        item.name ||
+        "Producto";
+
+        const currentPrice =
+        Number(
+          product?.price ??
+          item.price ??
+          0
+        );
+
+        message +=
+        `• ${productName} x${item.qty} - ${money(currentPrice * item.qty)}\n`;
+      }
+    );
+
+    message +=
+    `\nTotal: ${money(serverTotal)}`;
+
+    message +=
+    `\n\nPedido #${orderId}`;
+
+    message +=
+    `\nNombre: ${name}`;
+
+    message +=
+    `\nTeléfono: ${phone}`;
+
+    message +=
+    `\nUbicación: ${location}`;
+
+    if(notes){
+
+      message +=
+      `\nNota: ${notes}`;
+    }
+
+    const whatsappUrl =
     "https://wa.me/18498898247?text=" +
     encodeURIComponent(
       message
-    ),
-    "_blank"
-  );
+    );
+
+    showOrderMessage(
+      `✅ Pedido #${orderId} registrado correctamente. Abriendo WhatsApp…`,
+      "success"
+    );
+
+    cart = [];
+
+    saveCart();
+
+    updateCart();
+
+    setTimeout(
+      () => {
+
+        window.location.href =
+        whatsappUrl;
+
+      },
+      800
+    );
+
+  }catch(error){
+
+    console.error(
+      "Error procesando pedido:",
+      error
+    );
+
+    showOrderMessage(
+      error.message ||
+      "No se pudo registrar el pedido. Intenta nuevamente.",
+      "error"
+    );
+
+  }finally{
+
+    btn.disabled =
+    false;
+
+    btn.textContent =
+    "Confirmar y continuar por WhatsApp";
+  }
 }
 
 /* ===========================
@@ -7292,19 +8043,11 @@ document
 
 (async()=>{
 
-  /* Registrar notificaciones */
-
   await registerLoeServiceWorker();
-
-  /* Recuperar cuenta */
 
   await restoreSession();
 
-  /* Cargar tienda */
-
   await load();
-
-  /* Revisar estado Push */
 
   if(currentUser){
 
