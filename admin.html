@@ -620,6 +620,94 @@ textarea{
 }
 
 /* =========================
+   HISTORIAL DE VENTAS
+========================= */
+
+.sales-history{
+  display:grid;
+  gap:10px
+}
+
+.sale-history-card{
+  display:flex;
+  align-items:center;
+  gap:13px;
+  padding:14px;
+  border:1px solid #164254;
+  border-radius:12px;
+  background:#081720
+}
+
+.sale-history-main{
+  flex:1;
+  min-width:0
+}
+
+.sale-history-name{
+  font-weight:950;
+  font-size:15px
+}
+
+.sale-history-meta{
+  margin-top:5px;
+  color:#91a1ad;
+  font-size:11px;
+  line-height:1.5
+}
+
+.sale-history-money{
+  margin-top:8px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px
+}
+
+.sale-history-pill{
+  display:inline-block;
+  padding:5px 8px;
+  border-radius:7px;
+  background:#10232f;
+  border:1px solid #183e52;
+  font-size:10px;
+  font-weight:850;
+  color:#c6d4db
+}
+
+.sale-history-pill strong{
+  color:#fff
+}
+
+.sale-history-pill.profit{
+  border-color:#176a42
+}
+
+.sale-history-pill.profit strong{
+  color:#67e49e
+}
+
+.sale-history-note{
+  margin-top:7px;
+  color:#b8c8d0;
+  font-size:11px
+}
+
+.cancel-sale-btn{
+  flex-shrink:0;
+  border:1px solid #893d3d;
+  border-radius:8px;
+  background:#772727;
+  color:#fff;
+  padding:9px 11px;
+  font-weight:900;
+  cursor:pointer
+}
+
+.cancel-sale-btn:disabled{
+  opacity:.55;
+  cursor:not-allowed
+}
+
+/* =========================
    PUSH
 ========================= */
 
@@ -823,6 +911,15 @@ textarea{
   .image-previews{
     grid-template-columns:
       repeat(3,1fr)
+  }
+
+  .sale-history-card{
+    align-items:flex-start;
+    flex-direction:column
+  }
+
+  .cancel-sale-btn{
+    width:100%
   }
 
 }
@@ -1081,6 +1178,65 @@ Resumen de existencias, ventas y ganancia bruta.
 
 <div class="inventory-note">
 La ganancia se calcula con las ventas registradas: precio de venta menos costo de compra.
+</div>
+
+</section>
+
+<!-- =========================
+     HISTORIAL DE VENTAS
+========================= -->
+
+<section class="panel">
+
+<div class="review-topbar">
+
+  <div>
+
+    <h2 style="margin:0">
+      📋 Historial de ventas
+    </h2>
+
+    <div
+      style="
+        color:#91a1ad;
+        font-size:13px;
+        margin-top:5px
+      "
+    >
+      Ventas registradas manualmente desde el inventario.
+    </div>
+
+  </div>
+
+  <button
+    class="refresh-btn"
+    onclick="loadSalesHistory()"
+  >
+    ↻
+  </button>
+
+</div>
+
+<div
+  id="salesHistoryCount"
+  class="review-count"
+  style="
+    display:inline-block;
+    margin-bottom:14px
+  "
+>
+Cargando…
+</div>
+
+<div
+  id="salesHistory"
+  class="sales-history"
+>
+
+<div class="status">
+Cargando ventas…
+</div>
+
 </div>
 
 </section>
@@ -1712,6 +1868,7 @@ let products = [];
 let categories = [];
 let reviews = [];
 let inventorySummary = [];
+let salesHistory = [];
 
 let currentImages = [];
 let selectedFiles = [];
@@ -1985,6 +2142,8 @@ await loadCategories();
 
 await loadProducts();
 
+await loadSalesHistory();
+
 await loadReviews();
 
 }
@@ -2234,6 +2393,377 @@ document
 money(
   totalProfit
 );
+
+}
+
+/* =====================
+   HISTORIAL DE VENTAS
+===================== */
+
+async function loadSalesHistory(){
+
+const box =
+document.getElementById(
+  "salesHistory"
+);
+
+const counter =
+document.getElementById(
+  "salesHistoryCount"
+);
+
+if(!box || !counter){
+  return;
+}
+
+box.innerHTML =
+'<div class="status">Cargando ventas…</div>';
+
+counter.textContent =
+"Cargando…";
+
+try{
+
+  const r =
+  await fetch(
+    `${SUPABASE_URL}/rest/v1/inventory_movements?select=*&movement_type=eq.sale&order=created_at.desc`,
+    {
+      headers:
+      apiHeaders()
+    }
+  );
+
+  if(!r.ok){
+
+    throw new Error(
+      await r.text()
+    );
+  }
+
+  salesHistory =
+  await r.json();
+
+  counter.textContent =
+  salesHistory.length === 1
+  ? "1 venta registrada"
+  : `${salesHistory.length} ventas registradas`;
+
+  if(
+    !salesHistory.length
+  ){
+
+    box.innerHTML =
+    '<div class="status">Todavía no hay ventas registradas.</div>';
+
+    return;
+  }
+
+  box.innerHTML =
+  "";
+
+  salesHistory.forEach(
+    sale => {
+
+      const product =
+      products.find(
+        p =>
+        String(
+          p.id
+        ) ===
+        String(
+          sale.product_id
+        )
+      );
+
+      const productName =
+      product
+      ? product.name
+      : `Producto #${sale.product_id}`;
+
+      const quantity =
+      Number(
+        sale.quantity || 0
+      );
+
+      const unitPrice =
+      Number(
+        sale.unit_price || 0
+      );
+
+      const unitCost =
+      Number(
+        sale.unit_cost || 0
+      );
+
+      const total =
+      quantity *
+      unitPrice;
+
+      const profit =
+      quantity *
+      (
+        unitPrice -
+        unitCost
+      );
+
+      const card =
+      document.createElement(
+        "div"
+      );
+
+      card.className =
+      "sale-history-card";
+
+      card.innerHTML = `
+
+        <div class="sale-history-main">
+
+          <div class="sale-history-name">
+            ${safe(productName)}
+          </div>
+
+          <div class="sale-history-meta">
+
+            Cantidad:
+            <strong>
+              ${quantity}
+            </strong>
+
+            ·
+
+            ${formatDate(
+              sale.created_at
+            )}
+
+          </div>
+
+          <div class="sale-history-money">
+
+            <span class="sale-history-pill">
+              Precio/u:
+              <strong>
+                ${money(unitPrice)}
+              </strong>
+            </span>
+
+            <span class="sale-history-pill">
+              Costo/u:
+              <strong>
+                ${money(unitCost)}
+              </strong>
+            </span>
+
+            <span class="sale-history-pill">
+              Venta:
+              <strong>
+                ${money(total)}
+              </strong>
+            </span>
+
+            <span class="sale-history-pill profit">
+              Ganancia:
+              <strong>
+                ${money(profit)}
+              </strong>
+            </span>
+
+          </div>
+
+          ${
+            sale.note
+            ? `
+              <div class="sale-history-note">
+                📝 ${safe(sale.note)}
+              </div>
+            `
+            : ""
+          }
+
+        </div>
+
+        <button
+          type="button"
+          class="cancel-sale-btn"
+          onclick='cancelSale(${JSON.stringify(String(sale.id))})'
+        >
+          ↩️ Anular venta
+        </button>
+      `;
+
+      box.appendChild(
+        card
+      );
+
+    }
+  );
+
+}catch(error){
+
+  console.error(
+    "Error cargando ventas:",
+    error
+  );
+
+  counter.textContent =
+  "Error";
+
+  box.innerHTML =
+  '<div class="status">No se pudo cargar el historial de ventas.</div>';
+
+}
+
+}
+
+async function cancelSale(
+  movementId
+){
+
+const sale =
+salesHistory.find(
+  movement =>
+  String(
+    movement.id
+  ) ===
+  String(
+    movementId
+  )
+);
+
+if(!sale){
+
+  alert(
+    "No se encontró esta venta."
+  );
+
+  return;
+}
+
+const product =
+products.find(
+  p =>
+  String(
+    p.id
+  ) ===
+  String(
+    sale.product_id
+  )
+);
+
+const productName =
+product
+? product.name
+: `Producto #${sale.product_id}`;
+
+const quantity =
+Number(
+  sale.quantity || 0
+);
+
+const total =
+quantity *
+Number(
+  sale.unit_price || 0
+);
+
+const profit =
+quantity *
+(
+  Number(
+    sale.unit_price || 0
+  ) -
+  Number(
+    sale.unit_cost || 0
+  )
+);
+
+const confirmed =
+confirm(
+  `¿Seguro que quieres ANULAR esta venta?\n\n` +
+  `${productName}\n` +
+  `Cantidad: ${quantity}\n` +
+  `Venta: ${money(total)}\n` +
+  `Ganancia: ${money(profit)}\n\n` +
+  `Las ${quantity} unidad${quantity === 1 ? "" : "es"} volverán al stock y esta venta dejará de contar en las estadísticas.`
+);
+
+if(!confirmed){
+  return;
+}
+
+try{
+
+  const r =
+  await fetch(
+    `${SUPABASE_URL}/rest/v1/rpc/cancel_inventory_sale`,
+    {
+      method:
+      "POST",
+
+      headers:
+      apiHeaders({
+        "Content-Type":
+        "application/json"
+      }),
+
+      body:
+      JSON.stringify({
+        p_movement_id:
+        Number(
+          movementId
+        )
+      })
+    }
+  );
+
+  const data =
+  await r.json()
+  .catch(
+    () => null
+  );
+
+  if(!r.ok){
+
+    let message =
+    "No se pudo anular la venta.";
+
+    if(
+      data &&
+      typeof data ===
+      "object"
+    ){
+
+      message =
+      data.message ||
+      data.error ||
+      message;
+    }
+
+    throw new Error(
+      message
+    );
+  }
+
+  showSuccess(
+    `↩️ Venta anulada · ${Number(data?.quantity_restored || quantity)} unidad${Number(data?.quantity_restored || quantity) === 1 ? "" : "es"} devuelta${Number(data?.quantity_restored || quantity) === 1 ? "" : "s"} al stock.`
+  );
+
+  await loadProducts();
+
+  await loadSalesHistory();
+
+}catch(error){
+
+  console.error(
+    "Error anulando venta:",
+    error
+  );
+
+  alert(
+    error.message ||
+    "No se pudo anular la venta."
+  );
+
+}
 
 }
 
@@ -2914,6 +3444,8 @@ try{
   );
 
   await loadProducts();
+
+  await loadSalesHistory();
 
 }catch(error){
 
@@ -4190,12 +4722,6 @@ try{
 
   };
 
-  /*
-    Para un producto NUEVO,
-    el stock inicial será igual
-    a la cantidad con la que entra.
-  */
-
   if(!editing){
 
     payload.initial_stock =
@@ -4258,15 +4784,6 @@ try{
     ? "Producto actualizado."
     : "Producto agregado."
   );
-
-  /*
-    PUSH AUTOMÁTICO
-
-    Solo:
-    - producto nuevo
-    - destacado
-      o con oferta real
-  */
 
   if(
     !editing &&
@@ -4544,6 +5061,8 @@ showSuccess(
 );
 
 await loadProducts();
+
+await loadSalesHistory();
 
 }
 
